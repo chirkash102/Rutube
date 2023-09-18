@@ -10,37 +10,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import com.example.rutube.fragments.FragmentHome
 import com.example.rutube.ui.theme.RutubeTheme
 
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity(){
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            RutubeTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
-        }
+        setContentView(R.layout.activity_main)
+        supportFragmentManager.beginTransaction().replace(R.id.container, FragmentHome())
+            .addToBackStack(FragmentHome::class.java.name).commit()
+
+
     }
 }
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    RutubeTheme {
-        Greeting("Android")
-    }
+fun Fragment.transaction(fragment: Fragment) {
+    parentFragmentManager.beginTransaction().replace(R.id.container, fragment)
+        .addToBackStack(fragment::javaClass.name).commit()
 }
