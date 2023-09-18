@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.example.rutube.transaction
+import com.example.rutube.ui.theme.RutubeTheme
 
 class FragmentHome : Fragment(){
 
@@ -21,8 +22,10 @@ class FragmentHome : Fragment(){
         return ComposeView(requireContext()).apply {
 
             setContent {
-                MainScreen (){
-                    transaction(FragmentRutubeVideo())
+                RutubeTheme {
+                    MainScreen() {
+                        transaction(FragmentRutubeVideo())
+                    }
                 }
 
             }

@@ -3,6 +3,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,6 +18,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.rutube.RutubeViewModel
 import com.example.rutube.data.Item
+import com.example.rutube.ui.theme.RutubeTheme
 
 class FragmentRutubeVideo : Fragment() {
     private val viewModel by viewModels<RutubeViewModel>()
@@ -30,7 +32,9 @@ class FragmentRutubeVideo : Fragment() {
             setContent {
                 val videoState = viewModel.state.collectAsState()
 
-                 Recycler(rutubeList = videoState.value)
+                RutubeTheme {
+                    Recycler(rutubeList = videoState.value)
+                }
 //                if (!videoState.value.isEmpty())
 //
 //                    Test(a = videoState.value[1].text)
