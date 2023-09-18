@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import retrofit2.http.GET
 
-const  val apiKey = "752bc8d6cbb846e28ed173131231306"
+const val apiKey = "752bc8d6cbb846e28ed173131231306"
 private val BASE_URL = "https://rutube.ru/api/"
 
 var gson = GsonBuilder()
@@ -19,11 +19,12 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
-object RutubeRetrofit{
+object RutubeRetrofit {
     val rutubeApi = retrofit.create<RutubeApi>()
 
 }
-interface RutubeApi{
+
+interface RutubeApi {
     @GET("tags/video/6716/")
     suspend fun getRutubeTopVideos(): Response<ResponseModel>
 

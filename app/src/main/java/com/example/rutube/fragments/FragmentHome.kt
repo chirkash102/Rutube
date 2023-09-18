@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import com.example.rutube.transaction
 import com.example.rutube.ui.theme.RutubeTheme
 
-class FragmentHome : Fragment(){
+class FragmentHome : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,9 +35,9 @@ class FragmentHome : Fragment(){
 
 @Composable
 fun MainScreen(
-    onClick : () -> Unit
+    onClick: () -> Unit
 ) {
-    Box(){
+    Box() {
         Button(onClick = onClick) {
 
         }
