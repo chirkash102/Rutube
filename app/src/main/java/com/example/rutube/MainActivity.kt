@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentActivity
 import com.example.rutube.fragments.FragmentHome
 import com.example.rutube.ui.theme.RutubeTheme
 
-class MainActivity : FragmentActivity(){
+class MainActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +26,7 @@ class MainActivity : FragmentActivity(){
 
     }
 }
+
 fun Fragment.transaction(fragment: Fragment) {
     parentFragmentManager.beginTransaction().replace(R.id.container, fragment)
         .addToBackStack(fragment::javaClass.name).commit()

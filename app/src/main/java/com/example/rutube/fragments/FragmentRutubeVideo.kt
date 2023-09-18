@@ -1,4 +1,5 @@
 package com.example.rutube.fragments
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,9 +46,9 @@ class FragmentRutubeVideo : Fragment() {
 }
 
 @Composable
-fun Recycler (rutubeList:List<Item>) {
-    LazyColumn(){
-        items(rutubeList){
+fun Recycler(rutubeList: List<Item>) {
+    LazyColumn() {
+        items(rutubeList) {
             RutubeItem(data = it)
         }
     }
@@ -56,7 +57,7 @@ fun Recycler (rutubeList:List<Item>) {
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun RutubeItem(data:Item) {
+fun RutubeItem(data: Item) {
     Card {
         Column {
             GlideImage(model = data.image, contentDescription = null)
@@ -67,7 +68,7 @@ fun RutubeItem(data:Item) {
 }
 
 @Composable
-fun Test(a:String) {
-    Text(text = a  )
+fun Test(a: String) {
+    Text(text = a)
 }
 
