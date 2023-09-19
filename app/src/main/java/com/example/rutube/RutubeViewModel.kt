@@ -25,6 +25,7 @@ class RutubeViewModel : ViewModel() {
                     Item(it.thumbnail_url, it.title, body.has_next)
                 }
                 _state.value = videos
+
             }
 
         }
