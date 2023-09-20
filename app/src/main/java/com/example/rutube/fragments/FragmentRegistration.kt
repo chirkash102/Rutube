@@ -63,7 +63,7 @@ class FragmentRegistration : Fragment() {
                                 Text(text = "Login")
 
                             }
-                            Button(onClick = {viewModel.insert2(loginState,passState)
+                            Button(onClick = {viewModel.regNewUser(loginState,passState)
                             }) {
                                 Text(text = "Registration")
 

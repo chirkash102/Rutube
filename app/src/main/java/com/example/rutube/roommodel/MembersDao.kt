@@ -13,7 +13,7 @@ interface MembersDao {
     fun validateLogin(login:String,pass:String):RutubeMembers?
 
     @Query("SELECT * FROM RutubeMembers Where login is :login")
-    fun validateReg(login:String):RutubeMembers?
+    fun isAlreadyExist(login:String):RutubeMembers?
 
     @Query("SELECT * FROM RutubeMembers Where login is :login")
     fun validateReg2(login:String):RutubeMembers

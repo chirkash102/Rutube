@@ -1,5 +1,6 @@
 package com.example.rutube.viewmodels
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rutube.roommodel.AppDataBAse
@@ -12,46 +13,42 @@ import kotlinx.coroutines.launch
 
 class RutubeViewModel(private val rutubeDataBase: AppDataBAse) : ViewModel() {
 
-    private val _state = MutableStateFlow<RutubeMembers?>(null)
+
+    private val _state = MutableStateFlow<RutubeMemberState?>(null)
     val state = _state.asStateFlow()
 
-    private val _state2 = MutableStateFlow<RutubeMemberState?>(null)
-    val state2 = _state2.asStateFlow()
 
-
-    fun insert(login: String, pass: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (rutubeDataBase.getDao().validateReg(login) == null) {
-                rutubeDataBase.getDao().insert(RutubeMembers(login, pass))
-            }
-        }
-
-    }
     fun delete(login: String, pass: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (rutubeDataBase.getDao().validateReg(login) != null) {
+            if (rutubeDataBase.getDao().isAlreadyExist(login) != null) {
                 rutubeDataBase.getDao().delete(RutubeMembers(login, pass))
             }
         }
 
     }
-    fun insert2(login: String, pass: String){
+
+
+    fun regNewUser(login: String, pass: String) {
         viewModelScope.launch(Dispatchers.IO) {
 
-            if (rutubeDataBase.getDao().validateReg(login) == null) {
-                rutubeDataBase.getDao().insert(RutubeMembers(login, pass))
-                _state2.value =  RutubeMemberState.ValidMember(RutubeMembers(login, pass))
+            if (rutubeDataBase.getDao().isAlreadyExist(login) != null) {
+                _state.value = RutubeMemberState.InvalidMember("Пользователь уже существует")
             } else {
+                rutubeDataBase.getDao().insert(RutubeMembers(login, pass))
+                _state.value = RutubeMemberState.ValidMember(RutubeMembers(login, pass))
 
-                _state2.value =  RutubeMemberState.InvalidMember("Пользователь уже существует")
             }
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     fun login(login: String, pass: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (rutubeDataBase.getDao().validateLogin(login,pass) != null)
-            _state2.value = RutubeMemberState.ValidMember(RutubeMembers(login, pass))
+            if (rutubeDataBase.getDao().validateLogin(login, pass) != null) {
+                _state.value = RutubeMemberState.ValidMember(RutubeMembers(login, pass))
+            } else {
+                _state.value = RutubeMemberState.InvalidMember("Неверный логин или пароль")
+            }
         }
     }
 }
