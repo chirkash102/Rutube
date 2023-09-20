@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 
 class RutubeViewModel(private val rutubeDataBase: AppDataBAse) : ViewModel() {
 
-
     private val _state = MutableStateFlow<RutubeMemberState?>(null)
     val state = _state.asStateFlow()
 
@@ -26,7 +25,6 @@ class RutubeViewModel(private val rutubeDataBase: AppDataBAse) : ViewModel() {
         }
 
     }
-
 
     fun regNewUser(login: String, pass: String) {
         viewModelScope.launch() {
