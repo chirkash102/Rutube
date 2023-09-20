@@ -1,4 +1,4 @@
-package com.example.rutube.model
+package com.example.rutube.retrofitmodel
 
 data class ActionReason(
     val id: Int,

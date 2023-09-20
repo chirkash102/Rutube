@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,19 +15,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.rutube.R
-import com.example.rutube.RutubeViewModel
+import com.example.rutube.viewmodels.RutubeRetrofitViewModel
 import com.example.rutube.data.Item
 import com.example.rutube.ui.theme.RutubeTheme
 
 class FragmentRutubeVideo : Fragment() {
-    private val viewModel by viewModels<RutubeViewModel>()
+    private val viewModel by viewModels<RutubeRetrofitViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,9 +39,6 @@ class FragmentRutubeVideo : Fragment() {
                 RutubeTheme {
                     Recycler(rutubeList = videoState.value)
                 }
-//                if (!videoState.value.isEmpty())
-//
-//                    Test(a = videoState.value[1].text)
 
             }
         }

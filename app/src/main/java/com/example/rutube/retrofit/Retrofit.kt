@@ -1,6 +1,6 @@
 package com.example.rutube.retrofit
 
-import com.example.rutube.model.ResponseModel
+import com.example.rutube.retrofitmodel.ResponseModel
 import com.google.gson.GsonBuilder
 import retrofit2.Response
 import retrofit2.Retrofit

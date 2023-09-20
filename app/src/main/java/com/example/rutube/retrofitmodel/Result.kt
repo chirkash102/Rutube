@@ -1,9 +1,4 @@
-package com.example.rutube.model
-
-import com.example.rutube.model.ActionReason
-import com.example.rutube.model.Author
-import com.example.rutube.model.Category
-import com.example.rutube.model.PgRating
+package com.example.rutube.retrofitmodel
 
 data class Result(
     val action_reason: ActionReason,
