@@ -53,7 +53,6 @@ class FragmentRegistration : Fragment() {
                         color = MaterialTheme.colorScheme.background
                     ) {
                         val state by viewModel.state.collectAsState()
-                        val state2 by viewModel.state2.collectAsState()
                         var loginState by remember { mutableStateOf("") }
                         var passState by remember { mutableStateOf("") }
                         Column {
@@ -74,9 +73,9 @@ class FragmentRegistration : Fragment() {
 
                             }
 
-                            if (state2 != null) Toast.makeText(
+                            if (state != null) Toast.makeText(
                                 LocalContext.current,
-                                viewModel.state2.value.toString(),
+                                viewModel.state.value.toString(),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

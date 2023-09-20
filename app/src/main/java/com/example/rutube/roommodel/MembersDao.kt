@@ -7,18 +7,18 @@ import androidx.room.Query
 @Dao
 interface MembersDao {
     @Insert
-    fun insert(members: RutubeMembers)
+    suspend  fun insert(members: RutubeMembers)
 
     @Query("SELECT * FROM RutubeMembers Where login is :login and pass is :pass")
-    fun validateLogin(login:String,pass:String):RutubeMembers?
+    suspend    fun validateLogin(login:String,pass:String):RutubeMembers?
 
     @Query("SELECT * FROM RutubeMembers Where login is :login")
-    fun isAlreadyExist(login:String):RutubeMembers?
+    suspend   fun isAlreadyExist(login:String):RutubeMembers?
 
     @Query("SELECT * FROM RutubeMembers Where login is :login")
-    fun validateReg2(login:String):RutubeMembers
+    suspend   fun validateReg2(login:String):RutubeMembers
 
     @Delete
-    fun delete(members: RutubeMembers)
+  suspend  fun delete(members: RutubeMembers)
 
 }

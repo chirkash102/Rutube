@@ -19,7 +19,7 @@ class RutubeViewModel(private val rutubeDataBase: AppDataBAse) : ViewModel() {
 
 
     fun delete(login: String, pass: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch() {
             if (rutubeDataBase.getDao().isAlreadyExist(login) != null) {
                 rutubeDataBase.getDao().delete(RutubeMembers(login, pass))
             }
@@ -29,7 +29,7 @@ class RutubeViewModel(private val rutubeDataBase: AppDataBAse) : ViewModel() {
 
 
     fun regNewUser(login: String, pass: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch() {
 
             if (rutubeDataBase.getDao().isAlreadyExist(login) != null) {
                 _state.value = RutubeMemberState.InvalidMember("Пользователь уже существует")
@@ -43,7 +43,7 @@ class RutubeViewModel(private val rutubeDataBase: AppDataBAse) : ViewModel() {
 
     @SuppressLint("SuspiciousIndentation")
     fun login(login: String, pass: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch() {
             if (rutubeDataBase.getDao().validateLogin(login, pass) != null) {
                 _state.value = RutubeMemberState.ValidMember(RutubeMembers(login, pass))
             } else {
