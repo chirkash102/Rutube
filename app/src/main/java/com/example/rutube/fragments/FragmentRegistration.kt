@@ -26,6 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.rutube.application.App
+import com.example.rutube.transaction
 import com.example.rutube.ui.theme.RutubeTheme
 import com.example.rutube.viewmodels.RutubeViewModel
 
@@ -58,8 +59,10 @@ class FragmentRegistration : Fragment() {
                         Column {
                             Greeting(state = loginState, ){loginState = it}
                             Greeting(state = passState, ){passState = it}
-                            Button(onClick = {viewModel.login(loginState,passState)}) {
+                            Button(onClick = {viewModel.login(loginState,passState )
+                                transaction(FragmentRutubeVideo()) }) {
                                 Text(text = "Login")
+
 
                             }
                             Button(onClick = {viewModel.regNewUser(loginState,passState)
@@ -67,8 +70,7 @@ class FragmentRegistration : Fragment() {
                                 Text(text = "Registration")
 
                             }
-                            Button(onClick = {viewModel.delete(loginState,passState)
-                            }) {
+                            Button(onClick = {viewModel.delete(loginState,passState)}) {
                                 Text(text = "Delete")
 
                             }
@@ -95,4 +97,11 @@ fun Greeting(state: String, onStateChanges: (String) -> Unit) {
 
     TextField(value = state, onValueChange = onStateChanges)
 }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun Login(state: String, onClick: () -> Unit, onStateChanges: (String) -> Unit) {
+
+    TextField(value = state, onValueChange = onStateChanges)
+}
+
 
