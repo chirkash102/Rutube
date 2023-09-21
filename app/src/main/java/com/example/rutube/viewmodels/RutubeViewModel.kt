@@ -1,53 +1,46 @@
 package com.example.rutube.viewmodels
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rutube.roommodel.AppDataBAse
-import com.example.rutube.roommodel.RutubeMemberState
 import com.example.rutube.roommodel.RutubeMembers
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import com.example.rutube.roommodel.ViewEvents
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class RutubeViewModel(private val rutubeDataBase: AppDataBAse) : ViewModel() {
 
-    private val _state = MutableStateFlow<RutubeMemberState?>(null)
-    val state = _state.asStateFlow()
+    private val eventsFlow = MutableSharedFlow<ViewEvents>()
+    fun getEventsFlow() = eventsFlow.asSharedFlow()
 
     val repository = rutubeDataBase.getDao()
     fun delete(login: String, pass: String) {
-        viewModelScope.launch() {
+        viewModelScope.launch {
             if (repository.isAlreadyExist(login) != null) {
                 repository.delete(RutubeMembers(login, pass))
             }
         }
-
     }
 
     fun regNewUser(login: String, pass: String) {
-        viewModelScope.launch() {
-
+        viewModelScope.launch {
             if (repository.isAlreadyExist(login) != null) {
-                _state.value = RutubeMemberState.InvalidMember("Пользователь уже существует")
+                eventsFlow.emit(ViewEvents.Error("Пользователь уже существует"))
             } else {
                 repository.insert(RutubeMembers(login, pass))
-                _state.value = RutubeMemberState.ValidMember(RutubeMembers(login, pass))
-
+                eventsFlow.emit(ViewEvents.SuccessAuth(RutubeMembers(login, pass)))
             }
         }
     }
 
-    @SuppressLint("SuspiciousIndentation")
     fun login(login: String, pass: String) {
-        viewModelScope.launch() {
+        viewModelScope.launch {
             if (repository.validateLogin(login, pass) != null) {
-                _state.value = RutubeMemberState.ValidMember(RutubeMembers(login, pass))
+                eventsFlow.emit(ViewEvents.SuccessAuth(RutubeMembers(login, pass)))
             } else {
-                _state.value = RutubeMemberState.InvalidMember("Неверный логин или пароль")
+                eventsFlow.emit(ViewEvents.Error("Неверный логин или пароль"))
             }
         }
     }
 }
-

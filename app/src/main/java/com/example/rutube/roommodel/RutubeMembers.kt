@@ -3,9 +3,9 @@ package com.example.rutube.roommodel
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-sealed class RutubeMemberState {
-    data class ValidMember(val member: RutubeMembers) : RutubeMemberState()
-    data class InvalidMember(val errorMessage: String) : RutubeMemberState()
+sealed class ViewEvents {
+    data class SuccessAuth(val member: RutubeMembers): ViewEvents()
+    data class Error(val errorMessage: String): ViewEvents()
 }
 
 @Entity
