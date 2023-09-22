@@ -5,17 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,13 +18,12 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.example.rutube.R
 import com.example.rutube.transaction
 import com.example.rutube.ui.theme.RutubeTheme
 import com.example.rutube.ui.theme.Shapes
-import com.example.rutube.uielements.RutubeAppBAr
+import com.example.rutube.uielements.RutubeTopBar
 
 class FragmentHome : Fragment() {
 
@@ -63,7 +55,7 @@ fun MainScreen(
     onClick: () -> Unit
 ) {
     Scaffold(
-        topBar = { RutubeAppBAr() }
+        topBar = { RutubeTopBar() }
     ){
         Box(
             contentAlignment = Alignment.BottomCenter,

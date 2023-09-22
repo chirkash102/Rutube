@@ -25,7 +25,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.rutube.data.Item
 import com.example.rutube.ui.theme.RutubeTheme
-import com.example.rutube.uielements.RutubeAppBAr
+import com.example.rutube.uielements.RutubeTopBar
 import com.example.rutube.viewmodels.RutubeRetrofitViewModel
 
 class FragmentRutubeVideo : Fragment() {
@@ -54,7 +54,7 @@ class FragmentRutubeVideo : Fragment() {
 @Composable
 fun Recycler(rutubeList: List<Item>) {
     Scaffold(
-        topBar = { RutubeAppBAr() }
+        topBar = { RutubeTopBar() }
     ) {
         LazyColumn() {
             items(rutubeList) {

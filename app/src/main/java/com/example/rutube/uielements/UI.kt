@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -22,7 +23,7 @@ class UI {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RutubeAppBAr(modifier: Modifier = Modifier) {
+fun RutubeTopBar(modifier: Modifier = Modifier) {
     CenterAlignedTopAppBar(
         title = {
             Row(
@@ -45,3 +46,24 @@ fun RutubeAppBAr(modifier: Modifier = Modifier) {
         }, modifier = modifier
     )
 }
+
+@Composable
+fun RutubeBottomBar() {
+    BottomAppBar {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+
+        ) {
+            Image(painter = painterResource(id = R.drawable.heart), contentDescription = null)
+            Image(
+                painter = painterResource(id = R.drawable.baseline_view_list_24),
+                contentDescription = null
+            )
+
+        }
+    }
+
+}
+
+

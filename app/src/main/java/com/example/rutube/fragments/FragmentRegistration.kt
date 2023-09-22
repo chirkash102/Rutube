@@ -30,7 +30,8 @@ import com.example.rutube.roommodel.ViewEvents
 import com.example.rutube.transaction
 import com.example.rutube.ui.SimpleCircularProgressIndicator
 import com.example.rutube.ui.theme.RutubeTheme
-import com.example.rutube.uielements.RutubeAppBAr
+import com.example.rutube.uielements.RutubeBottomBar
+import com.example.rutube.uielements.RutubeTopBar
 import com.example.rutube.utils.collectAsEvent
 import com.example.rutube.viewmodels.RutubeViewModel
 
@@ -52,84 +53,135 @@ class FragmentRegistration : Fragment() {
             setContent {
 
                 RutubeTheme {
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colorScheme.background
+                    ) {
 
-                        Surface(
-                            modifier = Modifier.fillMaxSize(),
-                            color = MaterialTheme.colorScheme.background
-                        ) {
+                        var isLoading by remember { mutableStateOf(false) }
+                        viewModel.getEventsFlow().collectAsEvent { event ->
+                            isLoading = false
+                            when (event) {
+                                is ViewEvents.SuccessAuth -> transaction(FragmentRutubeVideo())
+                                is ViewEvents.SuccessRegistration -> {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Ты зареган , быдло",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
 
-                            var isLoading by remember { mutableStateOf(false) }
-                            viewModel.getEventsFlow().collectAsEvent { event ->
-                                isLoading = false
-                                when (event) {
-                                    is ViewEvents.SuccessAuth -> transaction(FragmentRutubeVideo())
-                                    is ViewEvents.SuccessRegistration -> {
-                                        Toast.makeText(
-                                            requireContext(),
-                                            "Ты зареган , быдло",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
+                                is ViewEvents.SuccessDelete -> {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Мы удалили твой аккаунт, быдло",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
 
-                                    is ViewEvents.SuccessDelete -> {
-                                        Toast.makeText(
-                                            requireContext(),
-                                            "Мы удалили твой аккаунт, быдло",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-
-                                    is ViewEvents.Error -> {
-                                        Toast.makeText(
-                                            requireContext(),
-                                            event.errorMessage,
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
+                                is ViewEvents.Error -> {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        event.errorMessage,
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                             }
-                            var loginState by remember { mutableStateOf("") }
-                            var passState by remember { mutableStateOf("") }
-                            Scaffold(
-                                topBar = { RutubeAppBAr() }
-                            ) {it ->
-                            Column () {
-                                SimpleCircularProgressIndicator(isLoading)
-                                Greeting(state = loginState) { loginState = it }
-                                Greeting(state = passState) { passState = it }
-                                Button(
-                                    onClick = {
-                                        isLoading = true
-                                        viewModel.signIn(loginState, passState)
-                                    }
-                                ) {
-                                    Text(text = "Login")
-                                }
-                                Button(
-                                    onClick = {
-                                        isLoading = true
-                                        viewModel.signUP(loginState, passState)
-                                    }
-                                ) {
-                                    Text(text = "Registration")
-                                }
-                                Button(
-                                    onClick = {
-                                        isLoading = true
-                                        viewModel.delete(loginState, passState)
-                                    }
-                                ) {
-                                    Text(text = "Delete")
-                                }
-                            }
-
                         }
+                        var loginState by remember { mutableStateOf("") }
+                        var passState by remember { mutableStateOf("") }
+
+                        RegistrationScreen(
+                            isLoading = isLoading,
+                            loginState = loginState,
+                            onLoginStateChanges = { loginState = it },
+                            onPassStateChanges = { passState = it },
+                            passState = passState,
+                            onClickLogin = {
+                                isLoading = true
+                                viewModel.signIn(loginState, passState)
+                            },
+                            onClickReg = {
+                                isLoading = true
+                                viewModel.signUP(loginState, passState)
+                            },
+                            onClickDel = {
+                                isLoading = true
+                                viewModel.delete(loginState, passState)
+                            })
+
                     }
                 }
             }
         }
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun RegistrationScreen(
+    isLoading: Boolean,
+    loginState: String,
+    onLoginStateChanges: (String) -> Unit,
+    onPassStateChanges: (String) -> Unit,
+    passState: String,
+    modifier: Modifier = Modifier,
+    onClickLogin: () -> Unit,
+    onClickReg: () -> Unit,
+    onClickDel: () -> Unit
+) {
+
+    Scaffold(
+        topBar = { RutubeTopBar() },
+        bottomBar = {RutubeBottomBar()}
+    ) { paddings ->
+        ColumnReg(
+            modifier = modifier.padding(paddings),
+            isLoading = isLoading,
+            loginState = loginState,
+            onLoginStateChanges = onLoginStateChanges,
+            onPassStateChanges = onPassStateChanges,
+            passState = passState,
+            onClickLogin = onClickLogin,
+            onClickReg = onClickReg,
+            onClickDel = onClickDel
+        )
+    }
+}
+
+
+@Composable
+fun ColumnReg(
+    isLoading: Boolean,
+    loginState: String,
+    onLoginStateChanges: (String) -> Unit,
+    onPassStateChanges: (String) -> Unit,
+    passState: String,
+    modifier: Modifier = Modifier,
+    onClickLogin: () -> Unit,
+    onClickReg: () -> Unit,
+    onClickDel: () -> Unit
+) {
+    Column(modifier = modifier) {
+        SimpleCircularProgressIndicator(isLoading)
+        Greeting(state = loginState, onLoginStateChanges)
+        Greeting(state = passState, onPassStateChanges)
+        RegistrationButton(text = "Login", onClick = onClickLogin)
+        RegistrationButton(text = "Registration", onClick = onClickReg)
+        RegistrationButton(text = "Delete", onClick = onClickDel)
+
+
+    }
+
+}
+
+@Composable
+fun RegistrationButton(modifier: Modifier = Modifier, text: String, onClick: () -> Unit) {
+    Button(modifier = modifier, onClick = onClick) {
+        Text(text = text)
+    }
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
