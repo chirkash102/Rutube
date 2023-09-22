@@ -15,8 +15,6 @@ interface MembersDao {
     @Query("SELECT * FROM RutubeMembers Where login is :login")
     suspend   fun isAlreadyExist(login:String):RutubeMembers?
 
-    @Query("SELECT * FROM RutubeMembers Where login is :login")
-    suspend   fun validateReg2(login:String):RutubeMembers
 
     @Delete
   suspend  fun delete(members: RutubeMembers)

@@ -5,6 +5,8 @@ import androidx.room.PrimaryKey
 
 sealed class ViewEvents {
     data class SuccessAuth(val member: RutubeMembers): ViewEvents()
+    data class SuccessRegistration(val member: RutubeMembers): ViewEvents()
+    data class SuccessDelete(val member: RutubeMembers): ViewEvents()
     data class Error(val errorMessage: String): ViewEvents()
 }
 
