@@ -55,6 +55,22 @@ class FragmentRegistration : Fragment() {
                             isLoading = false
                             when (event) {
                                 is ViewEvents.SuccessAuth -> transaction(FragmentRutubeVideo())
+                                is ViewEvents.SuccessRegistration -> {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Ты зареган , быдло",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+
+                                is ViewEvents.SuccessDelete -> {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Мы удалили твой аккаунт, быдло",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+
                                 is ViewEvents.Error -> {
                                     Toast.makeText(
                                         requireContext(),
@@ -62,8 +78,6 @@ class FragmentRegistration : Fragment() {
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
-
-                                else -> {}
                             }
                         }
                         var loginState by remember { mutableStateOf("") }
