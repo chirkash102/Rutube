@@ -1,13 +1,14 @@
-package com.example.oom_practice1.viewmodels
+package com.example.rutube.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.rutube.data.RutubeRepository
+import com.example.rutube.data.RutubeRepositoryImpl
 import com.example.rutube.roommodel.AppDataBAse
-import com.example.rutube.viewmodels.RutubeViewModel
 
-class ViewModelFactory (private val RutubeDataBase: AppDataBAse):ViewModelProvider.Factory {
+class ViewModelFactory (private val repository:RutubeRepository):ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return RutubeViewModel(RutubeDataBase) as T
+        return RutubeViewModel(repository) as T
     }
 
 }
