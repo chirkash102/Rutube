@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import com.example.rutube.transaction
+import com.example.rutube.uielements.RutubeBottomBar
 
 class FragmentLikes : Fragment() {
 
@@ -16,7 +18,7 @@ class FragmentLikes : Fragment() {
         return ComposeView(requireContext()).apply {
 
             setContent {
-
+RutubeBottomBar(onNavigateTop = {transaction(FragmentRutubeVideo())},{Unit},false)
 
             }
         }

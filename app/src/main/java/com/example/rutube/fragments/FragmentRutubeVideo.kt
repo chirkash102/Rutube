@@ -24,7 +24,9 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.rutube.data.Item
+import com.example.rutube.transaction
 import com.example.rutube.ui.theme.RutubeTheme
+import com.example.rutube.uielements.RutubeBottomBar
 import com.example.rutube.uielements.RutubeTopBar
 import com.example.rutube.viewmodels.RutubeRetrofitViewModel
 
@@ -41,7 +43,10 @@ class FragmentRutubeVideo : Fragment() {
                 val videoState = viewModel.state.collectAsState()
 
                 RutubeTheme {
-                    Recycler(rutubeList = videoState.value)
+                    Recycler(onNavigateLIke = {transaction(FragmentLikes())},
+                        onNavigateTop = {transaction(FragmentRutubeVideo())},
+                        rutubeList = videoState.value)
+
                 }
 
             }
@@ -52,9 +57,15 @@ class FragmentRutubeVideo : Fragment() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Recycler(rutubeList: List<Item>) {
+fun Recycler(onNavigateTop : () -> Unit,
+             onNavigateLIke : () -> Unit,
+             rutubeList: List<Item>) {
     Scaffold(
-        topBar = { RutubeTopBar() }
+        topBar = { RutubeTopBar() },
+        bottomBar = {
+            RutubeBottomBar(onNavigateTop = { onNavigateTop.invoke() },
+                { onNavigateLIke.invoke() }, isTopScreenPick = true)
+        }
     ) {
         LazyColumn() {
             items(rutubeList) {

@@ -92,6 +92,8 @@ class FragmentRegistration : Fragment() {
                         var passState by remember { mutableStateOf("") }
 
                         RegistrationScreen(
+                            onNavigateLIke = {transaction(FragmentLikes())},
+                            onNavigateTop = {Unit},
                             isLoading = isLoading,
                             loginState = loginState,
                             onLoginStateChanges = { loginState = it },
@@ -120,6 +122,8 @@ class FragmentRegistration : Fragment() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegistrationScreen(
+    onNavigateTop : () -> Unit,
+    onNavigateLIke : () -> Unit,
     isLoading: Boolean,
     loginState: String,
     onLoginStateChanges: (String) -> Unit,
@@ -133,7 +137,6 @@ fun RegistrationScreen(
 
     Scaffold(
         topBar = { RutubeTopBar() },
-        bottomBar = {RutubeBottomBar()}
     ) { paddings ->
         ColumnReg(
             modifier = modifier.padding(paddings),

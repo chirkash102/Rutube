@@ -1,8 +1,11 @@
 package com.example.rutube.uielements
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.BottomAppBar
@@ -48,16 +51,32 @@ fun RutubeTopBar(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun RutubeBottomBar() {
-    BottomAppBar {
-        Row(
+fun RutubeBottomBar(
+    onNavigateTop : () -> Unit,
+    onNavigateLIke : () -> Unit,
+    isTopScreenPick:Boolean
+) {
+    BottomAppBar (
+        containerColor = MaterialTheme.colorScheme.primaryContainer,
+        contentColor = MaterialTheme.colorScheme.error
+    ){
+        Row(modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
 
         ) {
-            Image(painter = painterResource(id = R.drawable.heart), contentDescription = null)
+            Image(painter = painterResource(id = R.drawable.baseline_view_list_24),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(1f)
+                    .clickable{onNavigateTop.invoke()}
+                ,contentDescription = null)
             Image(
-                painter = painterResource(id = R.drawable.baseline_view_list_24),
+                painter = painterResource(id = R.drawable.heart),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(1f)
+                .clickable{onNavigateLIke.invoke()},
                 contentDescription = null
             )
 
