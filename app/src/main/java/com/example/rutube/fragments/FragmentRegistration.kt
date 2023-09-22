@@ -1,5 +1,6 @@
 package com.example.rutube.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -27,11 +30,14 @@ import com.example.rutube.roommodel.ViewEvents
 import com.example.rutube.transaction
 import com.example.rutube.ui.SimpleCircularProgressIndicator
 import com.example.rutube.ui.theme.RutubeTheme
+import com.example.rutube.uielements.RutubeAppBAr
 import com.example.rutube.utils.collectAsEvent
 import com.example.rutube.viewmodels.RutubeViewModel
 
 class FragmentRegistration : Fragment() {
 
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,73 +52,78 @@ class FragmentRegistration : Fragment() {
             setContent {
 
                 RutubeTheme {
-                    Surface(
-                        modifier = Modifier.fillMaxSize(),
-                        color = MaterialTheme.colorScheme.background
-                    ) {
-                        var isLoading by remember { mutableStateOf(false) }
-                        viewModel.getEventsFlow().collectAsEvent { event ->
-                            isLoading = false
-                            when (event) {
-                                is ViewEvents.SuccessAuth -> transaction(FragmentRutubeVideo())
-                                is ViewEvents.SuccessRegistration -> {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "Ты зареган , быдло",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
 
-                                is ViewEvents.SuccessDelete -> {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "Мы удалили твой аккаунт, быдло",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
+                        Surface(
+                            modifier = Modifier.fillMaxSize(),
+                            color = MaterialTheme.colorScheme.background
+                        ) {
 
-                                is ViewEvents.Error -> {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        event.errorMessage,
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                            var isLoading by remember { mutableStateOf(false) }
+                            viewModel.getEventsFlow().collectAsEvent { event ->
+                                isLoading = false
+                                when (event) {
+                                    is ViewEvents.SuccessAuth -> transaction(FragmentRutubeVideo())
+                                    is ViewEvents.SuccessRegistration -> {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "Ты зареган , быдло",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+
+                                    is ViewEvents.SuccessDelete -> {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "Мы удалили твой аккаунт, быдло",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+
+                                    is ViewEvents.Error -> {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            event.errorMessage,
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
                                 }
                             }
+                            var loginState by remember { mutableStateOf("") }
+                            var passState by remember { mutableStateOf("") }
+                            Scaffold(
+                                topBar = { RutubeAppBAr() }
+                            ) {it ->
+                            Column () {
+                                SimpleCircularProgressIndicator(isLoading)
+                                Greeting(state = loginState) { loginState = it }
+                                Greeting(state = passState) { passState = it }
+                                Button(
+                                    onClick = {
+                                        isLoading = true
+                                        viewModel.signIn(loginState, passState)
+                                    }
+                                ) {
+                                    Text(text = "Login")
+                                }
+                                Button(
+                                    onClick = {
+                                        isLoading = true
+                                        viewModel.signUP(loginState, passState)
+                                    }
+                                ) {
+                                    Text(text = "Registration")
+                                }
+                                Button(
+                                    onClick = {
+                                        isLoading = true
+                                        viewModel.delete(loginState, passState)
+                                    }
+                                ) {
+                                    Text(text = "Delete")
+                                }
+                            }
+
                         }
-                        var loginState by remember { mutableStateOf("") }
-                        var passState by remember { mutableStateOf("") }
-
-                        Column {
-                            SimpleCircularProgressIndicator(isLoading)
-                            Greeting(state = loginState) { loginState = it }
-                            Greeting(state = passState) { passState = it }
-                            Button(
-                                onClick = {
-                                    isLoading = true
-                                    viewModel.signIn(loginState, passState)
-                                }
-                            ) {
-                                Text(text = "Login")
-                            }
-                            Button(
-                                onClick = {
-                                    isLoading = true
-                                    viewModel.signUP(loginState, passState)
-                                }
-                            ) {
-                                Text(text = "Registration")
-                            }
-                            Button(
-                                onClick = {
-                                    isLoading = true
-                                    viewModel.delete(loginState, passState)
-                                }
-                            ) {
-                                Text(text = "Delete")
-                            }
-                        }
-
                     }
                 }
             }
