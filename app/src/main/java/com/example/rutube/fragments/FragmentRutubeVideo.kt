@@ -20,9 +20,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.rutube.viewmodels.RutubeRetrofitViewModel
 import com.example.rutube.data.Item
 import com.example.rutube.ui.theme.RutubeTheme
+import com.example.rutube.viewmodels.RutubeRetrofitViewModel
 
 class FragmentRutubeVideo : Fragment() {
     private val viewModel by viewModels<RutubeRetrofitViewModel>()
@@ -58,9 +58,11 @@ fun Recycler(rutubeList: List<Item>) {
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun RutubeItem(data: Item) {
-    Card (modifier = Modifier.fillMaxWidth().padding(16.dp)){
+    Card(modifier = Modifier
+        .fillMaxWidth()
+        .padding(16.dp)) {
         Column {
-            GlideImage(model = data.image, contentDescription = null  )
+            GlideImage(model = data.image, contentDescription = null)
             Text(text = data.text)
         }
     }

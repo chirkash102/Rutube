@@ -3,20 +3,19 @@ package com.example.rutube.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rutube.data.RutubeRepository
-import com.example.rutube.roommodel.RutubeMembers
 import com.example.rutube.roommodel.ViewEvents
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
-class RutubeViewModel(private val repository:RutubeRepository) : ViewModel() {
+class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
 
     private val eventsFlow = MutableSharedFlow<ViewEvents>()
     fun getEventsFlow() = eventsFlow.asSharedFlow()
 
     fun delete(login: String, pass: String) {
         viewModelScope.launch {
-       val  result =  repository.delete(login, pass)
+            val result = repository.delete(login, pass)
             eventsFlow.emit(result)
 
         }
@@ -24,7 +23,7 @@ class RutubeViewModel(private val repository:RutubeRepository) : ViewModel() {
 
     fun signUP(login: String, pass: String) {
         viewModelScope.launch {
-            val  result =  repository.signUP(login, pass)
+            val result = repository.signUP(login, pass)
             eventsFlow.emit(result)
 
         }
@@ -32,7 +31,7 @@ class RutubeViewModel(private val repository:RutubeRepository) : ViewModel() {
 
     fun signIn(login: String, pass: String) {
         viewModelScope.launch {
-            val  result =  repository.signIn(login, pass)
+            val result = repository.signIn(login, pass)
             eventsFlow.emit(result)
         }
     }

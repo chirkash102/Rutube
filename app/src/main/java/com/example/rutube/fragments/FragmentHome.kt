@@ -33,7 +33,7 @@ class FragmentHome : Fragment() {
             setContent {
                 RutubeTheme {
                     MainScreen() {
-                       // transaction(FragmentRutubeVideo())
+                        // transaction(FragmentRutubeVideo())
                         transaction(FragmentRegistration())
                     }
                 }
@@ -47,7 +47,8 @@ class FragmentHome : Fragment() {
 fun MainScreen(
     onClick: () -> Unit
 ) {
-    Box(contentAlignment = Alignment.BottomCenter,
+    Box(
+        contentAlignment = Alignment.BottomCenter,
         modifier = Modifier
             .fillMaxSize()
             .paint(
@@ -57,9 +58,9 @@ fun MainScreen(
             ),
 
 
-    ) {
-        Button(shape = Shapes.small,onClick = onClick,) {
-Text(text = "START")
+        ) {
+        Button(shape = Shapes.small, onClick = onClick) {
+            Text(text = "START")
         }
     }
 
