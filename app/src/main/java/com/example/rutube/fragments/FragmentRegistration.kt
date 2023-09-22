@@ -62,6 +62,8 @@ class FragmentRegistration : Fragment() {
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
+
+                                else -> {}
                             }
                         }
                         var loginState by remember { mutableStateOf("") }
@@ -74,7 +76,7 @@ class FragmentRegistration : Fragment() {
                             Button(
                                 onClick = {
                                     isLoading = true
-                                    viewModel.login(loginState, passState)
+                                    viewModel.signIn(loginState, passState)
                                 }
                             ) {
                                 Text(text = "Login")
@@ -82,7 +84,7 @@ class FragmentRegistration : Fragment() {
                             Button(
                                 onClick = {
                                     isLoading = true
-                                    viewModel.regNewUser(loginState, passState)
+                                    viewModel.signUP(loginState, passState)
                                 }
                             ) {
                                 Text(text = "Registration")
