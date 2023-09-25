@@ -26,6 +26,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.rutube.data.Item
 import com.example.rutube.transaction
+import com.example.rutube.ui.theme.RutubeTheme
 import com.example.rutube.uielements.RutubeBottomBar
 import com.example.rutube.uielements.RutubeTopBar
 
@@ -39,7 +40,9 @@ class FragmentLikes : Fragment() {
         return ComposeView(requireContext()).apply {
 
             setContent {
-            Test(onNavigateTop = { transaction(FragmentRutubeVideo()) })
+                RutubeTheme {
+                    Test(onNavigateTop = { transaction(FragmentRutubeVideo()) })
+                }
 
             }
         }
