@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -101,7 +104,12 @@ fun RutubeItem(data: Item) {
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        Column {
+        Column(modifier = Modifier.animateContentSize(
+            animationSpec = spring(
+                dampingRatio = Spring.DampingRatioHighBouncy,
+                stiffness = Spring.StiffnessVeryLow
+            )
+        )) {
             GlideImage(
                 model = data.image,
                 contentDescription = null,
