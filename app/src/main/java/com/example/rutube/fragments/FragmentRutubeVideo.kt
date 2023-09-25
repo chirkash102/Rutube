@@ -16,7 +16,12 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
@@ -32,6 +37,7 @@ import com.example.rutube.transaction
 import com.example.rutube.ui.theme.RutubeTheme
 import com.example.rutube.uielements.RutubeBottomBar
 import com.example.rutube.uielements.RutubeTopBar
+import com.example.rutube.uielements.VideoButton
 import com.example.rutube.viewmodels.RutubeRetrofitViewModel
 
 class FragmentRutubeVideo : Fragment() {
@@ -88,6 +94,7 @@ fun Recycler(
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun RutubeItem(data: Item) {
+    var expanded by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -102,7 +109,10 @@ fun RutubeItem(data: Item) {
                     .fillMaxWidth()
                     .height(200.dp)
             )
-            Text(text = data.text, fontFamily = FontFamily.Cursive, fontSize = 24.sp, modifier = Modifier.fillMaxWidth().height(100.dp))
+            VideoButton(expanded = expanded, onClick = {expanded = !expanded} )
+            if (expanded)
+            Text(text = data.text, fontFamily = FontFamily.Cursive, fontSize = 24.sp, modifier = Modifier
+                .fillMaxWidth())
         }
     }
 

@@ -8,15 +8,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.rutube.R
 
@@ -69,19 +75,41 @@ fun RutubeBottomBar(
                 modifier = Modifier
                     .fillMaxSize()
                     .weight(1f)
-                    .clickable{onNavigateTop.invoke()}
+                    .clickable { onNavigateTop.invoke() }
                 ,contentDescription = null)
             Image(
                 painter = painterResource(id = R.drawable.heart),
                 modifier = Modifier
                     .fillMaxSize()
                     .weight(1f)
-                .clickable{onNavigateLIke.invoke()},
+                    .clickable { onNavigateLIke.invoke() },
                 contentDescription = null
             )
 
         }
     }
+
+}
+
+@Composable
+ fun VideoButton(
+    expanded: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    IconButton(
+        onClick = onClick,
+        modifier = modifier
+    ) {
+        Icon(
+            imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.secondary
+        )
+
+
+    }
+
 
 }
 
