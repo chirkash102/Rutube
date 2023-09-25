@@ -38,7 +38,6 @@ import com.example.rutube.viewmodels.RutubeViewModel
 class FragmentRegistration : Fragment() {
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
