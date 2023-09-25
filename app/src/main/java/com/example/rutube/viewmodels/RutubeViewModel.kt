@@ -17,25 +17,29 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
     fun delete(login: String, pass: String) {
         viewModelScope.launch {
             val result = repository.delete(login, pass)
-            delay(1000)
+            delay(500)
             //need to show loadingAnimation
-            eventsFlow.emit(result)
-
+            if (result != null) {
+                eventsFlow.emit(ViewEvents.SuccessDelete(result))
+            } else eventsFlow.emit(ViewEvents.Error("Пользователя не существует, быдло"))
         }
     }
 
     fun signUP(login: String, pass: String) {
         viewModelScope.launch {
             val result = repository.signUp(login, pass)
-            eventsFlow.emit(result)
-
+            if (result != null) {
+                eventsFlow.emit(ViewEvents.SuccessRegistration(result))
+            } else eventsFlow.emit(ViewEvents.Error("Пользователь уже существует, быдло"))
         }
     }
 
     fun signIn(login: String, pass: String) {
         viewModelScope.launch {
             val result = repository.signIn(login, pass)
-            eventsFlow.emit(result)
+            if (result != null) {
+                eventsFlow.emit(ViewEvents.SuccessAuth(result))
+            } else eventsFlow.emit(ViewEvents.Error("Неверный логин или пароль, лох"))
         }
     }
 }
