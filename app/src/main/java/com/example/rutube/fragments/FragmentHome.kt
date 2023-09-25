@@ -14,17 +14,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.Fragment
 import com.example.rutube.R
 import com.example.rutube.transaction
 import com.example.rutube.ui.theme.RutubeTheme
 import com.example.rutube.ui.theme.Shapes
-import com.example.rutube.uielements.RutubeTopBar
 
 class FragmentHome : Fragment() {
 
@@ -56,10 +55,8 @@ fun MainScreen(
     onClick: () -> Unit
 ) {
     Scaffold(
-        topBar = { RutubeTopBar() }
-    ){
+    ) {
         Box(
-            contentAlignment = Alignment.BottomCenter,
             modifier = Modifier
                 .fillMaxSize()
                 .paint(
@@ -67,13 +64,13 @@ fun MainScreen(
                     contentScale = ContentScale.Crop
 
                 ),
+            contentAlignment = Alignment.BottomCenter,
 
 
             ) {
             Button(shape = Shapes.small, onClick = onClick) {
-                Text(text = "START")
+                Text(text = stringResource(R.string.start))
             }
         }
     }
-
 }

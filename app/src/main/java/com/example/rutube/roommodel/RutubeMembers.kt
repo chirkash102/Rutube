@@ -15,5 +15,4 @@ data class RutubeMembers(
     @PrimaryKey
     val login: String,
     val pass: String
-) {
-}
+)

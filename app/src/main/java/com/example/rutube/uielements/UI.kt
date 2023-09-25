@@ -26,14 +26,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.rutube.R
 
-class UI {
-
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RutubeTopBar(modifier: Modifier = Modifier) {
     CenterAlignedTopAppBar(
+        modifier = modifier,
         title = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -48,41 +45,43 @@ fun RutubeTopBar(modifier: Modifier = Modifier) {
                     contentDescription = null
                 )
                 Text(
-                    text = ("Rutube"),
+                    text = (stringResource(R.string.app_name)),
                     style = MaterialTheme.typography.displayLarge
                 )
             }
-        }, modifier = modifier
+        }
     )
 }
 
 @Composable
 fun RutubeBottomBar(
-    onNavigateTop : () -> Unit,
-    onNavigateLIke : () -> Unit,
-    isTopScreenPick:Boolean
+    onNavigateTop: () -> Unit,
+    onNavigateLIke: () -> Unit,
+    isTopScreenPick: Boolean
 ) {
-    BottomAppBar (
+    BottomAppBar(
         containerColor = MaterialTheme.colorScheme.primaryContainer,
         contentColor = MaterialTheme.colorScheme.error
-    ){
-        Row(modifier = Modifier.fillMaxWidth(),
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
 
         ) {
-            Image(painter = painterResource(id = R.drawable.baseline_view_list_24),
+            Image(
                 modifier = Modifier
                     .fillMaxSize()
                     .weight(1f)
-                    .clickable { onNavigateTop.invoke() }
-                ,contentDescription = null)
+                    .clickable { onNavigateTop.invoke() }, contentDescription = null,
+                painter = painterResource(id = R.drawable.baseline_view_list_24)
+            )
             Image(
-                painter = painterResource(id = R.drawable.heart),
                 modifier = Modifier
                     .fillMaxSize()
                     .weight(1f)
                     .clickable { onNavigateLIke.invoke() },
+                painter = painterResource(id = R.drawable.heart),
                 contentDescription = null
             )
 
@@ -92,20 +91,20 @@ fun RutubeBottomBar(
 }
 
 @Composable
- fun VideoButton(
+fun VideoButton(
     expanded: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     IconButton(
-        onClick = onClick,
-        modifier = modifier
+        modifier = modifier,
+        onClick = onClick
     ) {
         Icon(
+            modifier = Modifier.size(64.dp),
             imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.secondary,
-            modifier = Modifier.size(64.dp)
+            tint = MaterialTheme.colorScheme.secondary
         )
 
 

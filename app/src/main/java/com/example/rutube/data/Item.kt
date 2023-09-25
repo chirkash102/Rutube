@@ -4,6 +4,4 @@ class Item(
     val image: String,
     val text: String,
     val hasNext: Boolean
-) {
-
-}
+)

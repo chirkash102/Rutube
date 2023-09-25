@@ -18,6 +18,7 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
         viewModelScope.launch {
             val result = repository.delete(login, pass)
             delay(1000)
+            //need to show loadingAnimation
             eventsFlow.emit(result)
 
         }
@@ -25,7 +26,7 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
 
     fun signUP(login: String, pass: String) {
         viewModelScope.launch {
-            val result = repository.signUP(login, pass)
+            val result = repository.signUp(login, pass)
             eventsFlow.emit(result)
 
         }

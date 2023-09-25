@@ -80,7 +80,8 @@ fun Recycler(
     Scaffold(
         topBar = { RutubeTopBar() },
         bottomBar = {
-            RutubeBottomBar(onNavigateTop = { onNavigateTop.invoke() },
+            RutubeBottomBar(
+                onNavigateTop = { onNavigateTop.invoke() },
                 { onNavigateLIke.invoke() }, isTopScreenPick = true
             )
         }
@@ -94,7 +95,6 @@ fun Recycler(
 
 }
 
-
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun RutubeItem(data: Item) {
@@ -104,44 +104,37 @@ fun RutubeItem(data: Item) {
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        Column(modifier = Modifier.animateContentSize(
-            animationSpec = spring(
-                dampingRatio = Spring.DampingRatioHighBouncy,
-                stiffness = Spring.StiffnessVeryLow
+        Column(
+            modifier = Modifier.animateContentSize(
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioHighBouncy,
+                    stiffness = Spring.StiffnessVeryLow
+                )
             )
-        )) {
+        ) {
             GlideImage(
-                model = data.image,
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp)
+                    .height(200.dp),
+                model = data.image,
+                contentDescription = null,
+                contentScale = ContentScale.Crop
             )
-            VideoButton(expanded = expanded, onClick = {expanded = !expanded} )
+            VideoButton(expanded = expanded, onClick = { expanded = !expanded })
             if (expanded)
-            Text(text = data.text, fontFamily = FontFamily.Cursive, fontSize = 24.sp, modifier = Modifier
-                .fillMaxWidth())
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    text = data.text, fontFamily = FontFamily.Cursive, fontSize = 24.sp,
+                )
         }
     }
 
 }
 
 @Composable
-fun Test(a: String) {
+fun LikeScreen(a: String) {
     Text(text = a)
 }
-//@Preview(showSystemUi = true)
-//@Composable
-//fun SimpleComposablePreview() {
-//    val rutube11List = listOf<Item>(
-//        Item("https://pic.rutubelist.ru/video/e0/c8/e0c8363128c6da775c5e1bfc7539d764.jpg","fefe",true),
-//        Item("https://pic.rutubelist.ru/video/e0/c8/e0c8363128c6da775c5e1bfc7539d764.jpg","fefe",true),
-//        Item("https://pic.rutubelist.ru/video/e0/c8/e0c8363128c6da775c5e1bfc7539d764.jpg","fefe",true),
-//    )
-//    RutubeTheme {
-//        Recycler(rutubeList = rutube11List )
-//    }
-//}
 
 

@@ -6,7 +6,7 @@ import com.example.rutube.roommodel.ViewEvents
 
 class RutubeRepositoryImpl(dataBase: AppDataBAse) : RutubeRepository {
     private val repository = dataBase.getDao()
-    override suspend fun signUP(login: String, pass: String): ViewEvents {
+    override suspend fun signUp(login: String, pass: String): ViewEvents {
         return if (repository.isAlreadyExist(login) != null) {
             ViewEvents.Error("Пользователь уже существует, быдло")
         } else {
@@ -32,8 +32,7 @@ class RutubeRepositoryImpl(dataBase: AppDataBAse) : RutubeRepository {
 }
 
 interface RutubeRepository {
-
-    suspend fun signUP(login: String, pass: String): ViewEvents
+    suspend fun signUp(login: String, pass: String): ViewEvents
     suspend fun signIn(login: String, pass: String): ViewEvents
     suspend fun delete(login: String, pass: String): ViewEvents
 }
