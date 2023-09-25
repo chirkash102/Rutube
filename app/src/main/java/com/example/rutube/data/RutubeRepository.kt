@@ -8,7 +8,6 @@ class RutubeRepositoryImpl(dataBase: AppDataBAse) : RutubeRepository {
     private val repository = dataBase.getDao()
     override suspend fun signUP(login: String, pass: String): ViewEvents {
         return if (repository.isAlreadyExist(login) != null) {
-            repository.insert(RutubeMembers(login, pass))
             ViewEvents.Error("Пользователь уже существует, быдло")
         } else {
             repository.insert(RutubeMembers(login, pass))
