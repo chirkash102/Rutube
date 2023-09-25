@@ -44,7 +44,7 @@ class FragmentRutubeVideo : Fragment() {
 
                 RutubeTheme {
                     Recycler(onNavigateLIke = {transaction(FragmentLikes())},
-                        onNavigateTop = {transaction(FragmentRutubeVideo())},
+                        onNavigateTop = {Unit},
                         rutubeList = videoState.value)
 
                 }

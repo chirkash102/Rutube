@@ -1,4 +1,5 @@
 package com.example.rutube.fragments
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,11 @@ class FragmentLikes : Fragment() {
         return ComposeView(requireContext()).apply {
 
             setContent {
-RutubeBottomBar(onNavigateTop = {transaction(FragmentRutubeVideo())},{Unit},false)
+                RutubeBottomBar(
+                    onNavigateTop = { transaction(FragmentRutubeVideo()) },
+                    { Unit },
+                    false
+                )
 
             }
         }
