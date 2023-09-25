@@ -104,7 +104,8 @@ fun RutubeBottomBar(
         Icon(
             imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.secondary
+            tint = MaterialTheme.colorScheme.secondary,
+            modifier = Modifier.size(64.dp)
         )
 
 
