@@ -6,10 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -23,6 +36,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.rutube.application.App
@@ -30,7 +44,7 @@ import com.example.rutube.roommodel.ViewEvents
 import com.example.rutube.transaction
 import com.example.rutube.ui.SimpleCircularProgressIndicator
 import com.example.rutube.ui.theme.RutubeTheme
-import com.example.rutube.uielements.RutubeBottomBar
+import com.example.rutube.ui.theme.Shapes
 import com.example.rutube.uielements.RutubeTopBar
 import com.example.rutube.utils.collectAsEvent
 import com.example.rutube.viewmodels.RutubeViewModel
@@ -91,8 +105,8 @@ class FragmentRegistration : Fragment() {
                         var passState by remember { mutableStateOf("") }
 
                         RegistrationScreen(
-                            onNavigateLIke = {transaction(FragmentLikes())},
-                            onNavigateTop = {Unit},
+                            onNavigateLIke = { transaction(FragmentLikes()) },
+                            onNavigateTop = { Unit },
                             isLoading = isLoading,
                             loginState = loginState,
                             onLoginStateChanges = { loginState = it },
@@ -121,8 +135,8 @@ class FragmentRegistration : Fragment() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegistrationScreen(
-    onNavigateTop : () -> Unit,
-    onNavigateLIke : () -> Unit,
+    onNavigateTop: () -> Unit,
+    onNavigateLIke: () -> Unit,
     isLoading: Boolean,
     loginState: String,
     onLoginStateChanges: (String) -> Unit,
@@ -165,9 +179,15 @@ fun ColumnReg(
     onClickDel: () -> Unit
 ) {
     Column(modifier = modifier) {
-        SimpleCircularProgressIndicator(isLoading)
-        Greeting(state = loginState, onLoginStateChanges)
-        Greeting(state = passState, onPassStateChanges)
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            SimpleCircularProgressIndicator(isLoading)
+            Greeting(state = loginState, "Логин", onLoginStateChanges)
+            Greeting(state = passState, "Пароль", onPassStateChanges)
+        }
         RegistrationButton(text = "Login", onClick = onClickLogin)
         RegistrationButton(text = "Registration", onClick = onClickReg)
         RegistrationButton(text = "Delete", onClick = onClickDel)
@@ -178,17 +198,95 @@ fun ColumnReg(
 }
 
 @Composable
+fun HorizontalButtonSwitching() {
+    var selectedIndex by remember { mutableStateOf(0) }
+    val buttonLabels = listOf("Button 1", "Button 2", "Button 3")
+
+    val transition = updateTransition(selectedIndex)
+    val xOffset by transition.animateDp { selectedIndex ->
+        when (selectedIndex) {
+            0 -> 0.dp
+            1 -> 100.dp // Adjust this value to control the horizontal offset
+            2 -> 200.dp // Adjust this value to control the horizontal offset
+            else -> 0.dp
+        }
+    }
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        buttonLabels.forEachIndexed { index, label ->
+            Button(
+                onClick = { selectedIndex = index },
+                modifier = Modifier.offset(x = xOffset)
+            ) {
+                Text(text = label)
+            }
+        }
+    }
+}
+
+
+
+@Composable
 fun RegistrationButton(modifier: Modifier = Modifier, text: String, onClick: () -> Unit) {
-    Button(modifier = modifier, onClick = onClick) {
-        Text(text = text)
+    var onStatus by remember { mutableStateOf(false) }
+    val transition = updateTransition(targetState = onStatus, label = "ButtonTransition")
+
+    val xOffset by transition.animateDp(
+        transitionSpec = {
+            if (false isTransitioningTo true) {
+                spring(
+                    dampingRatio = Spring.DampingRatioLowBouncy,
+                    stiffness = Spring.StiffnessVeryLow
+                )
+            } else {
+                spring(
+                    dampingRatio = Spring.DampingRatioLowBouncy,
+                    stiffness = Spring.StiffnessVeryLow
+                )
+            }
+        }, label = ""
+    ) { isSelected ->
+        if (isSelected) 250.dp else 0.dp // Adjust this value to control the horizontal offset
+    }
+
+    Card(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .offset(x = xOffset)
+        ) {
+            Button(
+                modifier = modifier,
+                onClick = {
+                    onStatus = !onStatus
+                    onClick.invoke()
+                }
+            ) {
+                Text(text = text)
+            }
+        }
     }
 }
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Greeting(state: String, onStateChanges: (String) -> Unit) {
-    TextField(value = state, onValueChange = onStateChanges)
+fun Greeting(state: String, hintText: String, onStateChanges: (String) -> Unit) {
+    TextField(
+        value = state,
+        shape = Shapes.extraLarge,
+        onValueChange = onStateChanges,
+        placeholder = { Text(text = hintText) },
+        modifier = Modifier
+            .fillMaxWidth()
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
