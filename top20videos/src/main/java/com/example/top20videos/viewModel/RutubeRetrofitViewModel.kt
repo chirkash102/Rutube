@@ -1,14 +1,14 @@
-package com.example.rutube.viewmodels
+package com.example.top20videos.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rutube.data.Item
-import com.example.rutube.retrofit.RutubeRetrofit
+import com.example.rutube.retrofit.RutubeApi
+import com.example.top20videos.datamodel.Item
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class RutubeRetrofitViewModel : ViewModel() {
+class RutubeRetrofitViewModel(private val rutubeApi: RutubeApi) : ViewModel() {
     private val _state = MutableStateFlow(emptyList<Item>())
     val state = _state.asStateFlow()
 
@@ -18,7 +18,7 @@ class RutubeRetrofitViewModel : ViewModel() {
 
     fun getVideos() {
         viewModelScope.launch {
-            val response = RutubeRetrofit.rutubeApi.getRutubeTopVideos()
+            val response = rutubeApi.getRutubeTopVideos()
             val body = response.body()
             if (body != null) {
                 val videos = body.results.map {

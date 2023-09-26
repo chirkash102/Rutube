@@ -1,4 +1,4 @@
-package com.example.rutube.data
+package com.example.top20videos.datamodel
 
 class Item(
     val image: String,

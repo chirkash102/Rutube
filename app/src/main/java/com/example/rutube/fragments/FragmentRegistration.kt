@@ -44,6 +44,7 @@ import com.example.rutube.ui.theme.RutubeTheme
 import com.example.rutube.uielements.RutubeTopBar
 import com.example.rutube.utils.collectAsEvent
 import com.example.rutube.viewmodels.RutubeViewModel
+import com.example.top20videos.fragments.FragmentRutubeVideo
 
 class FragmentRegistration : Fragment() {
 
