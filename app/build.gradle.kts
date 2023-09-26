@@ -51,6 +51,7 @@ android {
 }
 
 dependencies {
+    implementation (project(":uikit"))
     implementation (project(":top20videos"))
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.3.1")

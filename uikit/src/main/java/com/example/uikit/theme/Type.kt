@@ -1,4 +1,4 @@
-package com.example.rutube.ui.theme
+package com.example.uikit.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

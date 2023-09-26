@@ -39,9 +39,9 @@ import com.example.rutube.R
 import com.example.rutube.application.App
 import com.example.rutube.roommodel.ViewEvents
 import com.example.rutube.transaction
-import com.example.rutube.ui.SimpleCircularProgressIndicator
-import com.example.rutube.ui.theme.RutubeTheme
-import com.example.rutube.uielements.RutubeTopBar
+import com.example.uikit.SimpleCircularProgressIndicator
+import com.example.uikit.theme.RutubeTheme
+import com.example.top20videos.uielements.RutubeTopBar
 import com.example.rutube.utils.collectAsEvent
 import com.example.rutube.viewmodels.RutubeViewModel
 import com.example.top20videos.fragments.FragmentRutubeVideo
@@ -152,7 +152,7 @@ fun ColumnReg(
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
-                SimpleCircularProgressIndicator(isLoading)
+                com.example.uikit.SimpleCircularProgressIndicator(isLoading)
                 Greeting(state = loginState, stringResource(R.string.Login), onLoginStateChanges)
                 Greeting(state = passState, stringResource(R.string.Password), onPassStateChanges)
             }

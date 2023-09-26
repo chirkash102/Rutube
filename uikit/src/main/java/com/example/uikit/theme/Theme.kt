@@ -1,10 +1,10 @@
-package com.example.rutube.ui.theme
+package com.example.uikit.theme
 
 import android.app.Activity
 import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Shapes
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -80,6 +80,7 @@ private val DarkColors = darkColorScheme(
     scrim = md_theme_dark_scrim,
 )
 
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 @Composable
 fun RutubeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

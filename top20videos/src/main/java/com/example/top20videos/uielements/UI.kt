@@ -1,4 +1,4 @@
-package com.example.rutube.uielements
+package com.example.top20videos.uielements
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

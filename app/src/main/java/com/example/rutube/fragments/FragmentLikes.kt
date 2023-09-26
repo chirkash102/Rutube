@@ -20,9 +20,9 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import com.example.rutube.R
 import com.example.rutube.transaction
-import com.example.rutube.ui.theme.RutubeTheme
-import com.example.rutube.uielements.RutubeBottomBar
-import com.example.rutube.uielements.RutubeTopBar
+import com.example.uikit.theme.RutubeTheme
+import com.example.top20videos.uielements.RutubeBottomBar
+import com.example.top20videos.uielements.RutubeTopBar
 import com.example.top20videos.fragments.FragmentRutubeVideo
 
 class FragmentLikes : Fragment() {
@@ -33,7 +33,7 @@ class FragmentLikes : Fragment() {
         savedInstanceState: Bundle?
     ) = ComposeView(requireContext()).apply {
         setContent {
-            RutubeTheme {
+            com.example.uikit.theme.RutubeTheme {
                 LikeScreen(onNavigateTop = { transaction(FragmentRutubeVideo()) })
             }
         }

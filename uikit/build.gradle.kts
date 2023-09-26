@@ -4,25 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.top20videos"
-    compileSdk = 33
-
-    defaultConfig {
-        minSdk = 24
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
+    namespace = "com.example.uikit"
     buildFeatures {
         compose = true
     }
@@ -30,7 +12,7 @@ android {
 }
 
 dependencies {
-    implementation (project(":uikit"))
+
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
