@@ -1,4 +1,4 @@
-package com.example.rutube
+package com.example.rutube.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class RutubeViewModel : ViewModel() {
+class RutubeRetrofitViewModel : ViewModel() {
     private val _state = MutableStateFlow(emptyList<Item>())
     val state = _state.asStateFlow()
 

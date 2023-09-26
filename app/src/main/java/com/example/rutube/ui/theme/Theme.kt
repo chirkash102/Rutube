@@ -48,7 +48,6 @@ private val LightColors = lightColorScheme(
     scrim = md_theme_light_scrim,
 )
 
-
 private val DarkColors = darkColorScheme(
     primary = md_theme_dark_primary,
     onPrimary = md_theme_dark_onPrimary,
@@ -81,7 +80,6 @@ private val DarkColors = darkColorScheme(
     scrim = md_theme_dark_scrim,
 )
 
-
 @Composable
 fun RutubeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -108,7 +106,6 @@ fun RutubeTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        shapes = Shapes,
         typography = Typography,
         content = content
     )
