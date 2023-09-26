@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,7 +22,6 @@ import androidx.fragment.app.Fragment
 import com.example.rutube.R
 import com.example.rutube.transaction
 import com.example.rutube.ui.theme.RutubeTheme
-import com.example.rutube.ui.theme.Shapes
 
 class FragmentHome : Fragment() {
 
@@ -49,28 +47,22 @@ class FragmentHome : Fragment() {
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     onClick: () -> Unit
 ) {
-    Scaffold(
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .paint(
+                painterResource(id = R.drawable.putin),
+                contentScale = ContentScale.Crop
+
+            ),
+        contentAlignment = Alignment.BottomCenter,
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .paint(
-                    painterResource(id = R.drawable.putin),
-                    contentScale = ContentScale.Crop
-
-                ),
-            contentAlignment = Alignment.BottomCenter,
-
-
-            ) {
-            Button(shape = Shapes.small, onClick = onClick) {
-                Text(text = stringResource(R.string.start))
-            }
+        Button(onClick = onClick) {
+            Text(text = stringResource(R.string.start))
         }
     }
 }

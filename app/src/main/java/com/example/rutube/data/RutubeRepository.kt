@@ -20,11 +20,11 @@ class RutubeRepositoryImpl(dataBase: AppDataBAse) : RutubeRepository {
         } else null
     }
 
-    override suspend fun delete(login: String, pass: String): RutubeMembers? {
+    override suspend fun delete(login: String, pass: String): Boolean {
         return if (repository.isAlreadyExist(login) != null) {
             repository.delete(RutubeMembers(login, pass))
-            RutubeMembers(login, pass)
-        } else null
+            true
+        } else false
     }
 
 }
@@ -32,5 +32,5 @@ class RutubeRepositoryImpl(dataBase: AppDataBAse) : RutubeRepository {
 interface RutubeRepository {
     suspend fun signUp(login: String, pass: String): RutubeMembers?
     suspend fun signIn(login: String, pass: String): RutubeMembers?
-    suspend fun delete(login: String, pass: String): RutubeMembers?
+    suspend fun delete(login: String, pass: String): Boolean
 }

@@ -19,13 +19,13 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
             val result = repository.delete(login, pass)
             delay(500)
             //need to show loadingAnimation
-            if (result != null) {
-                eventsFlow.emit(ViewEvents.SuccessDelete(result))
+            if (result) {
+                eventsFlow.emit(ViewEvents.SuccessDelete(true))
             } else eventsFlow.emit(ViewEvents.Error("Пользователя не существует, быдло"))
         }
     }
 
-    fun signUP(login: String, pass: String) {
+    fun signUp(login: String, pass: String) {
         viewModelScope.launch {
             val result = repository.signUp(login, pass)
             if (result != null) {

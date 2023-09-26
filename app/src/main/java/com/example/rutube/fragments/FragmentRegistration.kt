@@ -41,7 +41,6 @@ import com.example.rutube.roommodel.ViewEvents
 import com.example.rutube.transaction
 import com.example.rutube.ui.SimpleCircularProgressIndicator
 import com.example.rutube.ui.theme.RutubeTheme
-import com.example.rutube.ui.theme.Shapes
 import com.example.rutube.uielements.RutubeTopBar
 import com.example.rutube.utils.collectAsEvent
 import com.example.rutube.viewmodels.RutubeViewModel
@@ -114,13 +113,12 @@ class FragmentRegistration : Fragment() {
                             },
                             signUP = {
                                 isLoading = true
-                                viewModel.signUP(loginState, passState)
+                                viewModel.signUp(loginState, passState)
                             },
                             delete = {
                                 isLoading = true
                                 viewModel.delete(loginState, passState)
                             })
-
                     }
                 }
             }
@@ -217,11 +215,7 @@ fun Greeting(state: String, hintText: String, onStateChanges: (String) -> Unit) 
         modifier = Modifier
             .fillMaxWidth(),
         value = state,
-        shape = Shapes.extraLarge,
         onValueChange = onStateChanges,
         placeholder = { Text(text = hintText) }
     )
 }
-
-
-

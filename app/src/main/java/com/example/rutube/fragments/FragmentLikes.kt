@@ -35,7 +35,6 @@ class FragmentLikes : Fragment() {
             RutubeTheme {
                 LikeScreen(onNavigateTop = { transaction(FragmentRutubeVideo()) })
             }
-
         }
     }
 }
