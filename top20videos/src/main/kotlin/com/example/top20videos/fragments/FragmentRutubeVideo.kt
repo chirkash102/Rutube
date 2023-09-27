@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -34,6 +35,7 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.top20videos.datamodel.Item
+import com.example.top20videos.retrofit.RutubeRetrofit.rutubeApi
 import com.example.top20videos.viewModel.RutubeRetrofitViewModel
 import com.example.uikit.RutubeBottomBar
 import com.example.uikit.RutubeTopBar
@@ -41,13 +43,21 @@ import com.example.uikit.VideoButton
 import com.example.uikit.theme.RutubeTheme
 
 class FragmentRutubeVideo : Fragment() {
-    private val viewModel by viewModels<RutubeRetrofitViewModel>()
     private var callBack: RutubeVideoScreen? = null
-
+    private var createViewModel: RetrofitViewModel? = null
+    private lateinit var viewModel: RutubeRetrofitViewModel
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callBack = (requireActivity() as? RutubeVideoScreen)
+        createViewModel = (requireActivity() as? RetrofitViewModel)
+        viewModel =
+            (createViewModel?.createViewModel() ?: RutubeRetrofitViewModel(rutubeApi)) as RutubeRetrofitViewModel
+
     }
+//init {
+//    createViewModel?.createViewModel()
+//}
+   // private val viewModel by viewModels<RutubeRetrofitViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,6 +65,8 @@ class FragmentRutubeVideo : Fragment() {
         savedInstanceState: Bundle?
     ) = ComposeView(requireContext()).apply {
         setContent {
+
+
             val videoState = viewModel.state.collectAsState()
 
             RutubeTheme {
@@ -73,6 +85,9 @@ class FragmentRutubeVideo : Fragment() {
     }
 }
 
+interface RetrofitViewModel {
+    fun createViewModel():RutubeRetrofitViewModel
+}
 interface RutubeVideoScreen {
     fun onLikeClick()
 }

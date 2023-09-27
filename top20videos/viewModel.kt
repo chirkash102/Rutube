@@ -1,0 +1,1 @@
+val viewModel = ViewModelProvider(this, viewModelFactory).get(RutubeViewModel::class.java)
