@@ -44,6 +44,7 @@ class FragmentRegistration : Fragment() {
     private var callBack: RutubeLIkeScreen? = null
     private var createViewModel: RoomViewModel? = null
     private lateinit var viewModel: RutubeViewModel
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callBack = (requireActivity() as? RutubeLIkeScreen)
@@ -222,8 +223,7 @@ fun SqlButtons(modifier: Modifier = Modifier, text: String, onClick: () -> Unit)
 @Composable
 fun Greeting(state: String, hintText: String, onStateChanges: (String) -> Unit) {
     TextField(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         value = state,
         onValueChange = onStateChanges,
         placeholder = { Text(text = hintText) }

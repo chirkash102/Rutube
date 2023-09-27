@@ -44,6 +44,7 @@ class FragmentRutubeVideo : Fragment() {
     private var callBack: RutubeVideoScreen? = null
     private var createViewModel: RetrofitViewModel? = null
     private lateinit var viewModel: RutubeRetrofitViewModel
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callBack = (requireActivity() as? RutubeVideoScreen)
@@ -106,7 +107,6 @@ fun Recycler(
         }
     }
 }
-
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable

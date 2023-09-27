@@ -75,5 +75,4 @@ fun LikeScreen(
 @Composable
 fun SimpleComposablePreview() {
     LikeScreen(onNavigateTop = { })
-
 }

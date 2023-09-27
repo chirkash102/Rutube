@@ -7,6 +7,7 @@ import androidx.room.Query
 
 @Dao
 interface MembersDao {
+
     @Insert
     suspend fun insert(members: RutubeMembers)
 
@@ -18,5 +19,4 @@ interface MembersDao {
 
     @Delete
     suspend fun delete(members: RutubeMembers)
-
 }
