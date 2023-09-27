@@ -30,7 +30,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.top20videos.datamodel.Item
@@ -49,14 +48,8 @@ class FragmentRutubeVideo : Fragment() {
         super.onAttach(context)
         callBack = (requireActivity() as? RutubeVideoScreen)
         createViewModel = (requireActivity() as? RetrofitViewModel)
-        viewModel =
-            (createViewModel?.createViewModel() ?: RutubeRetrofitViewModel(rutubeApi))
-
+        viewModel = (createViewModel?.createViewModel() ?: RutubeRetrofitViewModel(rutubeApi))
     }
-//init {
-//    createViewModel?.createViewModel()
-//}
-   // private val viewModel by viewModels<RutubeRetrofitViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,9 +58,7 @@ class FragmentRutubeVideo : Fragment() {
     ) = ComposeView(requireContext()).apply {
         setContent {
 
-
             val videoState = viewModel.state.collectAsState()
-
             RutubeTheme {
                 Recycler(
                     onNavigateLIke = { callBack?.onLikeClick() },
@@ -85,8 +76,9 @@ class FragmentRutubeVideo : Fragment() {
 }
 
 interface RetrofitViewModel {
-    fun createViewModel():RutubeRetrofitViewModel
+    fun createViewModel(): RutubeRetrofitViewModel
 }
+
 interface RutubeVideoScreen {
     fun onLikeClick()
 }

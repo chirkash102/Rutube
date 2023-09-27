@@ -18,14 +18,14 @@ import com.example.top20videos.fragments.RetrofitViewModel
 import com.example.top20videos.fragments.RutubeVideoScreen
 import com.example.top20videos.viewModel.RutubeRetrofitViewModel
 
-class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeLIkeScreen,
-    RetrofitViewModel, RoomViewModel {
-
+class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeLIkeScreen, RetrofitViewModel, RoomViewModel {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportFragmentManager.beginTransaction().replace(R.id.container, FragmentHome())
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, FragmentHome())
             .addToBackStack(FragmentHome::class.java.name).commit()
     }
 
@@ -40,7 +40,6 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeLIkeScreen,
     override fun createViewModel(): RutubeRetrofitViewModel {
         val app = application as App
         val viewModelFactory = app.viewModelFactory
-        // val viewModel by viewModels<RutubeRetrofitViewModel>{ viewModelFactory }
         return ViewModelProvider(this, viewModelFactory).get(RutubeRetrofitViewModel::class.java)
     }
 
@@ -55,13 +54,14 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeLIkeScreen,
     override fun createRoomViewModel(): RutubeViewModel {
         val app = application as App
         val viewModelFactory = app.viewModelFactory
-
         return ViewModelProvider(this, viewModelFactory).get(RutubeViewModel::class.java)
     }
 
 }
 
 fun Fragment.transaction(fragment: Fragment) {
-    parentFragmentManager.beginTransaction().replace(R.id.container, fragment)
+    parentFragmentManager
+        .beginTransaction()
+        .replace(R.id.container, fragment)
         .addToBackStack(fragment::javaClass.name).commit()
 }

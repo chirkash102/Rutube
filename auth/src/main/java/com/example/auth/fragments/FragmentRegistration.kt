@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.compose.animation.core.Spring
@@ -34,12 +33,11 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.example.auth.R
 import com.example.auth.roommodel.ViewEvents
 import com.example.auth.viewmodel.RutubeViewModel
-import com.example.uikit.theme.RutubeTheme
 import com.example.uikit.RutubeTopBar
+import com.example.uikit.theme.RutubeTheme
 import com.example.uikit.utils.collectAsEvent
 
 class FragmentRegistration : Fragment() {
@@ -51,7 +49,6 @@ class FragmentRegistration : Fragment() {
         callBack = (requireActivity() as? RutubeLIkeScreen)
         createViewModel = (requireActivity() as? RoomViewModel)
         viewModel = createViewModel!!.createRoomViewModel()
-
     }
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -59,84 +56,87 @@ class FragmentRegistration : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-//        val app = requireActivity().application as App
-//        val viewModelFactory = app.viewModelFactory
-//        val viewModel by viewModels<RutubeViewModel> { viewModelFactory }
-        return ComposeView(requireContext()).apply {
-            setContent {
-                RutubeTheme {
-                    Surface(
-                        modifier = Modifier.fillMaxSize(),
-                        color = MaterialTheme.colorScheme.background
-                    ) {
-                        var isLoading by remember { mutableStateOf(false) }
-                        viewModel.getEventsFlow().collectAsEvent { event ->
-                            isLoading = false
-                            when (event) {
-                                is ViewEvents.SuccessAuth -> {
-                                    callBack?.navigateToTopVideos()
-                                }
+    ) = ComposeView(requireContext()).apply {
+        setContent {
+            RutubeTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    var isLoading by remember { mutableStateOf(false) }
+                    viewModel.getEventsFlow().collectAsEvent { event ->
+                        isLoading = false
+                        when (event) {
+                            is ViewEvents.SuccessAuth -> {
+                                callBack?.navigateToTopVideos()
+                            }
 
-                                is ViewEvents.SuccessRegistration -> {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        context.getString(R.string.account_were_signed_up),
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
+                            is ViewEvents.SuccessRegistration -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    context.getString(R.string.account_were_signed_up),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
 
-                                is ViewEvents.SuccessDelete -> {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        context.getString(R.string.account_were_deleted),
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
+                            is ViewEvents.SuccessDelete -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    context.getString(R.string.account_were_deleted),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
 
-                                is ViewEvents.Error -> {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        event.errorMessage,
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
+                            is ViewEvents.Error -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    event.errorMessage,
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
-                        var loginState by remember { mutableStateOf("") }
-                        var passState by remember { mutableStateOf("") }
-
-                        ColumnReg(
-                            onNavigateLIke = {  callBack?.navigateToTopVideos() },
-                            onNavigateTop = { },
-                            isLoading = isLoading,
-                            loginState = loginState,
-                            onLoginStateChanges = { loginState = it },
-                            onPassStateChanges = { passState = it },
-                            passState = passState,
-                            signIN = {
-                                isLoading = true
-                                viewModel.signIn(loginState, passState)
-                            },
-                            signUP = {
-                                isLoading = true
-                                viewModel.signUp(loginState, passState)
-                            },
-                            delete = {
-                                isLoading = true
-                                viewModel.delete(loginState, passState)
-                            })
                     }
+                    var loginState by remember { mutableStateOf("") }
+                    var passState by remember { mutableStateOf("") }
+
+                    ColumnReg(
+                        onNavigateLIke = { callBack?.navigateToTopVideos() },
+                        onNavigateTop = { },
+                        isLoading = isLoading,
+                        loginState = loginState,
+                        onLoginStateChanges = { loginState = it },
+                        onPassStateChanges = { passState = it },
+                        passState = passState,
+                        signIN = {
+                            isLoading = true
+                            viewModel.signIn(loginState, passState)
+                        },
+                        signUP = {
+                            isLoading = true
+                            viewModel.signUp(loginState, passState)
+                        },
+                        delete = {
+                            isLoading = true
+                            viewModel.delete(loginState, passState)
+                        })
                 }
             }
         }
     }
+
     override fun onDetach() {
         super.onDetach()
         callBack = null
     }
 }
 
+interface RoomViewModel {
+    fun createRoomViewModel(): RutubeViewModel
+}
+
+interface RutubeLIkeScreen {
+    fun navigateToTopVideos()
+}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -228,10 +228,4 @@ fun Greeting(state: String, hintText: String, onStateChanges: (String) -> Unit) 
         onValueChange = onStateChanges,
         placeholder = { Text(text = hintText) }
     )
-}
-interface RoomViewModel {
-    fun createRoomViewModel():RutubeViewModel
-}
-interface RutubeLIkeScreen {
-    fun navigateToTopVideos()
 }
