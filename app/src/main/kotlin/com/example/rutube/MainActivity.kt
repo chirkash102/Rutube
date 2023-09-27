@@ -6,18 +6,19 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.auth.fragments.FragmentRegistration
 import com.example.auth.fragments.RoomViewModel
-import com.example.auth.fragments.RutubeLIkeScreen
+import com.example.auth.fragments.RutubeRegistrationNavigation
 import com.example.auth.viewmodel.RutubeViewModel
 import com.example.rutube.application.App
 import com.example.rutube.fragments.FragmentHome
-import com.example.rutube.fragments.FragmentLikes
+import com.example.likescreen.fragments.FragmentLikes
+import com.example.likescreen.fragments.LikeScreenNavigation
 import com.example.top20videos.fragments.FragmentRutubeVideo
 import com.example.top20videos.fragments.RetrofitViewModel
 import com.example.top20videos.fragments.RutubeVideoScreen
 import com.example.top20videos.viewModel.RutubeRetrofitViewModel
 
-class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeLIkeScreen, RetrofitViewModel,
-    RoomViewModel {
+class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeRegistrationNavigation, RetrofitViewModel,
+    RoomViewModel, LikeScreenNavigation {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +44,7 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeLIkeScreen, Re
             .get(RutubeRetrofitViewModel::class.java)
     }
 
-    override fun navigateToTopVideos() {
+    override fun navigateToTopVideosFromRegistration() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, FragmentRutubeVideo())
@@ -56,6 +57,14 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeLIkeScreen, Re
         val viewModelFactory = app.viewModelFactory
         return ViewModelProvider(this, viewModelFactory)
             .get(RutubeViewModel::class.java)
+    }
+
+    override fun navigateToTopVideosFromLikeScreen() {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, Fragment())
+            .addToBackStack(FragmentLikes::class.java.name)
+            .commit()
     }
 
 }

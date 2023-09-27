@@ -1,6 +1,7 @@
-package com.example.rutube.fragments
+package com.example.likescreen.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -17,14 +18,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
-import com.example.rutube.R
-import com.example.rutube.transaction
-import com.example.top20videos.fragments.FragmentRutubeVideo
+import com.example.auth.R
 import com.example.uikit.RutubeBottomBar
 import com.example.uikit.RutubeTopBar
 import com.example.uikit.theme.RutubeTheme
 
 class FragmentLikes : Fragment() {
+    private var callBack: LikeScreenNavigation? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callBack = (requireActivity() as? LikeScreenNavigation)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,9 +38,13 @@ class FragmentLikes : Fragment() {
     ) = ComposeView(requireContext()).apply {
         setContent {
             RutubeTheme {
-                LikeScreen(onNavigateTop = { transaction(FragmentRutubeVideo()) })
+                LikeScreen(onNavigateTop = { callBack?.navigateToTopVideosFromLikeScreen() })
             }
         }
+    }
+    override fun onDetach() {
+        super.onDetach()
+        callBack = null
     }
 }
 
@@ -75,4 +84,8 @@ fun LikeScreen(
 @Composable
 fun SimpleComposablePreview() {
     LikeScreen(onNavigateTop = { })
+}
+
+interface LikeScreenNavigation {
+    fun navigateToTopVideosFromLikeScreen()
 }
