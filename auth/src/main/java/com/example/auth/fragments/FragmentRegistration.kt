@@ -41,13 +41,13 @@ import com.example.uikit.theme.RutubeTheme
 import com.example.uikit.utils.collectAsEvent
 
 class FragmentRegistration : Fragment() {
-    private var callBack: RutubeLIkeScreen? = null
+    private var callBack: RutubeRegistrationNavigation? = null
     private var createViewModel: RoomViewModel? = null
     private lateinit var viewModel: RutubeViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        callBack = (requireActivity() as? RutubeLIkeScreen)
+        callBack = (requireActivity() as? RutubeRegistrationNavigation)
         createViewModel = (requireActivity() as? RoomViewModel)
         viewModel = createViewModel!!.createRoomViewModel()
     }
@@ -69,7 +69,7 @@ class FragmentRegistration : Fragment() {
                         isLoading = false
                         when (event) {
                             is ViewEvents.SuccessAuth -> {
-                                callBack?.navigateToTopVideos()
+                                callBack?.navigateToTopVideosFromRegistration()
                             }
 
                             is ViewEvents.SuccessRegistration -> {
@@ -101,7 +101,7 @@ class FragmentRegistration : Fragment() {
                     var passState by remember { mutableStateOf("") }
 
                     ColumnReg(
-                        onNavigateLIke = { callBack?.navigateToTopVideos() },
+                        onNavigateLike = { callBack?.navigateToTopVideosFromRegistration() },
                         onNavigateTop = { },
                         isLoading = isLoading,
                         loginState = loginState,
@@ -135,8 +135,8 @@ interface RoomViewModel {
     fun createRoomViewModel(): RutubeViewModel
 }
 
-interface RutubeLIkeScreen {
-    fun navigateToTopVideos()
+interface RutubeRegistrationNavigation {
+    fun navigateToTopVideosFromRegistration()
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -144,7 +144,7 @@ interface RutubeLIkeScreen {
 fun ColumnReg(
     modifier: Modifier = Modifier,
     onNavigateTop: () -> Unit,
-    onNavigateLIke: () -> Unit,
+    onNavigateLike: () -> Unit,
     isLoading: Boolean,
     loginState: String,
     onLoginStateChanges: (String) -> Unit,
