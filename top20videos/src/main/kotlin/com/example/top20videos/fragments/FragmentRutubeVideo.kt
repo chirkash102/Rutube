@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -31,7 +30,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.top20videos.datamodel.Item
@@ -51,7 +50,7 @@ class FragmentRutubeVideo : Fragment() {
         callBack = (requireActivity() as? RutubeVideoScreen)
         createViewModel = (requireActivity() as? RetrofitViewModel)
         viewModel =
-            (createViewModel?.createViewModel() ?: RutubeRetrofitViewModel(rutubeApi)) as RutubeRetrofitViewModel
+            (createViewModel?.createViewModel() ?: RutubeRetrofitViewModel(rutubeApi))
 
     }
 //init {

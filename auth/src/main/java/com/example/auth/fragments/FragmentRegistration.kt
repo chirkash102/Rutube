@@ -1,6 +1,7 @@
-package com.example.rutube.fragments
+package com.example.auth.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -35,17 +35,24 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.rutube.R
-import com.example.rutube.application.App
-import com.example.rutube.roommodel.ViewEvents
-import com.example.rutube.transaction
+import com.example.auth.R
+import com.example.auth.roommodel.ViewEvents
+import com.example.auth.viewmodel.RutubeViewModel
 import com.example.uikit.theme.RutubeTheme
 import com.example.uikit.RutubeTopBar
-import com.example.rutube.utils.collectAsEvent
-import com.example.rutube.viewmodels.RutubeViewModel
-import com.example.top20videos.fragments.FragmentRutubeVideo
+import com.example.uikit.utils.collectAsEvent
 
 class FragmentRegistration : Fragment() {
+    private var callBack: RutubeLIkeScreen? = null
+    private var createViewModel: RoomViewModel? = null
+    private lateinit var viewModel: RutubeViewModel
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callBack = (requireActivity() as? RutubeLIkeScreen)
+        createViewModel = (requireActivity() as? RoomViewModel)
+        viewModel = createViewModel!!.createRoomViewModel()
+
+    }
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreateView(
@@ -53,9 +60,9 @@ class FragmentRegistration : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val app = requireActivity().application as App
-        val viewModelFactory = app.viewModelFactory
-        val viewModel by viewModels<RutubeViewModel> { viewModelFactory }
+//        val app = requireActivity().application as App
+//        val viewModelFactory = app.viewModelFactory
+//        val viewModel by viewModels<RutubeViewModel> { viewModelFactory }
         return ComposeView(requireContext()).apply {
             setContent {
                 RutubeTheme {
@@ -68,7 +75,7 @@ class FragmentRegistration : Fragment() {
                             isLoading = false
                             when (event) {
                                 is ViewEvents.SuccessAuth -> {
-                                    transaction(FragmentRutubeVideo())
+                                    callBack?.navigateToTopVideos()
                                 }
 
                                 is ViewEvents.SuccessRegistration -> {
@@ -100,7 +107,7 @@ class FragmentRegistration : Fragment() {
                         var passState by remember { mutableStateOf("") }
 
                         ColumnReg(
-                            onNavigateLIke = { transaction(FragmentLikes()) },
+                            onNavigateLIke = {  callBack?.navigateToTopVideos() },
                             onNavigateTop = { },
                             isLoading = isLoading,
                             loginState = loginState,
@@ -124,7 +131,12 @@ class FragmentRegistration : Fragment() {
             }
         }
     }
+    override fun onDetach() {
+        super.onDetach()
+        callBack = null
+    }
 }
+
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -216,4 +228,10 @@ fun Greeting(state: String, hintText: String, onStateChanges: (String) -> Unit) 
         onValueChange = onStateChanges,
         placeholder = { Text(text = hintText) }
     )
+}
+interface RoomViewModel {
+    fun createRoomViewModel():RutubeViewModel
+}
+interface RutubeLIkeScreen {
+    fun navigateToTopVideos()
 }

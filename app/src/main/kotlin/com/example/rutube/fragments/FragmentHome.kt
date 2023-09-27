@@ -33,7 +33,7 @@ class FragmentHome : Fragment() {
             RutubeTheme {
                 MainScreen {
                     // transaction(FragmentRutubeVideo())
-                    transaction(FragmentRegistration())
+                    transaction(com.example.auth.fragments.FragmentRegistration())
                 }
             }
 

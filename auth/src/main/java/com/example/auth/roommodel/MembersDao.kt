@@ -1,4 +1,4 @@
-package com.example.rutube.roommodel
+package com.example.auth.roommodel
 
 import androidx.room.Dao
 import androidx.room.Delete
