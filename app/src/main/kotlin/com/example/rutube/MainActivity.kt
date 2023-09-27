@@ -1,10 +1,8 @@
 package com.example.rutube
 
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.auth.fragments.FragmentRegistration
 import com.example.auth.fragments.RoomViewModel
@@ -18,7 +16,8 @@ import com.example.top20videos.fragments.RetrofitViewModel
 import com.example.top20videos.fragments.RutubeVideoScreen
 import com.example.top20videos.viewModel.RutubeRetrofitViewModel
 
-class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeLIkeScreen, RetrofitViewModel, RoomViewModel {
+class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeLIkeScreen, RetrofitViewModel,
+    RoomViewModel {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +39,8 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeLIkeScreen, Re
     override fun createViewModel(): RutubeRetrofitViewModel {
         val app = application as App
         val viewModelFactory = app.viewModelFactory
-        return ViewModelProvider(this, viewModelFactory).get(RutubeRetrofitViewModel::class.java)
+        return ViewModelProvider(this, viewModelFactory)
+            .get(RutubeRetrofitViewModel::class.java)
     }
 
     override fun navigateToTopVideos() {
@@ -54,7 +54,8 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeLIkeScreen, Re
     override fun createRoomViewModel(): RutubeViewModel {
         val app = application as App
         val viewModelFactory = app.viewModelFactory
-        return ViewModelProvider(this, viewModelFactory).get(RutubeViewModel::class.java)
+        return ViewModelProvider(this, viewModelFactory)
+            .get(RutubeViewModel::class.java)
     }
 
 }

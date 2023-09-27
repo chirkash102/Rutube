@@ -2,8 +2,8 @@ package com.example.top20videos.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.top20videos.retrofit.RutubeApi
 import com.example.top20videos.datamodel.Item
+import com.example.top20videos.retrofit.RutubeApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -25,9 +25,7 @@ class RutubeRetrofitViewModel(private val rutubeApi: RutubeApi) : ViewModel() {
                     Item(it.thumbnail_url, it.title, body.has_next)
                 }
                 _state.value = videos
-
             }
-
         }
     }
 }

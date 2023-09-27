@@ -34,7 +34,6 @@ fun RutubeTopBar(modifier: Modifier = Modifier) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
-
             ) {
                 Image(
                     modifier = Modifier
@@ -86,7 +85,6 @@ fun RutubeBottomBar(
 
         }
     }
-
 }
 
 @Composable
@@ -105,11 +103,7 @@ fun VideoButton(
             contentDescription = null,
             tint = MaterialTheme.colorScheme.secondary
         )
-
-
     }
-
-
 }
 
 

@@ -17,6 +17,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.Fragment
+import com.example.auth.fragments.FragmentRegistration
 import com.example.rutube.R
 import com.example.rutube.transaction
 import com.example.uikit.theme.RutubeTheme
@@ -32,8 +33,7 @@ class FragmentHome : Fragment() {
         setContent {
             RutubeTheme {
                 MainScreen {
-                    // transaction(FragmentRutubeVideo())
-                    transaction(com.example.auth.fragments.FragmentRegistration())
+                    transaction(FragmentRegistration())
                 }
             }
 

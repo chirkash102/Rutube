@@ -196,7 +196,6 @@ fun SqlButtons(modifier: Modifier = Modifier, text: String, onClick: () -> Unit)
     ) { isSelected ->
         if (isSelected) 250.dp else 0.dp // Adjust this value to control the horizontal offset
     }
-
     Card(
         modifier = Modifier
             .padding(16.dp)

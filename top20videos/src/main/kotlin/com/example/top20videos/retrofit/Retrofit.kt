@@ -21,7 +21,6 @@ private val retrofit = Retrofit.Builder()
 
 object RutubeRetrofit {
     val rutubeApi = retrofit.create<RutubeApi>()
-
 }
 
 interface RutubeApi {

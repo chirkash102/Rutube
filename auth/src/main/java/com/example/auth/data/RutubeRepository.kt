@@ -2,7 +2,10 @@ package com.example.auth.data
 
 class RutubeRepositoryImpl(dataBase: com.example.auth.roommodel.AppDataBAse) : RutubeRepository {
     private val membersDao = dataBase.getDao()
-    override suspend fun signUp(login: String, pass: String): com.example.auth.roommodel.RutubeMembers? {
+    override suspend fun signUp(
+        login: String,
+        pass: String
+    ): com.example.auth.roommodel.RutubeMembers? {
         return if (membersDao.isAlreadyExist(login) != null) {
             null
         } else {
@@ -11,7 +14,10 @@ class RutubeRepositoryImpl(dataBase: com.example.auth.roommodel.AppDataBAse) : R
         }
     }
 
-    override suspend fun signIn(login: String, pass: String): com.example.auth.roommodel.RutubeMembers? {
+    override suspend fun signIn(
+        login: String,
+        pass: String
+    ): com.example.auth.roommodel.RutubeMembers? {
         return if (membersDao.validateLogin(login, pass) != null) {
             com.example.auth.roommodel.RutubeMembers(login, pass)
         } else null
@@ -23,7 +29,6 @@ class RutubeRepositoryImpl(dataBase: com.example.auth.roommodel.AppDataBAse) : R
             true
         } else false
     }
-
 }
 
 interface RutubeRepository {
