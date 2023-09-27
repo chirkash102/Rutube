@@ -101,7 +101,7 @@ class FragmentRegistration : Fragment() {
                     var passState by remember { mutableStateOf("") }
 
                     ColumnReg(
-                        onNavigateLIke = { callBack?.navigateToTopVideosFromRegistration() },
+                        onNavigateLike = { callBack?.navigateToTopVideosFromRegistration() },
                         onNavigateTop = { },
                         isLoading = isLoading,
                         loginState = loginState,
@@ -144,7 +144,7 @@ interface RutubeRegistrationNavigation {
 fun ColumnReg(
     modifier: Modifier = Modifier,
     onNavigateTop: () -> Unit,
-    onNavigateLIke: () -> Unit,
+    onNavigateLike: () -> Unit,
     isLoading: Boolean,
     loginState: String,
     onLoginStateChanges: (String) -> Unit,

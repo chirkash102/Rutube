@@ -34,7 +34,7 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeRegistrationNa
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, FragmentLikes())
-            .addToBackStack(FragmentRutubeVideo::class.java.name)
+            .addToBackStack(FragmentLikes::class.java.name)
             .commit()
     }
 
@@ -49,7 +49,7 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeRegistrationNa
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, FragmentRutubeVideo())
-            .addToBackStack(FragmentRegistration::class.java.name)
+            .addToBackStack(FragmentRutubeVideo::class.java.name)
             .commit()
     }
 
@@ -64,7 +64,7 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeRegistrationNa
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, FragmentRutubeVideo())
-            .addToBackStack(FragmentLikes::class.java.name)
+            .addToBackStack(FragmentRutubeVideo::class.java.name)
             .commit()
     }
 }
