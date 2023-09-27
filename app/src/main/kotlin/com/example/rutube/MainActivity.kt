@@ -8,16 +8,17 @@ import com.example.auth.fragments.FragmentRegistration
 import com.example.auth.fragments.RoomViewModel
 import com.example.auth.fragments.RutubeRegistrationNavigation
 import com.example.auth.viewmodel.RutubeViewModel
-import com.example.rutube.application.App
-import com.example.rutube.fragments.FragmentHome
 import com.example.likescreen.fragments.FragmentLikes
 import com.example.likescreen.fragments.LikeScreenNavigation
+import com.example.rutube.application.App
+import com.example.rutube.fragments.FragmentHome
 import com.example.top20videos.fragments.FragmentRutubeVideo
 import com.example.top20videos.fragments.RetrofitViewModel
 import com.example.top20videos.fragments.RutubeVideoScreen
 import com.example.top20videos.viewModel.RutubeRetrofitViewModel
 
-class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeRegistrationNavigation, RetrofitViewModel,
+class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeRegistrationNavigation,
+    RetrofitViewModel,
     RoomViewModel, LikeScreenNavigation {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,11 +63,10 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeRegistrationNa
     override fun navigateToTopVideosFromLikeScreen() {
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.container, Fragment())
+            .replace(R.id.container, FragmentRutubeVideo())
             .addToBackStack(FragmentLikes::class.java.name)
             .commit()
     }
-
 }
 
 fun Fragment.transaction(fragment: Fragment) {
