@@ -43,8 +43,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentRegistration : Fragment() {
     private var callBack: RutubeRegistrationNavigation? = null
-    private val viewModel:RutubeViewModel by viewModel()
-
+    private val viewModel: RutubeViewModel by viewModel()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

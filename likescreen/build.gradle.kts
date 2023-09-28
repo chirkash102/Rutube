@@ -45,7 +45,6 @@ dependencies {
         ksp("androidx.room:room-compiler:$roomVersion")
         implementation("androidx.room:room-ktx:$roomVersion")
         val koin_version = "3.1.2"
-        implementation ("io.insert-koin:koin-android:$koin_version")
-
+        implementation("io.insert-koin:koin-android:$koin_version")
     }
 }

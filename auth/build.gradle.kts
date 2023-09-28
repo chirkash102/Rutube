@@ -29,7 +29,7 @@ android {
 }
 
 dependencies {
-    implementation (project(":uikit"))
+    implementation(project(":uikit"))
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -44,5 +44,5 @@ dependencies {
     ksp("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     val koin_version = "3.1.2"
-    implementation ("io.insert-koin:koin-android:$koin_version")
+    implementation("io.insert-koin:koin-android:$koin_version")
 }

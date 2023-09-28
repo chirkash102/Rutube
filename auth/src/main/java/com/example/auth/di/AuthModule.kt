@@ -10,7 +10,9 @@ import org.koin.dsl.module
 
 val authModule = module {
 
-    single<AppDataBAse> {Room.databaseBuilder(get(), AppDataBAse::class.java, "RutubeDataBase").build()}
+    single<AppDataBAse> {
+        Room.databaseBuilder(get(), AppDataBAse::class.java, "RutubeDataBase").build()
+    }
     single<RutubeRepository> { RutubeRepositoryImpl(get()) }
     viewModel { RutubeViewModel(get()) }
 }

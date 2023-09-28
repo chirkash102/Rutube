@@ -28,7 +28,7 @@ android {
 }
 
 dependencies {
-    implementation (project(":uikit"))
+    implementation(project(":uikit"))
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -43,5 +43,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
     val koin_version = "3.1.2"
-    implementation ("io.insert-koin:koin-android:$koin_version")
+    implementation("io.insert-koin:koin-android:$koin_version")
 }

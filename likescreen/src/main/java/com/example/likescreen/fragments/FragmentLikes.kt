@@ -42,6 +42,7 @@ class FragmentLikes : Fragment() {
             }
         }
     }
+
     override fun onDetach() {
         super.onDetach()
         callBack = null
