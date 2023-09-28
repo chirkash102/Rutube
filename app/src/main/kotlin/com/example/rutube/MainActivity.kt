@@ -17,10 +17,12 @@ import com.example.top20videos.fragments.FragmentRutubeVideo
 import com.example.top20videos.fragments.RetrofitViewModel
 import com.example.top20videos.fragments.RutubeVideoScreen
 import com.example.top20videos.viewModel.RutubeRetrofitViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeRegistrationNavigation,
     RetrofitViewModel,
     RoomViewModel, LikeScreenNavigation {
+    private val rutubeRetrofitViewModel: RutubeRetrofitViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +42,7 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeRegistrationNa
     }
 
     override fun createViewModel(): RutubeRetrofitViewModel {
-        val app = application as App
-        val viewModelFactory = app.viewModelFactory
-        return ViewModelProvider(this, viewModelFactory)
-            .get(RutubeRetrofitViewModel::class.java)
+        return rutubeRetrofitViewModel
     }
 
     override fun navigateToTopVideosFromRegistration() {
