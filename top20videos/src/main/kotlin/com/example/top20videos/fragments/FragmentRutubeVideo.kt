@@ -48,6 +48,8 @@ class FragmentRutubeVideo : Fragment() {
         super.onAttach(context)
         callBack = (requireActivity() as? RutubeVideoScreen)
         createViewModel = (requireActivity() as? RetrofitViewModel)
+        viewModel = createViewModel!!.createViewModel()
+       // viewModel = createViewModel!!.createRoomViewModel()
     }
 
     override fun onCreateView(
