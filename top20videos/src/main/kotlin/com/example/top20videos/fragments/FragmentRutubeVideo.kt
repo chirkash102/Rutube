@@ -73,10 +73,6 @@ class FragmentRutubeVideo : Fragment() {
     }
 }
 
-interface RetrofitViewModel {
-    fun createViewModel(): RutubeRetrofitViewModel
-}
-
 interface RutubeVideoScreen {
     fun onLikeClick()
 }
