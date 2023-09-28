@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.example.auth.data.RutubeRepositoryImpl
 import com.example.auth.roommodel.AppDataBAse
-import com.example.rutube.di.appModule
 import com.example.rutube.viewmodels.ViewModelFactory
+import com.example.top20videos.di.top20module
 import com.example.top20videos.repository.Top20RepositoryImp
 import com.example.top20videos.retrofit.RutubeRetrofit
 import org.koin.android.ext.koin.androidContext
@@ -21,7 +21,7 @@ class App : Application() {
         startKoin {
             androidLogger(Level.NONE)
             androidContext(this@App)
-            modules(listOf(appModule))
+            modules(listOf(top20module))
         }
 
         val rutubeDataBase =

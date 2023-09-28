@@ -42,4 +42,6 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
+    val koin_version = "3.1.2"
+    implementation ("io.insert-koin:koin-android:$koin_version")
 }

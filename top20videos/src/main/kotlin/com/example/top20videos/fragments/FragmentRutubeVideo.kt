@@ -38,17 +38,15 @@ import com.example.uikit.RutubeBottomBar
 import com.example.uikit.RutubeTopBar
 import com.example.uikit.VideoButton
 import com.example.uikit.theme.RutubeTheme
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentRutubeVideo : Fragment() {
+    private val viewModel: RutubeRetrofitViewModel by viewModel()
     private var callBack: RutubeVideoScreen? = null
-    private var createViewModel: RetrofitViewModel? = null
-    private lateinit var viewModel: RutubeRetrofitViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callBack = (requireActivity() as? RutubeVideoScreen)
-        createViewModel = (requireActivity() as? RetrofitViewModel)
-        viewModel = createViewModel!!.createViewModel()
     }
 
     override fun onCreateView(
