@@ -33,7 +33,6 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.top20videos.datamodel.Item
-import com.example.top20videos.retrofit.RutubeRetrofit.rutubeApi
 import com.example.top20videos.viewModel.RutubeRetrofitViewModel
 import com.example.uikit.RutubeBottomBar
 import com.example.uikit.RutubeTopBar
@@ -49,7 +48,6 @@ class FragmentRutubeVideo : Fragment() {
         super.onAttach(context)
         callBack = (requireActivity() as? RutubeVideoScreen)
         createViewModel = (requireActivity() as? RetrofitViewModel)
-        viewModel = (createViewModel?.createViewModel() ?: RutubeRetrofitViewModel(rutubeApi))
     }
 
     override fun onCreateView(
