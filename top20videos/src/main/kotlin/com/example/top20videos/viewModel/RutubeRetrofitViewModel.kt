@@ -13,6 +13,9 @@ class RutubeRetrofitViewModel(private val retrofitRepository: Top20Repository, p
     private val _state = MutableStateFlow(emptyList<Item>())
     val state = _state.asStateFlow()
 
+    private val _state1 = MutableStateFlow(String())
+    val state1 = _state1.asStateFlow()
+
     init {
         getVideos()
     }
@@ -20,6 +23,7 @@ class RutubeRetrofitViewModel(private val retrofitRepository: Top20Repository, p
     fun getVideos() {
         viewModelScope.launch {
             val login = getLogin()
+            _state1.value = login!!
             val response = retrofitRepository.getTop20Videos()
             val body = response.body()
             if (body != null) {

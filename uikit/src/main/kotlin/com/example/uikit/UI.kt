@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RutubeTopBar(modifier: Modifier = Modifier) {
+fun RutubeTopBar(modifier: Modifier = Modifier,textLogin:String = stringResource(id = R.string.app_name)) {
     CenterAlignedTopAppBar(
         modifier = modifier,
         title = {
@@ -43,7 +43,7 @@ fun RutubeTopBar(modifier: Modifier = Modifier) {
                     contentDescription = null
                 )
                 Text(
-                    text = (stringResource(R.string.app_name)),
+                    text = textLogin,
                     style = MaterialTheme.typography.displayLarge
                 )
             }
