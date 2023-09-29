@@ -1,8 +1,8 @@
 package com.example.auth.data
 
-import com.example.auth.roommodel.AppDataBAse
+import com.example.auth.roommodel.AppDataBase
 
-class RutubeRepositoryImpl(dataBase: AppDataBAse) : RutubeRepository {
+class RutubeRepositoryImpl(dataBase: AppDataBase) : RutubeRepository {
     private val membersDao = dataBase.getDao()
     override suspend fun signUp(
         login: String,

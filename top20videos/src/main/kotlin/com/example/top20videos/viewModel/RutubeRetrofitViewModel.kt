@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class RutubeRetrofitViewModel(private val rutubeApi: Top20Repository) : ViewModel() {
+class RutubeRetrofitViewModel(private val repository: Top20Repository) : ViewModel() {
     private val _state = MutableStateFlow(emptyList<Item>())
     val state = _state.asStateFlow()
 
@@ -18,7 +18,7 @@ class RutubeRetrofitViewModel(private val rutubeApi: Top20Repository) : ViewMode
 
     fun getVideos() {
         viewModelScope.launch {
-            val response = rutubeApi.getTop20Videos()
+            val response = repository.getTop20Videos()
             val body = response.body()
             if (body != null) {
                 val videos = body.results.map {

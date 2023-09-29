@@ -4,7 +4,7 @@ import com.example.top20videos.retrofit.RutubeApi
 import com.example.top20videos.retrofitmodel.ResponseModel
 import retrofit2.Response
 
-class Top20RepositoryImp(private val rutubeApi: RutubeApi) : Top20Repository {
+class Top20RepositoryImpl(private val rutubeApi: RutubeApi) : Top20Repository {
     override suspend fun getTop20Videos(): Response<ResponseModel> {
         val result = rutubeApi.getRutubeTopVideos()
         return result
