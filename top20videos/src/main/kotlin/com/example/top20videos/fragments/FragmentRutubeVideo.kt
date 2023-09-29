@@ -59,6 +59,7 @@ class FragmentRutubeVideo : Fragment() {
             val videoState = viewModel.state.collectAsState()
             RutubeTheme {
                 Recycler(
+                    viewModel = viewModel,
                     logintext = loginTexst.value,
                     onNavigateLIke = { callBack?.onLikeClick() },
                     onNavigateTop = { },
@@ -81,11 +82,13 @@ interface RutubeVideoScreen {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Recycler(
-    logintext:String,
+    logintext: String,
+    viewModel: RutubeRetrofitViewModel,
     onNavigateTop: () -> Unit,
     onNavigateLIke: () -> Unit,
     rutubeList: List<Item>
 ) {
+
     Scaffold(
         topBar = { RutubeTopBar(textLogin = logintext) },
         bottomBar = {
@@ -97,7 +100,8 @@ fun Recycler(
     ) {
         LazyColumn(contentPadding = it) {
             items(rutubeList) {
-                RutubeItem(data = it)
+                RutubeItem(data = it, viewModel)
+
             }
         }
     }
@@ -105,8 +109,9 @@ fun Recycler(
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun RutubeItem(data: Item) {
+fun RutubeItem(data: Item, viewModel: RutubeRetrofitViewModel) {
     var expanded by remember { mutableStateOf(false) }
+    var expanded2 by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -129,11 +134,13 @@ fun RutubeItem(data: Item) {
                 contentScale = ContentScale.Crop
             )
             VideoButton(expanded = expanded, onClick = { expanded = !expanded })
-            if (expanded)
+            if (expanded) {
+                viewModel.likeAdd(data.image, data.text)
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = data.text, fontFamily = FontFamily.Cursive, fontSize = 24.sp,
                 )
+            }
         }
     }
 }
