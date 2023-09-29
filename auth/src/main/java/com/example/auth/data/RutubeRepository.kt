@@ -5,6 +5,7 @@ import com.example.auth.roommodel.RutubeMembers
 
 class RutubeAuthRepositoryImpl(dataBase: AppDataBase) : RutubeRepository {
     private val membersDao = dataBase.getDao()
+    private var authAcc :String? = null
     override suspend fun signUp(
         login: String,
         pass: String
@@ -12,8 +13,10 @@ class RutubeAuthRepositoryImpl(dataBase: AppDataBase) : RutubeRepository {
         return if (membersDao.isAlreadyExist(login) != null) {
             null
         } else {
+            authAcc = login
             membersDao.insert(com.example.auth.roommodel.RutubeMembers(login, pass))
             com.example.auth.roommodel.RutubeMembers(login, pass)
+
         }
     }
 
@@ -33,8 +36,8 @@ class RutubeAuthRepositoryImpl(dataBase: AppDataBase) : RutubeRepository {
         } else false
     }
 
-    override suspend fun giveLogin(login: String): RutubeMembers? {
-        return membersDao.isAlreadyExist(login)
+    override suspend fun giveLogin(): String?{
+        return authAcc
     }
 }
 
@@ -42,5 +45,5 @@ interface RutubeRepository {
     suspend fun signUp(login: String, pass: String): RutubeMembers?
     suspend fun signIn(login: String, pass: String): RutubeMembers?
     suspend fun delete(login: String, pass: String): Boolean
-    suspend fun giveLogin(login: String):RutubeMembers?
+    suspend fun giveLogin():String?
 }

@@ -30,6 +30,7 @@ android {
 
 dependencies {
     implementation(project(":uikit"))
+    implementation(project(":auth"))
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
