@@ -33,23 +33,20 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.top20videos.datamodel.Item
-import com.example.top20videos.retrofit.RutubeRetrofit.rutubeApi
 import com.example.top20videos.viewModel.RutubeRetrofitViewModel
 import com.example.uikit.RutubeBottomBar
 import com.example.uikit.RutubeTopBar
 import com.example.uikit.VideoButton
 import com.example.uikit.theme.RutubeTheme
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentRutubeVideo : Fragment() {
+    private val viewModel: RutubeRetrofitViewModel by viewModel()
     private var callBack: RutubeVideoScreen? = null
-    private var createViewModel: RetrofitViewModel? = null
-    private lateinit var viewModel: RutubeRetrofitViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callBack = (requireActivity() as? RutubeVideoScreen)
-        createViewModel = (requireActivity() as? RetrofitViewModel)
-        viewModel = (createViewModel?.createViewModel() ?: RutubeRetrofitViewModel(rutubeApi))
     }
 
     override fun onCreateView(
@@ -74,10 +71,6 @@ class FragmentRutubeVideo : Fragment() {
         super.onDetach()
         callBack = null
     }
-}
-
-interface RetrofitViewModel {
-    fun createViewModel(): RutubeRetrofitViewModel
 }
 
 interface RutubeVideoScreen {

@@ -39,17 +39,15 @@ import com.example.auth.viewmodel.RutubeViewModel
 import com.example.uikit.RutubeTopBar
 import com.example.uikit.theme.RutubeTheme
 import com.example.uikit.utils.collectAsEvent
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentRegistration : Fragment() {
     private var callBack: RutubeRegistrationNavigation? = null
-    private var createViewModel: RoomViewModel? = null
-    private lateinit var viewModel: RutubeViewModel
+    private val viewModel: RutubeViewModel by viewModel()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callBack = (requireActivity() as? RutubeRegistrationNavigation)
-        createViewModel = (requireActivity() as? RoomViewModel)
-        viewModel = createViewModel!!.createRoomViewModel()
     }
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -129,10 +127,6 @@ class FragmentRegistration : Fragment() {
         super.onDetach()
         callBack = null
     }
-}
-
-interface RoomViewModel {
-    fun createRoomViewModel(): RutubeViewModel
 }
 
 interface RutubeRegistrationNavigation {

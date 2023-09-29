@@ -36,7 +36,6 @@ class FragmentHome : Fragment() {
                     transaction(FragmentRegistration())
                 }
             }
-
         }
     }
 }
