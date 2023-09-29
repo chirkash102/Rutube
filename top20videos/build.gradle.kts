@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -44,4 +45,8 @@ dependencies {
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
     val koin_version = "3.1.2"
     implementation("io.insert-koin:koin-android:$koin_version")
+    val roomVersion = "2.5.2"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
 }
