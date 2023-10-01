@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.auth.data.RutubeRepository
 import com.example.auth.roommodel.ViewEvents
+import com.example.likescreen.repository.LikeRepository
 import com.example.top20videos.datamodel.Item
 import com.example.top20videos.repository.Top20Repository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlin.math.log
 
-class RutubeRetrofitViewModel(private val retrofitRepository: Top20Repository, private val authRepository: RutubeRepository) : ViewModel() {
+class RutubeRetrofitViewModel(private val retrofitRepository: Top20Repository, private val authRepository: RutubeRepository, private val likeRepository:LikeRepository) : ViewModel() {
     private val _state = MutableStateFlow(emptyList<Item>())
     val state = _state.asStateFlow()
 
@@ -29,11 +30,17 @@ class RutubeRetrofitViewModel(private val retrofitRepository: Top20Repository, p
         getVideos()
     }
     val likeLIst = mutableListOf<Item>()
-    fun likeAdd(thumbnail_url:String,title:String) {
+    fun likeAdd1(thumbnail_url:String,title:String) {
         viewModelScope.launch {
             val login = getLogin()
             likeLIst.add(Item(thumbnail_url,title, hasNext = true))
             Log.d("LikeAdd", "Item added to likeList: thumbnail_url=$thumbnail_url, title=$title")
+        }
+    }
+    fun likeAdd(thumbnail_url:String,title:String) {
+        viewModelScope.launch {
+            val login = getLogin()
+            likeRepository.like(login,thumbnail_url,title)
         }
     }
 
