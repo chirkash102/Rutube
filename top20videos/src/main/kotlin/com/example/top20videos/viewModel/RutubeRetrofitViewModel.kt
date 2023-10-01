@@ -51,7 +51,7 @@ class RutubeRetrofitViewModel(private val retrofitRepository: Top20Repository, p
             }
         }
     }
-    suspend fun getLogin(): String? {
-        return authRepository.giveLogin()
+    suspend fun getLogin(): String {
+        return authRepository.giveLogin()!!
     }
 }
