@@ -34,7 +34,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.example.auth.R
-import com.example.auth.roommodel.ViewEvents
+import com.example.localdatasource.entity.ViewEvents
 import com.example.auth.viewmodel.RutubeViewModel
 import com.example.uikit.RutubeTopBar
 import com.example.uikit.theme.RutubeTheme
@@ -66,11 +66,11 @@ class FragmentRegistration : Fragment() {
                     viewModel.getEventsFlow().collectAsEvent { event ->
                         isLoading = false
                         when (event) {
-                            is ViewEvents.SuccessAuth -> {
+                            is com.example.localdatasource.entity.ViewEvents.SuccessAuth -> {
                                 callBack?.navigateToTopVideosFromRegistration()
                             }
 
-                            is ViewEvents.SuccessRegistration -> {
+                            is com.example.localdatasource.entity.ViewEvents.SuccessRegistration -> {
                                 Toast.makeText(
                                     requireContext(),
                                     context.getString(R.string.account_were_signed_up),
@@ -78,7 +78,7 @@ class FragmentRegistration : Fragment() {
                                 ).show()
                             }
 
-                            is ViewEvents.SuccessDelete -> {
+                            is com.example.localdatasource.entity.ViewEvents.SuccessDelete -> {
                                 Toast.makeText(
                                     requireContext(),
                                     context.getString(R.string.account_were_deleted),
@@ -86,7 +86,7 @@ class FragmentRegistration : Fragment() {
                                 ).show()
                             }
 
-                            is ViewEvents.Error -> {
+                            is com.example.localdatasource.entity.ViewEvents.Error -> {
                                 Toast.makeText(
                                     requireContext(),
                                     event.errorMessage,

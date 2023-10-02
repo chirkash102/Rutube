@@ -1,9 +1,10 @@
-package com.example.auth.roommodel
+package com.example.localdatasource.daos
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.localdatasource.entity.RutubeMembers
 
 @Dao
 interface MembersDao {

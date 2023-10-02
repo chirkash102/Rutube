@@ -1,4 +1,4 @@
-package com.example.likescreen.rommtable
+package com.example.localdatasource.entity
 
 import androidx.room.Entity
 

@@ -21,6 +21,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,9 +47,11 @@ import com.example.uikit.theme.RutubeTheme
 
 import com.example.likescreen.datamodel.Item
 import com.example.likescreen.viewmodel.LikeViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentLikes : Fragment() {
     private var callBack: LikeScreenNavigation? = null
+    private val viewModel: LikeViewModel by viewModel()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -61,8 +64,9 @@ class FragmentLikes : Fragment() {
         savedInstanceState: Bundle?
     ) = ComposeView(requireContext()).apply {
         setContent {
+            val videoState = viewModel.state.collectAsState()
             RutubeTheme {
-                LikeScreen(onNavigateTop = { callBack?.navigateToTopVideosFromLikeScreen() })
+                LikeScreen(viewModel = viewModel , onNavigateTop = { callBack?.navigateToTopVideosFromLikeScreen() }, rutubeList = videoState.value , topbar = "test")
             }
         }
     }
@@ -84,11 +88,14 @@ fun NoLikes(modifier: Modifier = Modifier) {
 @Composable
 fun LikeScreen(
     modifier: Modifier = Modifier,
+    viewModel: LikeViewModel,
     onNavigateTop: () -> Unit,
     onNavigateLIke: () -> Unit = { },
+    topbar:String,
+    rutubeList: List<Item>
 ) {
     Scaffold(
-        topBar = { RutubeTopBar() },
+        topBar = { RutubeTopBar(textLogin = topbar) },
         bottomBar = {
             RutubeBottomBar(
                 onNavigateTop = { onNavigateTop.invoke() },
@@ -97,11 +104,21 @@ fun LikeScreen(
             )
 
         }) {
-        NoLikes(
-            modifier = modifier
-                .padding(it)
-                .fillMaxSize()
+        LikeRecycler(
+            logintext = topbar,
+            viewModel = viewModel,
+            onNavigateTop = { /*TODO*/ },
+            onNavigateLIke = { /*TODO*/ },
+            rutubeList = rutubeList
         )
+
+
+
+//        NoLikes(
+//            modifier = modifier
+//                .padding(it)
+//                .fillMaxSize()
+//        )
     }
 }
 

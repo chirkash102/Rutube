@@ -1,8 +1,9 @@
-package com.example.auth.likedata
+package com.example.localdatasource.daos
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.localdatasource.entity.LikeVideo
 
 @Dao
 interface LikeDao {

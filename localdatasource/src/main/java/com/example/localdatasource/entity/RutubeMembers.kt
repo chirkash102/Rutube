@@ -1,4 +1,4 @@
-package com.example.auth.roommodel
+package com.example.localdatasource.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

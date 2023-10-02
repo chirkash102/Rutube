@@ -3,7 +3,7 @@ package com.example.auth.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.auth.data.RutubeRepository
-import com.example.auth.roommodel.ViewEvents
+import com.example.localdatasource.entity.ViewEvents
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
 
-    private val eventsFlow = MutableSharedFlow<ViewEvents>()
+    private val eventsFlow = MutableSharedFlow<com.example.localdatasource.entity.ViewEvents>()
     fun getEventsFlow() = eventsFlow.asSharedFlow()
 
     fun delete(login: String, pass: String) {
@@ -20,8 +20,8 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
             delay(500)
             //need to show loadingAnimation
             if (result) {
-                eventsFlow.emit(ViewEvents.SuccessDelete(true))
-            } else eventsFlow.emit(ViewEvents.Error("Пользователя не существует, быдло"))
+                eventsFlow.emit(com.example.localdatasource.entity.ViewEvents.SuccessDelete(true))
+            } else eventsFlow.emit(com.example.localdatasource.entity.ViewEvents.Error("Пользователя не существует, быдло"))
         }
     }
 
@@ -29,8 +29,8 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
         viewModelScope.launch {
             val result = repository.signUp(login, pass)
             if (result != null) {
-                eventsFlow.emit(ViewEvents.SuccessRegistration(result))
-            } else eventsFlow.emit(ViewEvents.Error("Пользователь уже существует, быдло"))
+                eventsFlow.emit(com.example.localdatasource.entity.ViewEvents.SuccessRegistration(result))
+            } else eventsFlow.emit(com.example.localdatasource.entity.ViewEvents.Error("Пользователь уже существует, быдло"))
         }
     }
 
@@ -38,8 +38,8 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
         viewModelScope.launch {
             val result = repository.signIn(login, pass)
             if (result != null) {
-                eventsFlow.emit(ViewEvents.SuccessAuth(result))
-            } else eventsFlow.emit(ViewEvents.Error("Неверный логин или пароль, лох"))
+                eventsFlow.emit(com.example.localdatasource.entity.ViewEvents.SuccessAuth(result))
+            } else eventsFlow.emit(com.example.localdatasource.entity.ViewEvents.Error("Неверный логин или пароль, лох"))
         }
     }
 }

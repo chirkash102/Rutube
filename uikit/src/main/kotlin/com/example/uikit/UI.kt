@@ -29,7 +29,10 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RutubeTopBar(modifier: Modifier = Modifier,textLogin:String = stringResource(id = R.string.app_name)) {
+fun RutubeTopBar(
+    modifier: Modifier = Modifier,
+    textLogin: String = stringResource(id = R.string.app_name)
+) {
     CenterAlignedTopAppBar(
         modifier = modifier,
         title = {
@@ -107,6 +110,7 @@ fun VideoButton(
         )
     }
 }
+
 @Composable
 fun LikeButton(
     isLiked: Boolean,
