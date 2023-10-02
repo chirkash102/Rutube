@@ -9,6 +9,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
@@ -34,6 +36,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.top20videos.datamodel.Item
 import com.example.top20videos.viewModel.RutubeRetrofitViewModel
+import com.example.uikit.LikeButton
 import com.example.uikit.RutubeBottomBar
 import com.example.uikit.RutubeTopBar
 import com.example.uikit.VideoButton
@@ -111,7 +114,7 @@ fun Recycler(
 @Composable
 fun RutubeItem(data: Item, viewModel: RutubeRetrofitViewModel) {
     var expanded by remember { mutableStateOf(false) }
-    var expanded2 by remember { mutableStateOf(false) }
+    var isLiked by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -133,13 +136,19 @@ fun RutubeItem(data: Item, viewModel: RutubeRetrofitViewModel) {
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
-            VideoButton(expanded = expanded, onClick = { expanded = !expanded })
+            Row (modifier = Modifier
+                .fillMaxWidth()) {
+                VideoButton(modifier = Modifier.weight(1f), expanded = expanded, onClick = { expanded = !expanded })
+                LikeButton(modifier = Modifier.weight(1f), isLiked = isLiked, onClick = { isLiked = !isLiked })
+            }
             if (expanded) {
-                viewModel.likeAdd(data.image, data.text)
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = data.text, fontFamily = FontFamily.Cursive, fontSize = 24.sp,
                 )
+            }
+            if (isLiked){
+                viewModel.likeAdd(data.image, data.text)
             }
         }
     }
