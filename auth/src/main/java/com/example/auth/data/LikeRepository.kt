@@ -1,11 +1,11 @@
-package com.example.likescreen.repository
+package com.example.auth.data
 
-import com.example.likescreen.rommtable.LikeDao
+import com.example.auth.roommodel.AppDataBase
 import com.example.likescreen.rommtable.LikeVideo
 
 
-class LikeRepositoryImpl(private val dao: LikeDao) : LikeRepository {
-
+class LikeRepositoryImpl(dataBase: AppDataBase) : LikeRepository {
+    private val dao = dataBase.getLikeDao()
     override suspend fun giveLikeVideos(login: String): List<LikeVideo> {
         return dao.getLikedVideos(login)
     }

@@ -1,21 +1,17 @@
 package com.example.top20videos.viewModel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.auth.data.RutubeRepository
-import com.example.auth.roommodel.ViewEvents
-import com.example.likescreen.repository.LikeRepository
+import com.example.auth.data.LikeRepository
 import com.example.top20videos.datamodel.Item
 import com.example.top20videos.repository.Top20Repository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
-class RutubeRetrofitViewModel(private val retrofitRepository: Top20Repository, private val authRepository: RutubeRepository, private val likeRepository:LikeRepository) : ViewModel() {
+class RutubeRetrofitViewModel(private val retrofitRepository: Top20Repository, private val authRepository: RutubeRepository, private val likeRepository: LikeRepository) : ViewModel() {
     private val _state = MutableStateFlow(emptyList<Item>())
     val state = _state.asStateFlow()
 
