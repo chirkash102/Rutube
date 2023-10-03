@@ -1,7 +1,8 @@
 package com.example.top20videos.di
 
 import androidx.room.Room
-import com.example.localdatasource.database.AppDataBase
+import com.example.likescreen.datasource.LikeDatasource
+import com.example.likescreen.datasource.LocalDatasource
 import com.example.likescreen.repository.LikeRepository
 import com.example.likescreen.repository.LikeRepositoryImpl
 import com.example.top20videos.repository.Top20Repository
@@ -17,6 +18,7 @@ val top20module = module {
         Room.databaseBuilder(get(), com.example.localdatasource.database.AppDataBase::class.java, "RutubeDataBase").build()
     }
     single<RutubeApi> { RutubeRetrofit.rutubeApi }
+    single<LikeDatasource> { LocalDatasource(get ()) }
     single<Top20Repository> { Top20RepositoryImpl(get()) }
     single<LikeRepository> { LikeRepositoryImpl(get()) }
 
