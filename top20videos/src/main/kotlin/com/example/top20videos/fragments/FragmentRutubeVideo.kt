@@ -141,15 +141,18 @@ fun RutubeItem(data: Item, viewModel: RutubeRetrofitViewModel) {
                 VideoButton(modifier = Modifier.weight(1f), expanded = expanded, onClick = { expanded = !expanded })
                 LikeButton(modifier = Modifier.weight(1f), isLiked = isLiked, onClick = { isLiked = !isLiked })
             }
+            }
             if (expanded) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = data.text, fontFamily = FontFamily.Cursive, fontSize = 24.sp,
+
                 )
+                isLiked = false
             }
-            if (isLiked){
-                viewModel.likeAdd(data.image, data.text)
-            }
+        if (isLiked){
+            viewModel.likeAdd(data.image, data.text)
+
         }
     }
 }
