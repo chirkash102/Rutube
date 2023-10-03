@@ -12,7 +12,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class RutubeRetrofitViewModel(private val retrofitRepository: Top20Repository, private val authRepository: RutubeRepository, private val likeRepository: LikeRepository) : ViewModel() {
+class RutubeRetrofitViewModel(
+    private val retrofitRepository: Top20Repository,
+    private val authRepository: RutubeRepository,
+    private val likeRepository: LikeRepository
+) : ViewModel() {
     private val _state = MutableStateFlow(emptyList<Item>())
     val state = _state.asStateFlow()
 
@@ -21,23 +25,25 @@ class RutubeRetrofitViewModel(private val retrofitRepository: Top20Repository, p
 
 
     private val _stateLike = MutableStateFlow(Boolean)
-    val statelike = _stateLike .asStateFlow()
+    val statelike = _stateLike.asStateFlow()
 
     init {
         getVideos()
     }
+
     val likeLIst = mutableListOf<Item>()
-    fun likeAdd1(thumbnail_url:String,title:String) {
+    fun likeAdd1(thumbnail_url: String, title: String) {
         viewModelScope.launch {
             val login = getLogin()
-            likeLIst.add(Item(thumbnail_url,title, hasNext = true))
+            likeLIst.add(Item(thumbnail_url, title, hasNext = true))
             Log.d("LikeAdd", "Item added to likeList: thumbnail_url=$thumbnail_url, title=$title")
         }
     }
-    fun likeAdd(thumbnail_url:String,title:String) {
+
+    fun likeAdd(thumbnail_url: String, title: String) {
         viewModelScope.launch {
             val login = getLogin()
-            likeRepository.like(login,thumbnail_url,title)
+            likeRepository.like(login, thumbnail_url, title)
         }
     }
 
@@ -46,15 +52,10 @@ class RutubeRetrofitViewModel(private val retrofitRepository: Top20Repository, p
             val login = getLogin()
             _state1.value = login!!
             val response = retrofitRepository.getTop20Videos()
-            val body = response.body()
-            if (body != null) {
-                val videos = body.results.map {
-                    Item(it.thumbnail_url, it.title, body.has_next)
-                }
-                _state.value = videos
-            }
+            _state.value = response
         }
     }
+
     suspend fun getLogin(): String {
         return authRepository.giveLogin()!!
     }
