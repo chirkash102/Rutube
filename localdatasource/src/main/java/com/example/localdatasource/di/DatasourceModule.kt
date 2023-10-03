@@ -11,7 +11,7 @@ val datasourceModule = module {
     single<AppDataBase> {
         Room.databaseBuilder(get(), AppDataBase::class.java, "RutubeDataBase").build()
     }
-        single<MembersDao> {
+    single<MembersDao> {
         val dataBase = get<AppDataBase>()
         dataBase.getDao()
     }

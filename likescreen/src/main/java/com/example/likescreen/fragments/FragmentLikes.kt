@@ -65,8 +65,14 @@ class FragmentLikes : Fragment() {
     ) = ComposeView(requireContext()).apply {
         setContent {
             val videoState = viewModel.state.collectAsState()
+            val loginTexst = viewModel.state1.collectAsState()
             RutubeTheme {
-                LikeScreen(viewModel = viewModel , onNavigateTop = { callBack?.navigateToTopVideosFromLikeScreen() }, rutubeList = videoState.value , topbar = "test")
+                LikeScreen(
+                    viewModel = viewModel,
+                    onNavigateTop = { callBack?.navigateToTopVideosFromLikeScreen() },
+                    rutubeList = videoState.value,
+                    topbar = loginTexst.value
+                )
             }
         }
     }
@@ -91,7 +97,7 @@ fun LikeScreen(
     viewModel: LikeViewModel,
     onNavigateTop: () -> Unit,
     onNavigateLIke: () -> Unit = { },
-    topbar:String,
+    topbar: String,
     rutubeList: List<Item>
 ) {
     Scaffold(
@@ -113,7 +119,6 @@ fun LikeScreen(
         )
 
 
-
 //        NoLikes(
 //            modifier = modifier
 //                .padding(it)
@@ -126,6 +131,7 @@ fun LikeScreen(
 interface LikeScreenNavigation {
     fun navigateToTopVideosFromLikeScreen()
 }
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun LikeRecycler(
@@ -147,7 +153,7 @@ fun LikeRecycler(
     ) {
         LazyColumn(contentPadding = it) {
             items(rutubeList) {
-             LikeItem(data = it, viewModel)
+                LikeItem(data = it, viewModel)
 
             }
         }
@@ -156,7 +162,7 @@ fun LikeRecycler(
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun LikeItem(data:Item, viewModel: LikeViewModel) {
+fun LikeItem(data: Item, viewModel: LikeViewModel) {
     var expanded by remember { mutableStateOf(false) }
     var isLiked by remember { mutableStateOf(false) }
     Card(
@@ -180,10 +186,18 @@ fun LikeItem(data:Item, viewModel: LikeViewModel) {
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
-            Row (modifier = Modifier
-                .fillMaxWidth()) {
-                VideoButton(modifier = Modifier.weight(1f), expanded = expanded, onClick = { expanded = !expanded })
-                LikeButton(modifier = Modifier.weight(1f), isLiked = isLiked, onClick = { isLiked = !isLiked })
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                VideoButton(
+                    modifier = Modifier.weight(1f),
+                    expanded = expanded,
+                    onClick = { expanded = !expanded })
+                LikeButton(
+                    modifier = Modifier.weight(1f),
+                    isLiked = isLiked,
+                    onClick = { isLiked = !isLiked })
             }
             if (expanded) {
                 Text(
@@ -191,8 +205,8 @@ fun LikeItem(data:Item, viewModel: LikeViewModel) {
                     text = data.text, fontFamily = FontFamily.Cursive, fontSize = 24.sp,
                 )
             }
-            if (isLiked){
-               // viewModel.likeAdd(data.image, data.text)
+            if (isLiked) {
+                // viewModel.likeAdd(data.image, data.text)
             }
         }
     }
