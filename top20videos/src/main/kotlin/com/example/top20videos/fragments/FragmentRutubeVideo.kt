@@ -24,7 +24,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
@@ -115,7 +114,7 @@ fun Recycler(
 fun RutubeItem(data: Item, viewModel: RutubeRetrofitViewModel) {
     var expanded by remember { mutableStateOf(false) }
     var isLiked by remember { mutableStateOf(false) }
-    var isLiked2 by remember { mutableStateOf(false) }
+    var aaaa by remember { mutableStateOf(data.isLiked) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -140,7 +139,8 @@ fun RutubeItem(data: Item, viewModel: RutubeRetrofitViewModel) {
             Row (modifier = Modifier
                 .fillMaxWidth()) {
                 VideoButton(modifier = Modifier.weight(1f), expanded = expanded, onClick = { expanded = !expanded })
-                LikeButton(modifier = Modifier.weight(1f), isLiked = isLiked, onClick = { isLiked = !isLiked })
+                LikeButton(modifier = Modifier.weight(1f), isLiked = aaaa, onClick = { aaaa = !aaaa
+                isLiked = true})
             }
             }
             if (expanded) {
@@ -152,7 +152,6 @@ fun RutubeItem(data: Item, viewModel: RutubeRetrofitViewModel) {
             }
         if (isLiked){
             viewModel.likeAdd(data.image, data.text)
-            isLiked = false
 
         }
     }
