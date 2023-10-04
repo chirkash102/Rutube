@@ -11,7 +11,10 @@ class LikeRepositoryImpl(private val datasource: LikeDatasource) : LikeRepositor
     }
 
     override suspend fun like(login: String, thumbnailUrl: String, title: String) {
-        datasource.like(login, thumbnailUrl, title)
+        if (datasource.isLiked(login,thumbnailUrl)){
+            datasource.delete(login,thumbnailUrl,title)
+        } else
+        datasource.insert(login, thumbnailUrl, title)
     }
 
 
