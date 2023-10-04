@@ -115,6 +115,7 @@ fun Recycler(
 fun RutubeItem(data: Item, viewModel: RutubeRetrofitViewModel) {
     var expanded by remember { mutableStateOf(false) }
     var isLiked by remember { mutableStateOf(false) }
+    var isLiked2 by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -148,10 +149,10 @@ fun RutubeItem(data: Item, viewModel: RutubeRetrofitViewModel) {
                     text = data.text, fontFamily = FontFamily.Cursive, fontSize = 24.sp,
 
                 )
-                isLiked = false
             }
         if (isLiked){
             viewModel.likeAdd(data.image, data.text)
+            isLiked = false
 
         }
     }

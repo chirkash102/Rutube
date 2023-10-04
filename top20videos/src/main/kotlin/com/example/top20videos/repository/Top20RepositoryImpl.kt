@@ -10,7 +10,7 @@ class Top20RepositoryImpl(private val RemoteTop20DataSource: Top20DataSource) : 
         val body = RemoteTop20DataSource.getTop20Videos()
         if (body != null) {
             return body.results.map {
-                Item(it.thumbnail_url, it.title, true)
+                Item(it.thumbnail_url, it.title)
             }
         } else return emptyList()
     }

@@ -26,7 +26,6 @@ class RutubeRetrofitViewModel(
         getVideos()
     }
 
-
     fun likeAdd(thumbnail_url: String, title: String) {
         viewModelScope.launch {
             val login = getLogin()

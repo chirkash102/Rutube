@@ -10,12 +10,12 @@ class LocalDatasource(private val dao: LikeDao) : LikeDatasource {
     }
 
     override suspend fun like(login: String, thumbnailUrl: String, title: String) {
-       dao.insert(LikeVideo(login, thumbnailUrl, title))
+        dao.insert(LikeVideo(login, thumbnailUrl, title))
     }
 }
 
 
-class RemoteDataSourese : LikeDatasource {
+class RemoteDataSourсe : LikeDatasource {
     override suspend fun giveLikeVideos(login: String): List<LikeVideo> {
         TODO("Not yet implemented")
     }

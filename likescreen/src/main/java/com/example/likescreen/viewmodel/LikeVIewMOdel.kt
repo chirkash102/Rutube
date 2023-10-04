@@ -10,18 +10,23 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 
-class LikeViewModel(private val authRepository: RutubeRepository, private val likeRepository: LikeRepository) : ViewModel() {
+class LikeViewModel(
+    private val authRepository: RutubeRepository,
+    private val likeRepository: LikeRepository
+) : ViewModel() {
     private val _state = MutableStateFlow(emptyList<Item>())
     val state = _state.asStateFlow()
     private val _state1 = MutableStateFlow(String())
     val state1 = _state1.asStateFlow()
-init {
-    getVideos()
-}
+
+    init {
+        getVideos()
+    }
+
     fun getVideos() {
         viewModelScope.launch {
             val login = authRepository.giveLogin()!!
-        val videos =likeRepository.giveLikeVideos(login)
+            val videos = likeRepository.giveLikeVideos(login)
             _state.value = videos
             _state1.value = login
         }
