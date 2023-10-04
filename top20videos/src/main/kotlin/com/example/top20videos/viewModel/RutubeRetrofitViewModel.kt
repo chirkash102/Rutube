@@ -37,11 +37,22 @@ class RutubeRetrofitViewModel(
         viewModelScope.launch {
             val login = getLogin()
             _state1.value = login!!
+            val videos = likeRepository.giveLikeVideos(login)
             val response = retrofitRepository.getTop20Videos()
-            _state.value = response
+
+            _state.value = isLikedVideos(response,videos)
         }
     }
 
+    fun isLikedVideos (a:List<Item>, b: List<com.example.likescreen.datamodel.Item>):List<Item>{
+        for (item in a){
+            val liked = b.find { it.image == item.image }
+            if (liked!=null){
+                item.isLiked = true
+            }
+        }
+        return a
+    }
     suspend fun getLogin(): String {
         return authRepository.giveLogin()!!
     }
