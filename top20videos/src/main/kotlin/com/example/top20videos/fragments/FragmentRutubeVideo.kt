@@ -3,6 +3,7 @@ package com.example.top20videos.fragments
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.animation.animateContentSize
@@ -58,7 +59,7 @@ class FragmentRutubeVideo : Fragment() {
     ) = ComposeView(requireContext()).apply {
         setContent {
             val loginTexst = viewModel.state1.collectAsState()
-            val videoState = viewModel.state.collectAsState()
+            val videoState = viewModel.viewState.collectAsState()// мой стейт
             RutubeTheme {
                 Recycler(
                     viewModel = viewModel,
@@ -90,7 +91,7 @@ fun Recycler(
     onNavigateLIke: () -> Unit,
     rutubeList: List<Item>
 ) {
-
+    Log.e("AAA",rutubeList.toString())
     Scaffold(
         topBar = { RutubeTopBar(textLogin = logintext) },
         bottomBar = {
@@ -113,8 +114,6 @@ fun Recycler(
 @Composable
 fun RutubeItem(data: Item, viewModel: RutubeRetrofitViewModel) {
     var expanded by remember { mutableStateOf(false) }
-    var isLiked by remember { mutableStateOf(false) }
-    var aaaa by remember { mutableStateOf(data.isLiked) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -136,23 +135,29 @@ fun RutubeItem(data: Item, viewModel: RutubeRetrofitViewModel) {
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
-            Row (modifier = Modifier
-                .fillMaxWidth()) {
-                VideoButton(modifier = Modifier.weight(1f), expanded = expanded, onClick = { expanded = !expanded })
-                LikeButton(modifier = Modifier.weight(1f), isLiked = aaaa, onClick = { aaaa = !aaaa
-                isLiked = true})
-            }
-            }
-            if (expanded) {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = data.text, fontFamily = FontFamily.Cursive, fontSize = 24.sp,
-
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                VideoButton(
+                    modifier = Modifier.weight(1f),
+                    expanded = expanded,
+                    onClick = { expanded = !expanded })
+                LikeButton(
+                    modifier = Modifier.weight(1f),
+                    isLiked = data.isLiked,
+                    onClick = {
+                        viewModel.likeAdd(data.image, data.text)
+                    }
                 )
             }
-        if (isLiked){
-            viewModel.likeAdd(data.image, data.text)
+        }
+        if (expanded) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = data.text, fontFamily = FontFamily.Cursive, fontSize = 24.sp,
 
+                )
         }
     }
 }

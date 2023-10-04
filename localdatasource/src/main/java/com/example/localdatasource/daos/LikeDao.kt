@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import com.example.localdatasource.entity.LikeVideo
 import com.example.localdatasource.entity.RutubeMembers
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface LikeDao {
@@ -15,8 +16,11 @@ interface LikeDao {
     @Delete
     suspend fun delete(unLikeVideo: LikeVideo)
 
+//    @Query("SELECT * FROM LikeVideo Where login is :login")
+//    suspend fun getLikedVideos(login: String): List<LikeVideo>
+
     @Query("SELECT * FROM LikeVideo Where login is :login")
-    suspend fun getLikedVideos(login: String): List<LikeVideo>
+    fun getLikedVideosFlow(login: String): Flow<List<LikeVideo>>
     @Query("SELECT * FROM LikeVideo Where login is :login  AND  thumbnailUrl= :url")
     suspend fun isLiked(login: String, url:String): List<LikeVideo>
 }

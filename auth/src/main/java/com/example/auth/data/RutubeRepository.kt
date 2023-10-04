@@ -27,7 +27,7 @@ class RutubeAuthRepositoryImpl(private val dataSource: AuthDatasource) : RutubeR
 
     }
 
-    override suspend fun giveLogin(): String?{
+    override  fun giveLogin(): String?{
         return dataSource.giveLogin()
     }
 }
@@ -36,5 +36,5 @@ interface RutubeRepository {
     suspend fun signUp(login: String, pass: String): com.example.localdatasource.entity.RutubeMembers?
     suspend fun signIn(login: String, pass: String): com.example.localdatasource.entity.RutubeMembers?
     suspend fun delete(login: String, pass: String): Boolean
-    suspend fun giveLogin():String?
+     fun giveLogin():String?
 }

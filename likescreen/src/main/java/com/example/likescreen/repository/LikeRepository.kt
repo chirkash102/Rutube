@@ -1,14 +1,19 @@
 package com.example.likescreen.repository
 
+import android.annotation.SuppressLint
 import com.example.likescreen.datamodel.Item
 import com.example.likescreen.datasource.LikeDatasource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 
 class LikeRepositoryImpl(private val datasource: LikeDatasource) : LikeRepository {
 
-    override suspend fun giveLikeVideos(login: String): List<Item> {
-        return datasource.giveLikeVideos(login).map { Item(it.thumbnailUrl, it.title) }
+    override  fun giveLikeVideos(login: String): Flow<List<Item>> {
+        return datasource.giveLikeVideos(login).map {it.map {Item(it.thumbnailUrl, it.title)  } }
     }
+
+
 
     override suspend fun like(login: String, thumbnailUrl: String, title: String) {
         if (datasource.isLiked(login,thumbnailUrl)){
@@ -23,7 +28,7 @@ class LikeRepositoryImpl(private val datasource: LikeDatasource) : LikeRepositor
 
 interface LikeRepository {
 
-    suspend fun giveLikeVideos(login: String): List<Item>
+  fun giveLikeVideos(login: String): Flow<List<Item>>
     suspend fun like(
         login: String,
         thumbnailUrl: String,

@@ -30,7 +30,7 @@ class LocalAuthDatasource(private val membersDao: MembersDao):AuthDatasource {
         } else false
     }
 
-    override suspend fun giveLogin(): String? {
+    override  fun giveLogin(): String? {
         return authAcc
     }
 }
@@ -40,6 +40,6 @@ interface AuthDatasource {
     suspend fun signUp(login: String, pass: String): com.example.localdatasource.entity.RutubeMembers?
     suspend fun signIn(login: String, pass: String): com.example.localdatasource.entity.RutubeMembers?
     suspend fun delete(login: String, pass: String): Boolean
-    suspend fun giveLogin():String?
+     fun giveLogin():String?
 
 }

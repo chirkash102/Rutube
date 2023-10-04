@@ -7,6 +7,8 @@ import com.example.likescreen.datamodel.Item
 import com.example.likescreen.repository.LikeRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 
@@ -20,16 +22,19 @@ class LikeViewModel(
     val state1 = _state1.asStateFlow()
 
     init {
-        getVideos()
+        val login = authRepository.giveLogin()!!
+        likeRepository.giveLikeVideos(login)
+            .onEach { _state.value = it }
+            .launchIn(viewModelScope)
     }
 
-    fun getVideos() {
-        viewModelScope.launch {
-            val login = authRepository.giveLogin()!!
-            val videos = likeRepository.giveLikeVideos(login)
-            _state.value = videos
-            _state1.value = login
-        }
-    }
+//    fun getVideos() {
+//        viewModelScope.launch {
+//            val login = authRepository.giveLogin()!!
+//            val videos = likeRepository.giveLikeVideos(login)
+//            _state.value = videos
+//            _state1.value = login
+//        }
+//    }
 
 }
