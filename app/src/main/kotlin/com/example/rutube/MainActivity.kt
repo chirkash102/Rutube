@@ -39,6 +39,7 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeRegistrationNa
     }
 
     override fun navigateToTopVideosFromLikeScreen() {
+
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, FragmentRutubeVideo())
@@ -49,6 +50,13 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeRegistrationNa
 
 fun Fragment.transaction(fragment: Fragment) {
     parentFragmentManager
+        .beginTransaction()
+        .replace(R.id.container, fragment)
+        .addToBackStack(fragment::javaClass.name).commit()
+}
+
+fun FragmentActivity.transaction(fragment: Fragment) {
+    supportFragmentManager
         .beginTransaction()
         .replace(R.id.container, fragment)
         .addToBackStack(fragment::javaClass.name).commit()
