@@ -25,16 +25,9 @@ class LikeViewModel(
         val login = authRepository.giveLogin()!!
         likeRepository.giveLikeVideos(login)
             .onEach { _state.value = it }
+            // он ич может провести операци над каждым элементом ничего не возвращая
             .launchIn(viewModelScope)
+        // скоуп привязана ку жизненному циклу вью модели
     }
-
-//    fun getVideos() {
-//        viewModelScope.launch {
-//            val login = authRepository.giveLogin()!!
-//            val videos = likeRepository.giveLikeVideos(login)
-//            _state.value = videos
-//            _state1.value = login
-//        }
-//    }
 
 }

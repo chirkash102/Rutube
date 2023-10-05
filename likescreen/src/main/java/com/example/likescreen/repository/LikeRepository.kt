@@ -11,6 +11,8 @@ class LikeRepositoryImpl(private val datasource: LikeDatasource) : LikeRepositor
 
     override  fun giveLikeVideos(login: String): Flow<List<Item>> {
         return datasource.giveLikeVideos(login).map {it.map {Item(it.thumbnailUrl, it.title)  } }
+        // мапинг нужен чтоб преобразовать список из бд к списку локального дата  класа
+        // первым мап тут относитсся ко флоу (таму меня лист) второй мап мапит элементы листа
     }
 
 

@@ -30,6 +30,7 @@ class RutubeRetrofitViewModel(
         flow { emit(retrofitRepository.getTop20Videos()) }// емит - делает 1 событие просмотр
             // комбайн соединяет 2 флоу 1 и 2 -- так можно обернут ьчто угодно
             .combine(likeRepository.giveLikeVideos(getLogin())) { top20, likedVideos ->
+                // даю рандомные названи и могу как угодно срастить 2 флоу
                 isLikedVideos(top20, likedVideos)
             }
             .stateIn(
@@ -46,7 +47,7 @@ class RutubeRetrofitViewModel(
     }
 
     fun isLikedVideos(a: List<Item>, b: List<com.example.likescreen.datamodel.Item>): List<Item> {
-        return a.map { item -> item.copy(isLiked = b.find { it.image == item.image } != null) }
+        return a.map { item -> item.copy(isLiked = b.find { it.image == item.image } != null) }// копи применяем для того чтобы модно было перезаписать какой -то дата -элемент
 
     }
 
