@@ -108,21 +108,20 @@ fun LikeScreen(
             )
 
         }) {
-        if (rutubeList.isEmpty()){
+        if (rutubeList.isEmpty()) {
             NoLikes(
                 modifier = modifier
                     .padding(it)
                     .fillMaxSize()
             )
-        }else
-        LikeRecycler(
-            logintext = topbar,
-            viewModel = viewModel,
-            onNavigateTop = { /*TODO*/ },
-            onNavigateLIke = { /*TODO*/ },
-            rutubeList = rutubeList
-        )
-
+        } else
+            LikeRecycler(
+                logintext = topbar,
+                viewModel = viewModel,
+                onNavigateTop = { /*TODO*/ },
+                onNavigateLIke = { /*TODO*/ },
+                rutubeList = rutubeList
+            )
 
     }
 }
