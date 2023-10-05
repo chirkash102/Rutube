@@ -1,19 +1,16 @@
 package com.example.top20videos.viewModel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.auth.data.RutubeRepository
 import com.example.likescreen.repository.LikeRepository
-import com.example.top20videos.datamodel.Item
+import com.example.uikit.data.Item
 import com.example.top20videos.repository.Top20Repository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -46,7 +43,7 @@ class RutubeRetrofitViewModel(
         }
     }
 
-    fun isLikedVideos(a: List<Item>, b: List<com.example.likescreen.datamodel.Item>): List<Item> {
+    fun isLikedVideos(a: List<Item>, b: List<Item>): List<Item> {
         return a.map { item -> item.copy(isLiked = b.find { it.image == item.image } != null) }// копи применяем для того чтобы модно было перезаписать какой -то дата -элемент
 
     }

@@ -11,7 +11,6 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -32,21 +31,19 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.auth.R
+import com.example.likescreen.viewmodel.LikeViewModel
 import com.example.uikit.LikeButton
 import com.example.uikit.RutubeBottomBar
 import com.example.uikit.RutubeTopBar
 import com.example.uikit.VideoButton
+import com.example.uikit.data.Item
 import com.example.uikit.theme.RutubeTheme
-
-import com.example.likescreen.datamodel.Item
-import com.example.likescreen.viewmodel.LikeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentLikes : Fragment() {
@@ -164,7 +161,6 @@ fun LikeRecycler(
 @Composable
 fun LikeItem(data: Item, viewModel: LikeViewModel) {
     var expanded by remember { mutableStateOf(false) }
-    var isLiked by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -193,11 +189,13 @@ fun LikeItem(data: Item, viewModel: LikeViewModel) {
                 VideoButton(
                     modifier = Modifier.weight(1f),
                     expanded = expanded,
-                    onClick = { expanded = !expanded })
+                    onClick = { expanded = !expanded }
+                )
                 LikeButton(
                     modifier = Modifier.weight(1f),
-                    isLiked = isLiked,
-                    onClick = { isLiked = !isLiked })
+                    isLiked = data.isLiked,
+                    onClick = { viewModel.disLike(data.image, data.text) }
+                )
             }
             if (expanded) {
                 Text(
@@ -205,9 +203,7 @@ fun LikeItem(data: Item, viewModel: LikeViewModel) {
                     text = data.text, fontFamily = FontFamily.Cursive, fontSize = 24.sp,
                 )
             }
-            if (isLiked) {
-                // viewModel.likeAdd(data.image, data.text)
-            }
+
         }
     }
 }

@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.top20videos.datamodel.Item
+import com.example.uikit.data.Item
 import com.example.top20videos.viewModel.RutubeRetrofitViewModel
 import com.example.uikit.LikeButton
 import com.example.uikit.RutubeBottomBar
