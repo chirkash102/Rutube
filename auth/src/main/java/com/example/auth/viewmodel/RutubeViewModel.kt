@@ -29,8 +29,8 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
         viewModelScope.launch {
             val result = repository.signUp(login, pass)
             if (result != null) {
-                eventsFlow.emit(com.example.localdatasource.entity.ViewEvents.SuccessRegistration(result))
-            } else eventsFlow.emit(com.example.localdatasource.entity.ViewEvents.Error("Пользователь уже существует, быдло"))
+                eventsFlow.emit(ViewEvents.SuccessRegistration(result))
+            } else eventsFlow.emit(ViewEvents.Error("Пользователь уже существует, быдло"))
         }
     }
 
