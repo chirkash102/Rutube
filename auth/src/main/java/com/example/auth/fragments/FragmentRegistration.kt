@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.example.auth.R
 import com.example.auth.viewmodel.RutubeViewModel
+import com.example.uikit.RutubeBottomBar
 import com.example.uikit.RutubeTopBar
 import com.example.uikit.theme.RutubeTheme
 import com.example.uikit.utils.collectAsEvent
@@ -151,6 +152,12 @@ fun ColumnReg(
 ) {
     Scaffold(
         topBar = { RutubeTopBar() },
+        bottomBar = {
+            RutubeBottomBar(
+                onNavigateTop = { onNavigateTop.invoke() },
+                { onNavigateLike.invoke() }, isTopScreenPick = true
+            )
+        }
     ) { paddings ->
         Column(modifier = modifier.padding(paddings)) {
             Card(

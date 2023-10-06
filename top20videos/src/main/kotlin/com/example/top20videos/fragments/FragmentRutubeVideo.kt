@@ -91,7 +91,6 @@ fun Recycler(
     onNavigateLIke: () -> Unit,
     rutubeList: List<Item>
 ) {
-    Log.e("AAA", rutubeList.toString())
     Scaffold(
         topBar = { RutubeTopBar() },
         bottomBar = {
