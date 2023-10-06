@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,6 +18,8 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import com.example.auth.R
 import com.example.auth.viewmodel.RutubeViewModel
+import com.example.uikit.RutubeBottomBar
+import com.example.uikit.RutubeTopBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentProfile : Fragment() {
@@ -37,6 +40,10 @@ class FragmentProfile : Fragment() {
         setContent {
             var userProfile = viewModel.stateLogin.value
 
+            Profile(onNavigateTop = { callBack?.navigateToTopVideosFromProfile() },
+                onNavigateLike = { callBack?.navigateToLikeVideosFromProfile() }) {
+
+            }
         }
 
     }
@@ -53,18 +60,41 @@ class FragmentProfile : Fragment() {
     }
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun Profile(modifier: Modifier = Modifier) {
-    Box(contentAlignment = Alignment.Center, modifier = modifier) {
-        Text(modifier = Modifier, fontSize = 32.sp, text = stringResource(R.string.zero_like_video))
-        Button(onClick = { /*TODO*/ }) {
+fun Profile(
+    modifier: Modifier = Modifier,
+    onNavigateTop: () -> Unit,
+    onNavigateLike: () -> Unit,
+    onNavigateProfile: () -> Unit,
 
-        }
-        Button(onClick = { /*TODO*/ }) {
 
-        }
-        Button(onClick = { /*TODO*/ }) {
+    ) {
+    Scaffold(
+        topBar = { RutubeTopBar() },
+        bottomBar = {
+            RutubeBottomBar(
+                onNavigateTop = { onNavigateTop.invoke() },
+                onNavigateLIke = { onNavigateLike.invoke() },
+                onNavigateProfile = {},
+            )
+        }) {
+        Box(contentAlignment = Alignment.Center, modifier = modifier) {
+            Text(
+                modifier = Modifier,
+                fontSize = 32.sp,
+                text = stringResource(R.string.zero_like_video)
+            )
+            Button(onClick = { /*TODO*/ }) {
 
+            }
+            Button(onClick = { /*TODO*/ }) {
+
+            }
+            Button(onClick = { /*TODO*/ }) {
+
+            }
         }
     }
+
 }

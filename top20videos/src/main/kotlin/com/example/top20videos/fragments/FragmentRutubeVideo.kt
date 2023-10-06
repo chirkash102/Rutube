@@ -65,6 +65,8 @@ class FragmentRutubeVideo : Fragment() {
 
                     onNavigateLIke = { callBack?.navigateFromTop20ToLikeScreen() },
                     onNavigateTop = { },
+                    onNavigateProfile = {callBack?.navigateFromTop20ToProfile()},
+                    onNaigateRegistration = {callBack?.navigateFromTop20ToRegistration()},
                     rutubeList = videoState.value
                 )
             }
@@ -89,6 +91,8 @@ fun Recycler(
     viewModel: RutubeRetrofitViewModel,
     onNavigateTop: () -> Unit,
     onNavigateLIke: () -> Unit,
+    onNavigateProfile: () -> Unit,
+    onNaigateRegistration: ()->Unit,
     rutubeList: List<Item>
 ) {
     Scaffold(
@@ -96,7 +100,8 @@ fun Recycler(
         bottomBar = {
             RutubeBottomBar(
                 onNavigateTop = { onNavigateTop.invoke() },
-                { onNavigateLIke.invoke() },
+                onNavigateLIke = { onNavigateLIke.invoke() },
+                onNavigateProfile = {onNavigateProfile.invoke()},
             )
         }
     ) {

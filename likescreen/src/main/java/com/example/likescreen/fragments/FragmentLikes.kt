@@ -68,6 +68,9 @@ class FragmentLikes : Fragment() {
                 LikeScreen(
                     viewModel = viewModel,
                     onNavigateTop = { callBack?.navigateToTopVideosFromLikeScreen() },
+                    onNavigateProfile = {callBack?.navigateToProfileFromLikeScreen()},
+                    onNaigateRegistration = {callBack?.navigateToRegistrationFromLikeScreen()},
+
                     rutubeList = videoState.value,
                     topbar = loginTexst.value
                 )
@@ -95,6 +98,8 @@ fun LikeScreen(
     viewModel: LikeViewModel,
     onNavigateTop: () -> Unit,
     onNavigateLIke: () -> Unit = { },
+    onNavigateProfile: () -> Unit,
+    onNaigateRegistration: ()->Unit,
     topbar: String,
     rutubeList: List<Item>
 ) {
@@ -104,7 +109,7 @@ fun LikeScreen(
             RutubeBottomBar(
                 onNavigateTop = { onNavigateTop.invoke() },
                 onNavigateLIke = { onNavigateLIke.invoke() },
-                onNavigateProfile = {},
+                onNavigateProfile = {onNavigateProfile.invoke()},
             )
 
         }) {
