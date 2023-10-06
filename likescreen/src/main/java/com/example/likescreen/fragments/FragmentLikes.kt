@@ -104,6 +104,7 @@ fun LikeScreen(
             RutubeBottomBar(
                 onNavigateTop = { onNavigateTop.invoke() },
                 onNavigateLIke = { onNavigateLIke.invoke() },
+                onNavigateProfile = {},
                 isTopScreenPick = false
             )
 

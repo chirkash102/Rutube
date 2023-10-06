@@ -58,9 +58,9 @@ fun RutubeTopBar(
 
 @Composable
 fun RutubeBottomBar(
-    onNavigateTop: () -> Unit,
-    onNavigateLIke: () -> Unit,
-    onNavigateProfile: () -> Unit,
+    onNavigateTop: () -> Unit = {},
+    onNavigateLIke: () -> Unit = {},
+    onNavigateProfile: () -> Unit = {},
     isTopScreenPick: Boolean
 ) {
     BottomAppBar(
