@@ -96,7 +96,7 @@ fun Recycler(
         bottomBar = {
             RutubeBottomBar(
                 onNavigateTop = { onNavigateTop.invoke() },
-                { onNavigateLIke.invoke() }, isTopScreenPick = true
+                { onNavigateLIke.invoke() },
             )
         }
     ) {

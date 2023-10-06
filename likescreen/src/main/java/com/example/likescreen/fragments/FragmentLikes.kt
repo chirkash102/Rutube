@@ -105,7 +105,6 @@ fun LikeScreen(
                 onNavigateTop = { onNavigateTop.invoke() },
                 onNavigateLIke = { onNavigateLIke.invoke() },
                 onNavigateProfile = {},
-                isTopScreenPick = false
             )
 
         }) {
@@ -149,7 +148,7 @@ fun LikeRecycler(
         bottomBar = {
             RutubeBottomBar(
                 onNavigateTop = { onNavigateTop.invoke() },
-                { onNavigateLIke.invoke() }, isTopScreenPick = true
+                { onNavigateLIke.invoke() },
             )
         }
     ) {

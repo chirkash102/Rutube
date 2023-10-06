@@ -61,7 +61,6 @@ fun RutubeBottomBar(
     onNavigateTop: () -> Unit = {},
     onNavigateLIke: () -> Unit = {},
     onNavigateProfile: () -> Unit = {},
-    isTopScreenPick: Boolean
 ) {
     BottomAppBar(
         containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -92,7 +91,7 @@ fun RutubeBottomBar(
                 modifier = Modifier
                     .fillMaxSize()
                     .weight(1f)
-                    .clickable { onNavigateLIke.invoke() },
+                    .clickable { onNavigateProfile.invoke() },
                 painter = painterResource(id = R.drawable.profile_icon),
                 contentDescription = null
             )

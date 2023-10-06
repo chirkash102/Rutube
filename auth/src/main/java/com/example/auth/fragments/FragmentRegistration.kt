@@ -67,7 +67,7 @@ class FragmentRegistration : Fragment() {
                         isLoading = false
                         when (event) {
                             is com.example.localdatasource.entity.ViewEvents.SuccessAuth -> {
-                                callBack?.navigateToTopVideosFromRegistration()
+                                callBack?.navigateToProfileFromRegistration()
                             }
 
                             is com.example.localdatasource.entity.ViewEvents.SuccessRegistration -> {
@@ -100,7 +100,8 @@ class FragmentRegistration : Fragment() {
 
                     ColumnReg(
                         onNavigateLike = { callBack?.navigateToTopVideosFromRegistration() },
-                        onNavigateTop = { },
+                        onNavigateTop = { callBack?.navigateToTopVideosFromRegistration() },
+                        onNavigateProfile = {},
                         isLoading = isLoading,
                         loginState = loginState,
                         onLoginStateChanges = { loginState = it },
@@ -141,6 +142,7 @@ fun ColumnReg(
     modifier: Modifier = Modifier,
     onNavigateTop: () -> Unit,
     onNavigateLike: () -> Unit,
+    onNavigateProfile: () -> Unit,
     isLoading: Boolean,
     loginState: String,
     onLoginStateChanges: (String) -> Unit,
@@ -155,7 +157,8 @@ fun ColumnReg(
         bottomBar = {
             RutubeBottomBar(
                 onNavigateTop = { onNavigateTop.invoke() },
-                { onNavigateLike.invoke() }, isTopScreenPick = true
+                onNavigateLIke =  { onNavigateLike.invoke() },
+                onNavigateProfile = {onNavigateProfile.invoke()}
             )
         }
     ) { paddings ->
