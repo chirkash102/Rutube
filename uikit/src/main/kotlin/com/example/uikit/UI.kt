@@ -60,6 +60,7 @@ fun RutubeTopBar(
 fun RutubeBottomBar(
     onNavigateTop: () -> Unit,
     onNavigateLIke: () -> Unit,
+    onNavigateProfile: () -> Unit,
     isTopScreenPick: Boolean
 ) {
     BottomAppBar(
@@ -85,6 +86,14 @@ fun RutubeBottomBar(
                     .weight(1f)
                     .clickable { onNavigateLIke.invoke() },
                 painter = painterResource(id = R.drawable.heart),
+                contentDescription = null
+            )
+            Image(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(1f)
+                    .clickable { onNavigateLIke.invoke() },
+                painter = painterResource(id = R.drawable.profile_icon),
                 contentDescription = null
             )
 
