@@ -4,9 +4,14 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.example.auth.viewmodel.RutubeViewModel
+import com.example.uikit.theme.RutubeTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentProfile : Fragment() {
@@ -22,7 +27,19 @@ class FragmentProfile : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ) = ComposeView(requireContext()).apply {
-        setContent {}
+        setContent {
+            RutubeTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    var userProfile = viewModel.get
+
+                }
+            }
+
+
+        }
 
     }
     interface RutubeProfileNavigation {

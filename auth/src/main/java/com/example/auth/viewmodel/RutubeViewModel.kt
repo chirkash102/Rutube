@@ -3,6 +3,7 @@ package com.example.auth.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.auth.data.RutubeRepository
+import com.example.localdatasource.di.datasourceModule
 import com.example.localdatasource.entity.ViewEvents
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -41,5 +42,9 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
                 eventsFlow.emit(ViewEvents.SuccessAuth(result))
             } else eventsFlow.emit(ViewEvents.Error("Неверный логин или пароль, лох"))
         }
+        fun giveLogin(login: String, pass: String):String {
+               return repository.giveLogin()!!
+            }
+
     }
 }
