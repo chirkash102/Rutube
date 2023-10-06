@@ -16,35 +16,21 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeRegistrationNa
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, FragmentHome())
-            .addToBackStack(FragmentHome::class.java.name).commit()
+        transaction(FragmentHome())
     }
 
     override fun onLikeClick() {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, FragmentLikes())
-            .addToBackStack(FragmentLikes::class.java.name)
-            .commit()
+        transaction(FragmentLikes())
+
     }
 
     override fun navigateToTopVideosFromRegistration() {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, FragmentRutubeVideo())
-            .addToBackStack(FragmentRutubeVideo::class.java.name)
-            .commit()
+        transaction(FragmentRutubeVideo())
+
     }
 
     override fun navigateToTopVideosFromLikeScreen() {
-
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, FragmentRutubeVideo())
-            .addToBackStack(FragmentRutubeVideo::class.java.name)
-            .commit()
+        transaction(FragmentRutubeVideo())
     }
 }
 
