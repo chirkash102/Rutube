@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
 
-    private val eventsFlow = MutableSharedFlow<com.example.localdatasource.entity.ViewEvents>()
+    private val eventsFlow = MutableSharedFlow<ViewEvents>()
     fun getEventsFlow() = eventsFlow.asSharedFlow()
 
     fun delete(login: String, pass: String) {
@@ -20,8 +20,8 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
             delay(500)
             //need to show loadingAnimation
             if (result) {
-                eventsFlow.emit(com.example.localdatasource.entity.ViewEvents.SuccessDelete(true))
-            } else eventsFlow.emit(com.example.localdatasource.entity.ViewEvents.Error("Пользователя не существует, быдло"))
+                eventsFlow.emit(ViewEvents.SuccessDelete(true))
+            } else eventsFlow.emit(ViewEvents.Error("Пользователя не существует, быдло"))
         }
     }
 
@@ -38,8 +38,8 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
         viewModelScope.launch {
             val result = repository.signIn(login, pass)
             if (result != null) {
-                eventsFlow.emit(com.example.localdatasource.entity.ViewEvents.SuccessAuth(result))
-            } else eventsFlow.emit(com.example.localdatasource.entity.ViewEvents.Error("Неверный логин или пароль, лох"))
+                eventsFlow.emit(ViewEvents.SuccessAuth(result))
+            } else eventsFlow.emit(ViewEvents.Error("Неверный логин или пароль, лох"))
         }
     }
 }

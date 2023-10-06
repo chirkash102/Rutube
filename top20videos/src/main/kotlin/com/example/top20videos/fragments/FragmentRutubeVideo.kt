@@ -58,12 +58,11 @@ class FragmentRutubeVideo : Fragment() {
         savedInstanceState: Bundle?
     ) = ComposeView(requireContext()).apply {
         setContent {
-            val loginTexst = viewModel.state1.collectAsState()
             val videoState = viewModel.viewState.collectAsState()// мой стейт
             RutubeTheme {
                 Recycler(
                     viewModel = viewModel,
-                    logintext = loginTexst.value,
+
                     onNavigateLIke = { callBack?.onLikeClick() },
                     onNavigateTop = { },
                     rutubeList = videoState.value
@@ -85,7 +84,6 @@ interface RutubeVideoScreen {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Recycler(
-    logintext: String,
     viewModel: RutubeRetrofitViewModel,
     onNavigateTop: () -> Unit,
     onNavigateLIke: () -> Unit,
@@ -93,7 +91,7 @@ fun Recycler(
 ) {
     Log.e("AAA",rutubeList.toString())
     Scaffold(
-        topBar = { RutubeTopBar(textLogin = logintext) },
+        topBar = { RutubeTopBar() },
         bottomBar = {
             RutubeBottomBar(
                 onNavigateTop = { onNavigateTop.invoke() },

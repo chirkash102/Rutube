@@ -99,7 +99,7 @@ fun LikeScreen(
     rutubeList: List<Item>
 ) {
     Scaffold(
-        topBar = { RutubeTopBar(textLogin = topbar) },
+        topBar = { RutubeTopBar() },
         bottomBar = {
             RutubeBottomBar(
                 onNavigateTop = { onNavigateTop.invoke() },

@@ -34,7 +34,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.example.auth.R
-import com.example.localdatasource.entity.ViewEvents
 import com.example.auth.viewmodel.RutubeViewModel
 import com.example.uikit.RutubeTopBar
 import com.example.uikit.theme.RutubeTheme
@@ -188,7 +187,7 @@ fun SqlButtons(modifier: Modifier = Modifier, text: String, onClick: () -> Unit)
             }
         }, label = ""
     ) { isSelected ->
-        if (isSelected) 250.dp else 0.dp // Adjust this value to control the horizontal offset
+        if (isSelected) 250.dp else 0.dp
     }
     Card(
         modifier = Modifier
