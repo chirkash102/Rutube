@@ -1,7 +1,7 @@
 package com.example.top20videos.repository
 
-import com.example.uikit.data.Item
 import com.example.top20videos.top20datasource.Top20DataSource
+import com.example.uikit.data.Item
 
 class Top20RepositoryImpl(private val RemoteTop20DataSource: Top20DataSource) : Top20Repository {
     override suspend fun getTop20Videos(): List<Item> {
@@ -14,8 +14,8 @@ class Top20RepositoryImpl(private val RemoteTop20DataSource: Top20DataSource) : 
     }
 }
 
-    interface Top20Repository {
+interface Top20Repository {
 
-        suspend fun getTop20Videos(): List<Item>
+    suspend fun getTop20Videos(): List<Item>
 
-    }
+}

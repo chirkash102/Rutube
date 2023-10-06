@@ -14,7 +14,6 @@ class LikeRepositoryImpl(private val datasource: LikeDatasource) : LikeRepositor
         // первым мап тут относитсся ко флоу (таму меня лист) второй мап мапит элементы листа
     }
 
-
     override suspend fun like(login: String, thumbnailUrl: String, title: String) {
         if (datasource.isLiked(login, thumbnailUrl)) {
             datasource.delete(login, thumbnailUrl, title)
@@ -22,9 +21,7 @@ class LikeRepositoryImpl(private val datasource: LikeDatasource) : LikeRepositor
             datasource.insert(login, thumbnailUrl, title)
     }
 
-
 }
-
 
 interface LikeRepository {
 
@@ -34,5 +31,4 @@ interface LikeRepository {
         thumbnailUrl: String,
         title: String
     )
-
 }

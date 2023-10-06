@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-
 class LikeViewModel(
     private val authRepository: RutubeRepository,
     private val likeRepository: LikeRepository
@@ -21,17 +20,6 @@ class LikeViewModel(
     private val _state1 = MutableStateFlow(String())
     val state1 = _state1.asStateFlow()
 
-
-//    val viewState =
-//        flow<List<Item>> { likeRepository.giveLikeVideos(getLogin()) }// емит - делает 1 событие просмотр
-//
-//            .stateIn(
-//                viewModelScope,
-//                SharingStarted.Eagerly,
-//                emptyList()
-//            ) // превращаю обычгный флоу в стейт
-
-
     init {
         val login = authRepository.giveLogin()!!
         likeRepository.giveLikeVideos(login)
@@ -40,7 +28,6 @@ class LikeViewModel(
             .launchIn(viewModelScope)
         // скоуп привязана ку жизненному циклу вью модели
     }
-
 
     fun disLike(thumbnail_url: String, title: String) {
         viewModelScope.launch {

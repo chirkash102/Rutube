@@ -19,6 +19,7 @@ interface LikeDao {
 
     @Query("SELECT * FROM LikeVideo Where login is :login")
     fun getLikedVideosFlow(login: String): Flow<List<LikeVideo>>
+
     // этот список лайвтайм обновляется потом у тчо обернут в флоу - Например я добавляю еще видос и он оповещает обсерверов о том что список обновился)
     // верни нам флоу и подпишись на изменения
     @Query("SELECT * FROM LikeVideo Where login is :login  AND  thumbnailUrl= :url")

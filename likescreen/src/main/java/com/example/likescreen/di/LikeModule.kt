@@ -13,5 +13,5 @@ val likeModule = module {
 //        val dataBase = get<AppDataBase>()
 //        dataBase.getLikeDao()
 //    }
-    viewModel { LikeViewModel(get(),get()) }
+    viewModel { LikeViewModel(get(), get()) }
 }

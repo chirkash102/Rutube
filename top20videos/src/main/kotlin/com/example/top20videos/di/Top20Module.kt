@@ -17,15 +17,18 @@ import org.koin.dsl.module
 
 val top20module = module {
     single<com.example.localdatasource.database.AppDataBase> {
-        Room.databaseBuilder(get(), com.example.localdatasource.database.AppDataBase::class.java, "RutubeDataBase").build()
+        Room.databaseBuilder(
+            get(),
+            com.example.localdatasource.database.AppDataBase::class.java,
+            "RutubeDataBase"
+        ).build()
     }
     single<RutubeApi> { RutubeRetrofit.rutubeApi }
-    single<LikeDatasource> { LocalDatasource(get ()) }
+    single<LikeDatasource> { LocalDatasource(get()) }
     single<Top20DataSource> { RemoteTop20DataSource(get()) }
     single<Top20Repository> { Top20RepositoryImpl(get()) }
     single<LikeRepository> { LikeRepositoryImpl(get()) }
 
-   // viewModel { RutubeRetrofitViewModel(get())}
     viewModel {
         RutubeRetrofitViewModel(get(), get(), get())
     }
