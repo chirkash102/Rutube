@@ -63,7 +63,7 @@ class FragmentRutubeVideo : Fragment() {
                 Recycler(
                     viewModel = viewModel,
 
-                    onNavigateLIke = { callBack?.onLikeClick() },
+                    onNavigateLIke = { callBack?.navigateFromTop20ToLikeScreen() },
                     onNavigateTop = { },
                     rutubeList = videoState.value
                 )
@@ -78,7 +78,9 @@ class FragmentRutubeVideo : Fragment() {
 }
 
 interface RutubeVideoScreen {
-    fun onLikeClick()
+    fun navigateFromTop20ToLikeScreen()
+    fun navigateFromTop20ToProfile()
+    fun navigateFromTop20ToRegistration()
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

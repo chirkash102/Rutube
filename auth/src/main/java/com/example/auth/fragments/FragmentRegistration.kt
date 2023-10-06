@@ -130,6 +130,8 @@ class FragmentRegistration : Fragment() {
 
 interface RutubeRegistrationNavigation {
     fun navigateToTopVideosFromRegistration()
+    fun navigateToLikeVideosFromRegistration()
+    fun navigateToProfileFromRegistration()
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

@@ -42,7 +42,9 @@ class FragmentProfile : Fragment() {
     }
 
     interface RutubeProfileNavigation {
-        fun navigateToTopVideosFromRegistration()
+        fun navigateToTopVideosFromProfile()
+        fun navigateToLikeVideosFromProfile()
+        fun navigateToRegistrationFromProfile()
     }
 
     override fun onDetach() {

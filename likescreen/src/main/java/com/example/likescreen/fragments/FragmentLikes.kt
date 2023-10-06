@@ -130,6 +130,8 @@ fun LikeScreen(
 
 interface LikeScreenNavigation {
     fun navigateToTopVideosFromLikeScreen()
+    fun navigateToProfileFromLikeScreen()
+    fun navigateToRegistrationFromLikeScreen()
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
