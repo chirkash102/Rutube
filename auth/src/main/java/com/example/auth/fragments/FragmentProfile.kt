@@ -33,7 +33,7 @@ class FragmentProfile : Fragment() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    var userProfile = viewModel.give
+                    var userProfile = viewModel.g
 
                 }
             }

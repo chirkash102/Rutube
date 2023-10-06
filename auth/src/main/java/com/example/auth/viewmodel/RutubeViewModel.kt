@@ -3,17 +3,20 @@ package com.example.auth.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.auth.data.RutubeRepository
-import com.example.localdatasource.di.datasourceModule
 import com.example.localdatasource.entity.ViewEvents
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
 
     private val eventsFlow = MutableSharedFlow<ViewEvents>()
     fun getEventsFlow() = eventsFlow.asSharedFlow()
+    private val _stateLogin = MutableStateFlow(String())
+    val stateLogin = _stateLogin.asStateFlow()
 
     fun delete(login: String, pass: String) {
         viewModelScope.launch {
@@ -42,9 +45,13 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
                 eventsFlow.emit(ViewEvents.SuccessAuth(result))
             } else eventsFlow.emit(ViewEvents.Error("Неверный логин или пароль, лох"))
         }
-        fun giveLogin(login: String, pass: String):String {
-               return repository.giveLogin()!!
+        fun giveLogin(login: String, pass: String) {
+            viewModelScope.launch {
+                val login = repository.giveLogin()
+                if (login != null)
+                    _stateLogin.value = login
             }
+        }
 
     }
 }
