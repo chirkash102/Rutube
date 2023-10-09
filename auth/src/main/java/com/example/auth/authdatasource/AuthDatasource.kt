@@ -16,6 +16,7 @@ class LocalAuthDatasource(private val membersDao: MembersDao) : AuthDatasource {
         return if (membersDao.isAlreadyExist(login) != null) {
             null
         } else {
+            _authFlow.value = login
             membersDao.insert(RutubeMembers(login, pass))
             RutubeMembers(login, pass)
 
@@ -31,6 +32,7 @@ class LocalAuthDatasource(private val membersDao: MembersDao) : AuthDatasource {
 
     override suspend fun delete(login: String, pass: String): Boolean {
         return if (membersDao.isAlreadyExist(login) != null) {
+            _authFlow.value = null
             membersDao.delete(RutubeMembers(login, pass))
             true
         } else false

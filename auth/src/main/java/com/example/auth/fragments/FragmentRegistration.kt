@@ -65,7 +65,7 @@ class FragmentRegistration : Fragment() {
                 ) {
                     var isLoading by remember { mutableStateOf(false) }
                     val login by viewModel.stateLogin.collectAsState()
-                    if (login.isEmpty()) {
+                    if (login == null) {
                         viewModel.getEventsFlow().collectAsEvent { event ->
                             isLoading = false
                             when (event) {
