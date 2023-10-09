@@ -28,7 +28,6 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeRegistrationNa
         transaction(FragmentRegistration())
     }
 
-
     override fun navigateFromTop20ToRegistration() {
         transaction(FragmentRegistration())
     }
@@ -46,7 +45,6 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeRegistrationNa
         transaction(FragmentRegistration())
     }
 
-
     override fun navigateToTopVideosFromLikeScreen() {
         transaction(FragmentRutubeVideo())
     }
@@ -55,12 +53,9 @@ class MainActivity : FragmentActivity(), RutubeVideoScreen, RutubeRegistrationNa
         transaction(FragmentRegistration())
     }
 
-
     override fun navigateToRegistrationFromLikeScreen() {
         transaction(FragmentRegistration())
     }
-
-
 
 }
 
@@ -74,6 +69,6 @@ fun Fragment.transaction(fragment: Fragment) {
 fun FragmentActivity.transaction(fragment: Fragment) {
     supportFragmentManager
         .beginTransaction()
-        .replace(R.id.container, fragment)
+        .add(R.id.container, fragment)
         .addToBackStack(fragment::javaClass.name).commit()
 }
