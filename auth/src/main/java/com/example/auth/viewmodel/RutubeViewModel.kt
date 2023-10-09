@@ -15,8 +15,9 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
 
     private val eventsFlow = MutableSharedFlow<ViewEvents>()
     fun getEventsFlow() = eventsFlow.asSharedFlow()
-    private val _stateLogin = MutableStateFlow("")
-    val stateLogin = _stateLogin.asStateFlow()
+    val stateLogin = repository.getLogin()
+
+
 
     fun delete(login: String, pass: String) {
         viewModelScope.launch {
@@ -47,7 +48,7 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
         }
     }
     fun getLogin(): String {
-        val login = repository.giveLogin().value
+        val login = repository.getLogin().value
         return if (login!= null)
             login
         else ""

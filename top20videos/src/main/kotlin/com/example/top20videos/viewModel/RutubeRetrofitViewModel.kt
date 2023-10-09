@@ -1,15 +1,12 @@
 package com.example.top20videos.viewModel
 
-import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.auth.data.RutubeRepository
 import com.example.likescreen.repository.LikeRepository
 import com.example.top20videos.repository.Top20Repository
 import com.example.uikit.data.Item
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
@@ -21,7 +18,7 @@ class RutubeRetrofitViewModel(
     private val likeRepository: LikeRepository
 ) : ViewModel() {
 
-    val isAuthorizedState = authRepository.giveLogin()
+    val isAuthorizedState = authRepository.getLogin()
     // стейтфлоу от нулабельных строк
 
 
@@ -51,7 +48,7 @@ class RutubeRetrofitViewModel(
     }
 
     fun getLogin(): String {
-        val login = authRepository.giveLogin().value
+        val login = authRepository.getLogin().value
         return if (login!= null)
             login
         else ""

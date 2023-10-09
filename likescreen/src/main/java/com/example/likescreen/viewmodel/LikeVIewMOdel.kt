@@ -21,7 +21,7 @@ class LikeViewModel(
     val state1 = _state1.asStateFlow()
 
     init {
-        val login = authRepository.giveLogin()!!
+        val login = authRepository.getLogin()!!
         likeRepository.giveLikeVideos(getLogin())
             .onEach { _state.value = it }
             // он ич может провести операци над каждым элементом ничего не возвращая
@@ -37,7 +37,7 @@ class LikeViewModel(
     }
 
     fun getLogin(): String {
-        val login = authRepository.giveLogin().value
+        val login = authRepository.getLogin().value
         return if (login!= null)
             login
         else ""

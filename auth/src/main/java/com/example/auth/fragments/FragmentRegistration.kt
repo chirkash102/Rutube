@@ -70,7 +70,6 @@ class FragmentRegistration : Fragment() {
                             isLoading = false
                             when (event) {
                                 is com.example.localdatasource.entity.ViewEvents.SuccessAuth -> {
-                                    callBack?.navigateToProfileFromRegistration()
                                 }
 
                                 is com.example.localdatasource.entity.ViewEvents.SuccessRegistration -> {
