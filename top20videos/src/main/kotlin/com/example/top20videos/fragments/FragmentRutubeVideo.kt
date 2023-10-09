@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -28,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -59,9 +61,11 @@ class FragmentRutubeVideo : Fragment() {
     ) = ComposeView(requireContext()).apply {
         setContent {
             val videoState = viewModel.viewState.collectAsState()// мой стейт
+            val loginState = viewModel.isAuthorizedState.collectAsState()
             RutubeTheme {
                 Recycler(
                     viewModel = viewModel,
+                    isAutorised = loginState.value!=null,
 
                     onNavigateLIke = { callBack?.navigateFromTop20ToLikeScreen() },
                     onNavigateTop = { },
@@ -93,6 +97,7 @@ fun Recycler(
     onNavigateLIke: () -> Unit,
     onNavigateProfile: () -> Unit,
     onNaigateRegistration: ()->Unit,
+    isAutorised:Boolean,
     rutubeList: List<Item>
 ) {
     Scaffold(
@@ -107,7 +112,7 @@ fun Recycler(
     ) {
         LazyColumn(contentPadding = it) {
             items(rutubeList) {
-                RutubeItem(data = it, viewModel)
+                RutubeItem(data = it, viewModel,isAutorised)
 
             }
         }
@@ -116,8 +121,9 @@ fun Recycler(
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun RutubeItem(data: Item, viewModel: RutubeRetrofitViewModel) {
+fun RutubeItem(data: Item, viewModel: RutubeRetrofitViewModel, isAutorised:Boolean) {
     var expanded by remember { mutableStateOf(false) }
+    val context = LocalContext.current
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -150,8 +156,9 @@ fun RutubeItem(data: Item, viewModel: RutubeRetrofitViewModel) {
                 LikeButton(
                     modifier = Modifier.weight(1f),
                     isLiked = data.isLiked,
-                    onClick = {
+                    onClick = {if (isAutorised)
                         viewModel.likeAdd(data.image, data.text)
+                        else Toast.makeText(context, "fuck you", Toast.LENGTH_SHORT).show()
                     }
                 )
             }

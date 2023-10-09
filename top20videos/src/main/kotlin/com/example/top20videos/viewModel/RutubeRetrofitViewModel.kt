@@ -1,5 +1,6 @@
 package com.example.top20videos.viewModel
 
+import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.auth.data.RutubeRepository
@@ -20,8 +21,9 @@ class RutubeRetrofitViewModel(
     private val likeRepository: LikeRepository
 ) : ViewModel() {
 
-    private val _state1 = MutableStateFlow(String())
-    val state1 = _state1.asStateFlow()
+    val isAuthorizedState = authRepository.giveLogin()
+    // стейтфлоу от нулабельных строк
+
 
     val viewState =
         flow { emit(retrofitRepository.getTop20Videos()) }// емит - делает 1 событие просмотр
@@ -49,6 +51,9 @@ class RutubeRetrofitViewModel(
     }
 
     fun getLogin(): String {
-        return authRepository.giveLogin()!!
+        val login = authRepository.giveLogin().value
+        return if (login!= null)
+            login
+        else ""
     }
 }

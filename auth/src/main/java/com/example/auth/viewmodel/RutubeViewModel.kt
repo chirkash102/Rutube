@@ -15,7 +15,7 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
 
     private val eventsFlow = MutableSharedFlow<ViewEvents>()
     fun getEventsFlow() = eventsFlow.asSharedFlow()
-    private val _stateLogin = MutableStateFlow(String())
+    private val _stateLogin = MutableStateFlow("")
     val stateLogin = _stateLogin.asStateFlow()
 
     fun delete(login: String, pass: String) {
@@ -45,13 +45,12 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
                 eventsFlow.emit(ViewEvents.SuccessAuth(result))
             } else eventsFlow.emit(ViewEvents.Error("Неверный логин или пароль, лох"))
         }
-        fun giveLogin(login: String, pass: String) {
-            viewModelScope.launch {
-                val login = repository.giveLogin()
-                if (login != null)
-                    _stateLogin.value = login
-            }
-        }
-
     }
-}
+    fun getLogin(): String {
+        val login = repository.giveLogin().value
+        return if (login!= null)
+            login
+        else ""
+    }
+    }
+

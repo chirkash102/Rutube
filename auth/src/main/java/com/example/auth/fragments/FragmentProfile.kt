@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -22,43 +25,7 @@ import com.example.uikit.RutubeBottomBar
 import com.example.uikit.RutubeTopBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FragmentProfile : Fragment() {
-    private var callBack: RutubeProfileNavigation? = null
-    private val viewModel: RutubeViewModel by viewModel()
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        callBack = (requireActivity() as? RutubeProfileNavigation)
-    }
-
-    @SuppressLint("StateFlowValueCalledInComposition")
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ) = ComposeView(requireContext()).apply {
-        setContent {
-            var userProfile = viewModel.stateLogin.value
-
-            Profile(onNavigateTop = { callBack?.navigateToTopVideosFromProfile() },
-                onNavigateLike = { callBack?.navigateToLikeVideosFromProfile() }) {
-
-            }
-        }
-
-    }
-
-    interface RutubeProfileNavigation {
-        fun navigateToTopVideosFromProfile()
-        fun navigateToLikeVideosFromProfile()
-        fun navigateToRegistrationFromProfile()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        callBack = null
-    }
-}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -79,7 +46,9 @@ fun Profile(
                 onNavigateProfile = {},
             )
         }) {
-        Box(contentAlignment = Alignment.Center, modifier = modifier) {
+        Column(modifier = modifier
+            .padding(it)
+            .fillMaxWidth(),) {
             Text(
                 modifier = Modifier,
                 fontSize = 32.sp,

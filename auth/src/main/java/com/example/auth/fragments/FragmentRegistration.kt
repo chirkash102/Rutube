@@ -24,6 +24,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -63,62 +64,70 @@ class FragmentRegistration : Fragment() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     var isLoading by remember { mutableStateOf(false) }
-                    viewModel.getEventsFlow().collectAsEvent { event ->
-                        isLoading = false
-                        when (event) {
-                            is com.example.localdatasource.entity.ViewEvents.SuccessAuth -> {
-                                callBack?.navigateToProfileFromRegistration()
-                            }
+                    val login by viewModel.stateLogin.collectAsState()
+                    if (login.isEmpty()) {
+                        viewModel.getEventsFlow().collectAsEvent { event ->
+                            isLoading = false
+                            when (event) {
+                                is com.example.localdatasource.entity.ViewEvents.SuccessAuth -> {
+                                    callBack?.navigateToProfileFromRegistration()
+                                }
 
-                            is com.example.localdatasource.entity.ViewEvents.SuccessRegistration -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    context.getString(R.string.account_were_signed_up),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                                is com.example.localdatasource.entity.ViewEvents.SuccessRegistration -> {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        context.getString(R.string.account_were_signed_up),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
 
-                            is com.example.localdatasource.entity.ViewEvents.SuccessDelete -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    context.getString(R.string.account_were_deleted),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                                is com.example.localdatasource.entity.ViewEvents.SuccessDelete -> {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        context.getString(R.string.account_were_deleted),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
 
-                            is com.example.localdatasource.entity.ViewEvents.Error -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    event.errorMessage,
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                is com.example.localdatasource.entity.ViewEvents.Error -> {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        event.errorMessage,
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                             }
                         }
-                    }
-                    var loginState by remember { mutableStateOf("") }
-                    var passState by remember { mutableStateOf("") }
+                        var loginState by remember { mutableStateOf("") }
+                        var passState by remember { mutableStateOf("") }
 
-                    ColumnReg(
-                        onNavigateLike = { callBack?.navigateToTopVideosFromRegistration() },
-                        onNavigateTop = { callBack?.navigateToTopVideosFromRegistration() },
-                        onNavigateProfile = {},
-                        isLoading = isLoading,
-                        loginState = loginState,
-                        onLoginStateChanges = { loginState = it },
-                        onPassStateChanges = { passState = it },
-                        passState = passState,
-                        signIN = {
-                            isLoading = true
-                            viewModel.signIn(loginState, passState)
-                        },
-                        signUP = {
-                            isLoading = true
-                            viewModel.signUp(loginState, passState)
-                        },
-                        delete = {
-                            isLoading = true
-                            viewModel.delete(loginState, passState)
-                        })
+                        ColumnReg(
+                            onNavigateLike = { callBack?.navigateToTopVideosFromRegistration() },
+                            onNavigateTop = { callBack?.navigateToTopVideosFromRegistration() },
+                            onNavigateProfile = {},
+                            isLoading = isLoading,
+                            loginState = loginState,
+                            onLoginStateChanges = { loginState = it },
+                            onPassStateChanges = { passState = it },
+                            passState = passState,
+                            signIN = {
+                                isLoading = true
+                                viewModel.signIn(loginState, passState)
+                            },
+                            signUP = {
+                                isLoading = true
+                                viewModel.signUp(loginState, passState)
+                            },
+                            delete = {
+                                isLoading = true
+                                viewModel.delete(loginState, passState)
+                            })
+                    } else {
+                        Profile(onNavigateTop = { callBack?.navigateToTopVideosFromRegistration() },
+                            onNavigateLike = { callBack?.navigateToLikeVideosFromRegistration() }) {
+
+                        }
+                    }
                 }
             }
         }
@@ -157,8 +166,8 @@ fun ColumnReg(
         bottomBar = {
             RutubeBottomBar(
                 onNavigateTop = { onNavigateTop.invoke() },
-                onNavigateLIke =  { onNavigateLike.invoke() },
-                onNavigateProfile = {onNavigateProfile.invoke()}
+                onNavigateLIke = { onNavigateLike.invoke() },
+                onNavigateProfile = { onNavigateProfile.invoke() }
             )
         }
     ) { paddings ->
