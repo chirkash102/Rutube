@@ -69,6 +69,6 @@ fun Fragment.transaction(fragment: Fragment) {
 fun FragmentActivity.transaction(fragment: Fragment) {
     supportFragmentManager
         .beginTransaction()
-        .add(R.id.container, fragment)
+        .replace(R.id.container, fragment)
         .addToBackStack(fragment::javaClass.name).commit()
 }

@@ -6,9 +6,7 @@ import com.example.auth.data.RutubeRepository
 import com.example.localdatasource.entity.ViewEvents
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
@@ -18,10 +16,9 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
     val stateLogin = repository.getLogin()
 
 
-
-    fun delete(login: String, pass: String) {
+    fun delete() {
         viewModelScope.launch {
-            val result = repository.delete(login, pass)
+            val result = repository.delete()
             delay(500)
             //need to show loadingAnimation
             if (result) {
@@ -47,11 +44,20 @@ class RutubeViewModel(private val repository: RutubeRepository) : ViewModel() {
             } else eventsFlow.emit(ViewEvents.Error("Неверный логин или пароль, лох"))
         }
     }
+
+    fun signOut() {
+        viewModelScope.launch {
+            eventsFlow.emit(ViewEvents.SuccessLogout(true))
+            val result = repository.signOut()
+
+        }
+    }
+
     fun getLogin(): String {
         val login = repository.getLogin().value
-        return if (login!= null)
+        return if (login != null)
             login
         else ""
     }
-    }
+}
 

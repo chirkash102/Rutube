@@ -21,19 +21,26 @@ class RutubeAuthRepositoryImpl(private val dataSource: AuthDatasource) : RutubeR
         return dataSource.signIn(login, pass)
     }
 
-    override suspend fun delete(login: String, pass: String): Boolean {
-        return dataSource.delete(login, pass)
+    override suspend fun delete(): Boolean {
+        return dataSource.delete()
 
+    }
+
+    override suspend fun signOut(){
+        dataSource.signOut()
     }
 
     override fun getLogin(): StateFlow<String?> {
         return dataSource.getLogin()
     }
+
+
 }
 
 interface RutubeRepository {
     suspend fun signUp(login: String, pass: String): RutubeMembers?
     suspend fun signIn(login: String, pass: String): RutubeMembers?
-    suspend fun delete(login: String, pass: String): Boolean
+    suspend fun delete(): Boolean
+    suspend fun signOut()
      fun getLogin(): StateFlow<String?>
 }

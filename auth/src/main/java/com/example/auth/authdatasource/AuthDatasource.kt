@@ -30,12 +30,16 @@ class LocalAuthDatasource(private val membersDao: MembersDao) : AuthDatasource {
         } else null
     }
 
-    override suspend fun delete(login: String, pass: String): Boolean {
-        return if (membersDao.isAlreadyExist(login) != null) {
+    override suspend fun delete(): Boolean {
+        return if (_authFlow.value!= null) {
+            membersDao.delete(_authFlow.value!!)
             _authFlow.value = null
-            membersDao.delete(RutubeMembers(login, pass))
             true
         } else false
+    }
+
+    override suspend fun signOut() {
+        _authFlow.value = null
     }
 
     override fun getLogin(): StateFlow<String?> {
@@ -47,6 +51,7 @@ class LocalAuthDatasource(private val membersDao: MembersDao) : AuthDatasource {
 interface AuthDatasource {
     suspend fun signUp(login: String, pass: String): RutubeMembers?
     suspend fun signIn(login: String, pass: String): RutubeMembers?
-    suspend fun delete(login: String, pass: String): Boolean
+    suspend fun delete(): Boolean
+    suspend fun signOut()
      fun getLogin(): StateFlow<String?>
 }

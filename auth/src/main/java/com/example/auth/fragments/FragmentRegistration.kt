@@ -11,7 +11,6 @@ import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,7 +19,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -31,7 +29,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.stringResource
@@ -41,9 +38,11 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import com.example.auth.R
 import com.example.auth.viewmodel.RutubeViewModel
+import com.example.localdatasource.entity.ViewEvents
 import com.example.uikit.RutubeBottomBar
 import com.example.uikit.RutubeTopBar
 import com.example.uikit.theme.RutubeTheme
+import com.example.uikit.theme.transparent
 import com.example.uikit.utils.collectAsEvent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -66,42 +65,51 @@ class FragmentRegistration : Fragment() {
             RutubeTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = transparent
                 ) {
                     var isLoading by remember { mutableStateOf(false) }
                     val login by viewModel.stateLogin.collectAsState()
-                    if (login == null) {
-                        viewModel.getEventsFlow().collectAsEvent { event ->
-                            isLoading = false
-                            when (event) {
-                                is com.example.localdatasource.entity.ViewEvents.SuccessAuth -> {
-                                }
+                    viewModel.getEventsFlow().collectAsEvent { event ->
+                        isLoading = false
+                        when (event) {
+                            is ViewEvents.SuccessAuth -> {
+                            }
 
-                                is com.example.localdatasource.entity.ViewEvents.SuccessRegistration -> {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        context.getString(R.string.account_were_signed_up),
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
+                            is ViewEvents.SuccessRegistration -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    context.getString(R.string.account_were_signed_up),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
 
-                                is com.example.localdatasource.entity.ViewEvents.SuccessDelete -> {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        context.getString(R.string.account_were_deleted),
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
+                            is ViewEvents.SuccessDelete -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    context.getString(R.string.account_were_deleted),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
 
-                                is com.example.localdatasource.entity.ViewEvents.Error -> {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        event.errorMessage,
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
+                            is ViewEvents.Error -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    event.errorMessage,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+
+                            is ViewEvents.SuccessLogout -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    context.getString(R.string.succesesLogout),
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
+
+                    }
+                    if (login == null) {
                         var loginState by remember { mutableStateOf("") }
                         var passState by remember { mutableStateOf("") }
 
@@ -121,17 +129,14 @@ class FragmentRegistration : Fragment() {
                                 isLoading = true
                                 viewModel.signUp(loginState, passState)
                             },
-                            delete = {
-                                isLoading = true
-                                viewModel.delete(loginState, passState)
-                            })
+                            delete = {})
                     } else {
                         Profile(
                             onNavigateTop = { callBack?.navigateToTopVideosFromRegistration() },
                             onNavigateLike = { callBack?.navigateToLikeVideosFromRegistration() },
                             login = login!!,
-                            delete =  {},
-                            logOut = {},
+                            delete = { viewModel.delete() },
+                            logOut = { viewModel.signOut() },
                             changePAss = {},
                         )
 
@@ -190,7 +195,7 @@ fun ColumnReg(
             }
             SqlButtons(text = stringResource(R.string.login), onClick = signIN)
             SqlButtons(text = stringResource(R.string.registration), onClick = signUP)
-            SqlButtons(text = stringResource(R.string.delete), onClick = delete)
+            // SqlButtons(text = stringResource(R.string.delete), onClick = delete)
         }
     }
 }
@@ -260,10 +265,10 @@ fun Profile(
     changePAss: () -> Unit,
     logOut: () -> Unit,
 
-    login:String
+    login: String
 
 
-    ) {
+) {
     Scaffold(
         topBar = { RutubeTopBar() },
         bottomBar = {
@@ -272,10 +277,11 @@ fun Profile(
                 onNavigateLIke = { onNavigateLike.invoke() },
             )
         }) {
-        Column(modifier = modifier
-            .padding(it)
-            .fillMaxSize()
-            .padding(16.dp),
+        Column(
+            modifier = modifier
+                .padding(it)
+                .fillMaxSize()
+                .padding(16.dp),
             verticalArrangement = Arrangement.Center
         ) {
             Text(
@@ -287,7 +293,7 @@ fun Profile(
             )
             Card(
                 Modifier.padding(it)
-            ){
+            ) {
                 Text(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -303,17 +309,17 @@ fun Profile(
             ) {
                 Text(text = "Выход из аккаунта")
             }
+//            Button(
+//                modifier = Modifier
+//                    .fillMaxWidth(),
+//                onClick = {changePAss.invoke() }
+//            ) {
+//                Text(text = "Изменить пароль")
+//            }
             Button(
                 modifier = Modifier
                     .fillMaxWidth(),
-                onClick = {changePAss.invoke() }
-            ) {
-                Text(text = "Изменить пароль")
-            }
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                onClick = { delete.invoke()}
+                onClick = { delete.invoke() }
             ) {
                 Text(text = "Удалить аккаунт")
             }
