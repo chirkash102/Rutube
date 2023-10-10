@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import com.example.auth.R
 import com.example.auth.viewmodel.RutubeViewModel
@@ -240,4 +241,45 @@ fun Greeting(state: String, hintText: String, onStateChanges: (String) -> Unit) 
         onValueChange = onStateChanges,
         placeholder = { Text(text = hintText) }
     )
+}
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun Profile(
+    modifier: Modifier = Modifier,
+    onNavigateTop: () -> Unit,
+    onNavigateLike: () -> Unit,
+    onNavigateProfile: () -> Unit,
+
+
+    ) {
+    Scaffold(
+        topBar = { RutubeTopBar() },
+        bottomBar = {
+            RutubeBottomBar(
+                onNavigateTop = { onNavigateTop.invoke() },
+                onNavigateLIke = { onNavigateLike.invoke() },
+                onNavigateProfile = {},
+            )
+        }) {
+        Column(modifier = modifier
+            .padding(it)
+            .fillMaxWidth(),) {
+            Text(
+                modifier = Modifier,
+                fontSize = 32.sp,
+                text = stringResource(R.string.zero_like_video)
+            )
+            Button(onClick = { /*TODO*/ }) {
+
+            }
+            Button(onClick = { /*TODO*/ }) {
+
+            }
+            Button(onClick = { /*TODO*/ }) {
+
+            }
+        }
+    }
+
 }
