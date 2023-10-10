@@ -108,7 +108,6 @@ class FragmentRegistration : Fragment() {
                         ColumnReg(
                             onNavigateLike = { callBack?.navigateToTopVideosFromRegistration() },
                             onNavigateTop = { callBack?.navigateToTopVideosFromRegistration() },
-                            onNavigateProfile = {},
                             isLoading = isLoading,
                             loginState = loginState,
                             onLoginStateChanges = { loginState = it },
@@ -127,11 +126,17 @@ class FragmentRegistration : Fragment() {
                                 viewModel.delete(loginState, passState)
                             })
                     } else {
-                        Profile(onNavigateTop = { callBack?.navigateToTopVideosFromRegistration() },
-                            onNavigateLike = { callBack?.navigateToLikeVideosFromRegistration() }) {
+                        Profile(
+                            onNavigateTop = { callBack?.navigateToTopVideosFromRegistration() },
+                            onNavigateLike = { callBack?.navigateToLikeVideosFromRegistration() },
+                            login = login!!,
+                            delete =  {},
+                            logOut = {},
+                            changePAss = {},
+                        )
 
-                        }
                     }
+
                 }
             }
         }
@@ -155,7 +160,6 @@ fun ColumnReg(
     modifier: Modifier = Modifier,
     onNavigateTop: () -> Unit,
     onNavigateLike: () -> Unit,
-    onNavigateProfile: () -> Unit,
     isLoading: Boolean,
     loginState: String,
     onLoginStateChanges: (String) -> Unit,
@@ -171,7 +175,6 @@ fun ColumnReg(
             RutubeBottomBar(
                 onNavigateTop = { onNavigateTop.invoke() },
                 onNavigateLIke = { onNavigateLike.invoke() },
-                onNavigateProfile = { onNavigateProfile.invoke() }
             )
         }
     ) { paddings ->
@@ -253,7 +256,11 @@ fun Profile(
     modifier: Modifier = Modifier,
     onNavigateTop: () -> Unit,
     onNavigateLike: () -> Unit,
-    onNavigateProfile: () -> Unit,
+    delete: () -> Unit,
+    changePAss: () -> Unit,
+    logOut: () -> Unit,
+
+    login:String
 
 
     ) {
@@ -263,7 +270,6 @@ fun Profile(
             RutubeBottomBar(
                 onNavigateTop = { onNavigateTop.invoke() },
                 onNavigateLIke = { onNavigateLike.invoke() },
-                onNavigateProfile = {},
             )
         }) {
         Column(modifier = modifier
@@ -287,27 +293,27 @@ fun Profile(
                         .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     fontSize = 32.sp,
-                    text = "dedfede"
+                    text = login
                 )
             }
             Button(
                 modifier = Modifier
                     .fillMaxWidth(),
-                onClick = { /*TODO*/ }
+                onClick = { logOut.invoke() }
             ) {
                 Text(text = "Выход из аккаунта")
             }
             Button(
                 modifier = Modifier
                     .fillMaxWidth(),
-                onClick = { /*TODO*/ }
+                onClick = {changePAss.invoke() }
             ) {
                 Text(text = "Изменить пароль")
             }
             Button(
                 modifier = Modifier
                     .fillMaxWidth(),
-                onClick = { /*TODO*/ }
+                onClick = { delete.invoke()}
             ) {
                 Text(text = "Удалить аккаунт")
             }
