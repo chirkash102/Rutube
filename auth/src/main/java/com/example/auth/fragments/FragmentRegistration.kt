@@ -10,6 +10,8 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,9 +31,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
@@ -264,20 +268,48 @@ fun Profile(
         }) {
         Column(modifier = modifier
             .padding(it)
-            .fillMaxWidth(),) {
+            .fillMaxSize()
+            .padding(16.dp),
+            verticalArrangement = Arrangement.Center
+        ) {
             Text(
-                modifier = Modifier,
+                modifier = Modifier
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Center,
                 fontSize = 32.sp,
-                text = stringResource(R.string.zero_like_video)
+                text = "Ваше имя профиля"
             )
-            Button(onClick = { /*TODO*/ }) {
-
+            Card(
+                Modifier.padding(it)
+            ){
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    fontSize = 32.sp,
+                    text = "dedfede"
+                )
             }
-            Button(onClick = { /*TODO*/ }) {
-
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                onClick = { /*TODO*/ }
+            ) {
+                Text(text = "Выход из аккаунта")
             }
-            Button(onClick = { /*TODO*/ }) {
-
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                onClick = { /*TODO*/ }
+            ) {
+                Text(text = "Изменить пароль")
+            }
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                onClick = { /*TODO*/ }
+            ) {
+                Text(text = "Удалить аккаунт")
             }
         }
     }
