@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Rutube</string>
+    <string name="start">START</string>
+    <string name="delete">Delete</string>
+    <string name="registration">Registration</string>
+    <string name="login">Login</string>
+    <string name="buttontransition">ButtonTransition</string>
+    <string name="Password">Пароль</string>
+    <string name="Login">Логин</string>
+    <string name="account_were_deleted">Мы удалили твой аккаунт, быдло</string>
+    <string name="account_were_signed_up">Ты зареган , быдло</string>
+    <string name="zero_like_video">Здесь пока Нет Видео.</string>
 </resources>
